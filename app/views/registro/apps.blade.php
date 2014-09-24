@@ -22,7 +22,7 @@
             <h1>  </h1>
             <h1>Solicitud de recursos </h1>
 
-            {{ Form::open (['route' => 'registrar', 'method' => 'POST', 'role' => 'form', 'files' => true]) }}
+            {{ Form::open (['route' => 'registrer', 'method' => 'POST', 'role' => 'form', 'files' => true]) }}
 
             <div class="form-group">
                 {{ Form::label('nombre', 'Nombre')}}

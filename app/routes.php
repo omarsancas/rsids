@@ -27,6 +27,41 @@ Route::get('/', function()
 
 //Route::get('pruebas-recursos', ['as' => 'pruebas_recursos', 'uses' => 'SolicitudController@registro']);
 //Route::get('pruebas-recursos', ['as' => 'pruebas_recursos', 'uses' => 'SolicitudController@populate']);
-Route::get('solicitud-recursos', ['as' => 'solicitud_recursos', 'uses' => 'SolicitudController@create']);
+Route::get('solicitud', ['as' => 'solicitud', 'uses' => 'SolicitudController@create']);
 //Route::get('solicitud-recursos', ['as' => 'solicitud_recurss', 'uses' => 'SolicitudController@populate']);
-Route::post('solicitud-recursos', ['as' => 'registrar', 'uses' => 'SolicitudController@registrar']);
+Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@registrar']);
+
+Route::get('apps', 'AplicacionController@create');
+Route::post('apps', ['as' => 'registrer', 'uses' => 'AplicacionController@registrer']);
+
+
+Route::get('versolicitud', function()
+{
+
+    /*$queries = DB::table('solicitud_cta_colaboradora')
+        ->leftJoin('solicitud_abstracta','solicitud_cta_colaboradora.soco_id_solicitud_abstracta' , '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+        ->select('solicitud_abstracta.soab_id_solicitud_abstracta', 'solicitud_cta_colaboradora.soco_nombres')
+        ->get();*/
+
+
+
+
+   $solicitud = DB::table('solicitud_abstracta')
+        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+        ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+        //->join('solicitud_x_app', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_x_app.soap_id_solicitud_abstracta')
+        //->join('solicitud_cta_colaboradora', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_cta_colaboradora.soco_id_solicitud_abstracta')
+        //->select('users.id', 'contacts.phone', 'orders.price')
+        ->get();
+
+
+    var_dump($solicitud);
+
+
+});
+
+
+Route::get('admin/usuario', [ 'uses' => 'AdminController@index']);
+
+

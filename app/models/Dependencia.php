@@ -2,12 +2,12 @@
 
 class Dependencia extends Eloquent {
 
-protected $table = 'dependencias';
+protected $table = 'dependencia';
 
 
 public function proyecto()
     {
-        return $this->hasMany('proyecto');
+        return $this->hasMany('Solicitud');
     }
 	
 	

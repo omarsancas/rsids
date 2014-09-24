@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'rsids',
+			'database'  => 'sidsprueba2',
 			'username'  => 'root',
 			'password'  => 'Letitbe81828384$',
 			'charset'   => 'utf8',

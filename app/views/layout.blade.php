@@ -14,7 +14,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+
+
+      <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
 
   </head>
@@ -59,7 +61,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+    <script src="{{asset ('js/jquery-1.4.2.js')}}"></script>
+    <script src="{{asset ('js/jquery.cloneform.js')}}"></script>
+    <script src="{{asset ('js/jquery.cloneform2.js')}}"></script>
     <script src="{{asset ('bootstrap/js/bootstrap.min.js')}}"></script>
   </body>
 </html>

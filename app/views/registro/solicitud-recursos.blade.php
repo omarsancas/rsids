@@ -39,13 +39,13 @@
 
   <label class="radio-inline control-label">
 
-    <input type="radio" name="sexo" id="sexo" value="Masculino" checked>
+    <input type="radio" name="sexo" id="sexo" value="m" checked>
   Masculino
   </label>
 
 
   <label class="radio-inline control-label">
-    <input type="radio" name="sexo" id="sexo" value="Femenino">
+    <input type="radio" name="sexo" id="sexo" value="f">
     Femenino
   </label>
 

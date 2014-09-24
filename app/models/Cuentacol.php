@@ -1,14 +1,16 @@
 <?php
 
 class Cuentacol extends Eloquent {
-	protected $fillable = [];
+	protected $fillable = array('soco_nombres', 'soco_ap_materno', 'soco_ap_paterno','soco_id_dependencia');
+    public $timestamps = false;
 
-	protected $table = 'cuentascol';
+
+    protected $table = 'solicitud_cta_colaboradora';
 
 
 	public function proyecto()
     {
-        return $this->belongsTo('proyecto');
+        return $this->belongsTo('Proyecto','soco_id_solicitud_abstracta','soco_id_solicitud_colaboradora');
     }
 
 }

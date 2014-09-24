@@ -2,7 +2,7 @@
 
 class Aplicacion extends Eloquent {
 
-	protected $table = 'aplicaciones';
+	protected $table = 'aplicacion';
 	protected $fillable = [];
 
 	public function proyecto()
