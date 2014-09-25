@@ -3,9 +3,7 @@
 
 $(document).ready(function(){
 
-	$(".remove").live('click', function() {
-    $(this).parent().remove();
-});
+
 
 	$('#clonetrigger').click(function(){
 		var yourclass=".clonable";  //The class you have used in your form
@@ -20,6 +18,12 @@ $(document).ready(function(){
 		});
 		return false;
 	});
+
+    $(".remove").live('click', function() {
+        $(this).parent().remove();
+
+        return false;
+    });
 
 });
 

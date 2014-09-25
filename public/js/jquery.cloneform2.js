@@ -5,6 +5,7 @@ $(document).ready(function(){
 
 	$(".removeapp").live('click', function() {
     $(this).parent().remove();
+        return false;
 });
 
 	$('#clonetriggerapp').click(function(){
