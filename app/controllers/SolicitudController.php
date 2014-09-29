@@ -69,12 +69,21 @@ class SolicitudController extends BaseController {
         }
 
 
-        $data = Input::get('solcol');
-        foreach ((array_slice($data, 1)) as $solcolData)
+        $datoscuentacol = Input::get('solcol');
+        //var_dump($datoscuentacol);
+        $datosMecoCuentasCol = Input::get('meco');
+        foreach ((array_slice($datoscuentacol, 1)) as $solcolData)
         {
 
             $solcol = new Cuentacol($solcolData);
             $datos->cuentascol()->save($solcol);
+            foreach ((array_slice($datosMecoCuentasCol, 1)) as $mecoData)
+            {
+                $mecoCol = new MedioComunicacion($mecoData);
+                $mecoCol->save();
+                $solcol->soco_id_medio_comunicacion = $mecoCol->meco_id_medio_comunicacion;
+                $solcol->save();
+            }
         }
 
 
@@ -95,8 +104,6 @@ class SolicitudController extends BaseController {
 
         // If the uploads fail due to file system, you can try doing public_path().'/uploads'
         $filename = str_random(12) . '.' . Input::file('pdf1')->getClientOriginalExtension();
-        //$filename = $file->getClientOriginalName();
-        //$extension =$file->getClientOriginalExtension();
         $upload_success = Input::file('pdf1')->move($destinationPath, $filename);
 
 

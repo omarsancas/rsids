@@ -45,23 +45,23 @@ Route::get('versolicitud', function()
 
 
 
-
-   $solicitud = DB::table('solicitud_abstracta')
+     $solicitud = SolicitudAbstracta::find(55)->aplicaciones;
+   /*$solicitud = DB::table('solicitud_abstracta')
         ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
         ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
         ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
         //->join('solicitud_x_app', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_x_app.soap_id_solicitud_abstracta')
         //->join('solicitud_cta_colaboradora', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_cta_colaboradora.soco_id_solicitud_abstracta')
         //->select('users.id', 'contacts.phone', 'orders.price')
-        ->get();
-
-
-    var_dump($solicitud);
+        ->get();*/
 
 
 });
 
 
-Route::get('admin/usuario', [ 'uses' => 'AdminController@index']);
+Route::get('admin/ModificarSolicitudes', [ 'uses' => 'AdminController@index']);
+Route::get('pruebas/checkbox', [ 'uses' => 'PruebaControl@getIndex']);
+
+Route::post('solicitud/destroy', ['as' => 'solicitud.destroy', 	'uses' => 'AdminController@destroy' ]);
 
 

@@ -45,6 +45,6 @@ class SolicitudAbstracta extends Eloquent {
     {
 
 
-        return $this->belongsToMany('Aplicacion', 'solicitud_X_app', 'soap_id_solicitud_abstracta', 'soap_id_aplicacion');
+        return $this->belongsToMany('Aplicacion', 'solicitud_x_app', 'soap_id_solicitud_abstracta', 'soap_id_aplicacion');
     }
 }

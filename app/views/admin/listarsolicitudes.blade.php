@@ -22,7 +22,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($solicitudes2 as $solicitud)
+        @foreach ($solicitudes as $solicitud)
         <tr>
 
 
