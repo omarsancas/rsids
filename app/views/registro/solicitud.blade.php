@@ -19,12 +19,22 @@
 
 {{ Form::open (['route' => 'registrar', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form', 'files' =>true]) }}
 
+
+@if ($errors)
+<div class="alert">
+    <ul>
+        {{ implode('', $errors->all('<li>:message</li>')) }}
+    </ul>
+</div>
+@endif
+
 <fieldset>
     <legend>Datos generales del titular</legend>
 
     <div class="form-group">
         {{ Form::label('nombre', 'Nombre')}}
         {{ Form::text('nombre', '', ['class' => 'form-control'])}}
+        @if ($errors->has('nombre')) <p class="help-block">{{ $errors->first('nombre') }}</p> @endif
     </div>
 
     <div class="form-group">
@@ -143,7 +153,7 @@
 
     <div class="form-group">
         {{ Form::label('descproyecto', 'Descripción del proyecto')}}
-        <textarea id="descproyecto" class="form-control" rows="3"></textarea>
+        <textarea id="descproyecto" name="descproyecto" class="form-control" rows="3"></textarea>
     </div>
 
 

@@ -19,5 +19,26 @@
 @endforeach
 
 
+<legend>Datos generales del titular</legend>
+@foreach($cuentascol as $cuentacol)
+<div class="form-group">
+    {{ Form::label('nombre', 'Nombre')}}
+    {{ Form::text('nombre', $cuentacol->SOCO_NOMBRES, ['class' => 'form-control'])}}
+</div>
+
+<div class="form-group">
+    {{ Form::label('apellidoPaterno', 'Apellido Paterno')}}
+    {{ Form::text('apellidoPaterno', $cuentacol->SOCO_AP_PATERNO, ['class' => 'form-control'])}}
+</div>
+
+
+<div class="form-group">
+    {{ Form::label('apellidoMaterno', 'Apellido Materno')}}
+    {{ Form::text('apellidoMaterno', $cuentacol->SOCO_AP_MATERNO, ['class' => 'form-control'])}}
+</div>
+
+@endforeach
+
+
 
 

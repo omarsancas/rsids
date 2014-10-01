@@ -13,9 +13,38 @@ class SolicitudController extends BaseController {
     {
         $datos = Input::all();
 
+        $rules = array(
+            'nombre'           => 'required',
+            'apellidoPaterno'  => 'required',
+            'apellidoMaterno'  => 'required',
+            'email'            => 'required|email', 	// required and must be unique in the ducks table
+
+        );
+
+
+        $mensajes = array(
+            'required' => ' :Este campo es obligatorio.',
+
+        );
+
+        // do the validation ----------------------------------
+        // validate against the inputs from our form
+        $validator = Validator::make(Input::all(), $rules, $mensajes);
+
+        // check if the validator failed -----------------------
+        if ($validator->fails()) {
+
+
+            $messages = $validator->messages();
+
+            // redirect our user back to the form with the errors from the validator
+            return Redirect::to('solicitud')
+                ->withErrors($validator);
+        } else{
+
+
+
         $datos = new SolicitudAbstracta;
-
-
         $datos->soab_nombres = Input::get('nombre');
         $datos->soab_ap_paterno = Input::get('apellidoPaterno');
         $datos->soab_ap_materno = Input::get('apellidoMaterno');
@@ -72,29 +101,35 @@ class SolicitudController extends BaseController {
         $datoscuentacol = Input::get('solcol');
         //var_dump($datoscuentacol);
         $datosMecoCuentasCol = Input::get('meco');
-        foreach ((array_slice($datoscuentacol, 1)) as $solcolData)
+
+        $cuentacol = array_slice($datoscuentacol,1);
+        $mecocuentascol = array_slice($datosMecoCuentasCol,1);
+
+
+        foreach ((array_map(null, $cuentacol, $mecocuentascol)) as $solcolData)
         {
 
-            $solcol = new Cuentacol($solcolData);
+            list($v1, $v2) = $solcolData;
+            $solcol = new Cuentacol($v1);
             $datos->cuentascol()->save($solcol);
-            foreach ((array_slice($datosMecoCuentasCol, 1)) as $mecoData)
-            {
-                $mecoCol = new MedioComunicacion($mecoData);
-                $mecoCol->save();
-                $solcol->soco_id_medio_comunicacion = $mecoCol->meco_id_medio_comunicacion;
-                $solcol->save();
-            }
+            $mecoCol = new MedioComunicacion($v2);
+            $mecoCol->save();
+            $solcol->soco_id_medio_comunicacion = $mecoCol->meco_id_medio_comunicacion;
+            $solcol->save();
         }
 
 
-        $rules = [
 
-            'nombre'          => 'required',
-            'apellidoPaterno' => 'required',
-            'apellidoMaterno' => 'required',
-            'sexo'            => 'required'
 
-        ];
+
+        /*$queries = DB::getQueryLog();
+        var_dump($queries);*/
+
+
+        //var_dump($datosMecoCuentasCol);
+
+
+
 
         //$validation = Validator::make($datos,$rules);
 
@@ -133,6 +168,8 @@ class SolicitudController extends BaseController {
 		   	$datos->archivoTrabAcademico = $upload_success;
 
         */
+
+        }
 
 
     }

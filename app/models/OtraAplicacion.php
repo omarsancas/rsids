@@ -18,7 +18,7 @@ class OtraAplicacion extends Eloquent {
 
     public function proyecto()
     {
-        return $this->belongsTo('Proyecto','otap_id_solicitud_abstracta','otap_id_otra_app');
+        return $this->belongsTo('SolicitudAbstracta','otap_id_solicitud_abstracta','otap_id_otra_app');
     }
 
 }

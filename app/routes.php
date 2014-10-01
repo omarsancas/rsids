@@ -45,15 +45,18 @@ Route::get('versolicitud', function()
 
 
 
-     $solicitud = SolicitudAbstracta::find(55)->aplicaciones;
-   /*$solicitud = DB::table('solicitud_abstracta')
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-        ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+     //$solicitud = SolicitudAbstracta::find(55)->aplicaciones;
+     $solicitud = DB::table('solicitud_cta_colaboradora')
+        ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+        //->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+        //->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
         //->join('solicitud_x_app', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_x_app.soap_id_solicitud_abstracta')
         //->join('solicitud_cta_colaboradora', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_cta_colaboradora.soco_id_solicitud_abstracta')
         //->select('users.id', 'contacts.phone', 'orders.price')
-        ->get();*/
+         ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', 74)
+        ->get();
+
+        var_dump($solicitud);
 
 
 });
