@@ -10,8 +10,9 @@ class MedioComunicacion extends Eloquent {
 
     protected $fillable = array('meco_id_medio_comunicacion','meco_telefono1', 'meco_extension', 'meco_telefono2','meco_correo');
     protected $table = 'medio_comunicacion';
-    protected $primaryKey = 'meco_id_medio_comunicacion';
+    protected $primaryKey = 'MECO_ID_MEDIO_COMUNICACION';
     public $timestamps = false;
+    protected $with = array('SolicitudAbstracta');
 
 
     public function solicitudabstracta()

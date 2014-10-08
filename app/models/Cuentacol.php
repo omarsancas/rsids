@@ -2,7 +2,7 @@
 
 class Cuentacol extends Eloquent {
 	protected $fillable = array('soco_id_solicitud_colaboradora','soco_nombres', 'soco_ap_materno', 'soco_ap_paterno','soco_id_dependencia','soco_id_grado','soco_sexo');
-    protected $primaryKey = 'soco_id_solicitud_colaboradora';
+    protected $primaryKey = 'SOCO_ID_SOLICITUD_COLABORADORA';
     public $timestamps = false;
 
     protected $table = 'solicitud_cta_colaboradora';

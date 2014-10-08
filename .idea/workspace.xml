@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/views/registro/solicitud.blade.php" line="362" mnemonic="7" />
+    <bookmark url="file://$PROJECT_DIR$/app/views/registro/solicitud.blade.php" line="364" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a90585-89cd-4f3b-b157-2c2c4057e758" name="Default" comment="">
@@ -19,9 +19,19 @@
       <change type="DELETED" beforePath="C:\xampp\htdocs\rsids\public\uploads\ohpvAyYwAfxP.docx" afterPath="" />
       <change type="DELETED" beforePath="C:\xampp\htdocs\rsids\public\uploads\qamhusYSAtlz.docx" afterPath="" />
       <change type="DELETED" beforePath="C:\xampp\htdocs\rsids\public\uploads\zEVRp0dPWzQt.docx" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Cuentacol.php" afterPath="$PROJECT_DIR$/app/models/Cuentacol.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/MedioComunicacion.php" afterPath="$PROJECT_DIR$/app/models/MedioComunicacion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ModeloComputacional.php" afterPath="$PROJECT_DIR$/app/models/ModeloComputacional.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/PruebaControl.php" afterPath="$PROJECT_DIR$/app/controllers/PruebaControl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/SolicitudAbstracta.php" afterPath="$PROJECT_DIR$/app/models/SolicitudAbstracta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SolicitudController.php" afterPath="$PROJECT_DIR$/app/controllers/SolicitudController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php" afterPath="$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes.php" afterPath="$PROJECT_DIR$/app/routes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/registro/solicitud.blade.php" afterPath="$PROJECT_DIR$/app/views/registro/solicitud.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rsids.iws" />
-    <ignored path=".idea/workspace.xml" />
+    <ignored path="../demoautentic/.idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +54,7 @@
       <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="16" selection-start="1770" selection-end="2706" vertical-scroll-proportion="0.0" vertical-offset="744" max-vertical-offset="1675">
+            <state line="20" column="0" selection-start="784" selection-end="784" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="800">
               <folding />
             </state>
           </provider>
@@ -53,79 +63,16 @@
       <file leaf-file-name="PruebaControl.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/PruebaControl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="29" selection-start="1220" selection-end="1317" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1536">
+            <state line="75" column="65" selection-start="3119" selection-end="3119" vertical-scroll-proportion="0.0" vertical-offset="1920" max-vertical-offset="3584">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SolicitudController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/SolicitudController.php">
+      <file leaf-file-name="checkbox.blade.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="27" selection-start="557" selection-end="557" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="6720">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MedioComunicacion.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/MedioComunicacion.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="592" selection-end="592" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cuentacol.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/Cuentacol.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="38" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OtraAplicacion.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/OtraAplicacion.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="51" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="768">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SolicitudAbstracta.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/SolicitudAbstracta.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="27" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1760">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="solicitud.blade.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/registro/solicitud.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="6" selection-start="581" selection-end="581" vertical-scroll-proportion="0.7561762" vertical-offset="192" max-vertical-offset="12960">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listarsolicitudes.blade.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/admin/listarsolicitudes.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="7" selection-start="7" selection-end="7" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1998">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModificarSolicitudes.blade.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/admin/ModificarSolicitudes.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="222" column="22" selection-start="9125" selection-end="9259" vertical-scroll-proportion="-17.34375" vertical-offset="7659" max-vertical-offset="10545">
+            <state line="10" column="39" selection-start="454" selection-end="454" vertical-scroll-proportion="0.33862433" vertical-offset="0" max-vertical-offset="1856">
               <folding />
             </state>
           </provider>
@@ -160,7 +107,6 @@
         <option value="$PROJECT_DIR$/app/views/layout.blade.php" />
         <option value="$PROJECT_DIR$/app/models/LineaEspecializacion.php" />
         <option value="$PROJECT_DIR$/app/config/database.php" />
-        <option value="$PROJECT_DIR$/app/models/ModeloComputacional.php" />
         <option value="$PROJECT_DIR$/app/models/Proyecto.php" />
         <option value="$PROJECT_DIR$/app/controllers/DependenciaController.php" />
         <option value="$PROJECT_DIR$/app/models/SolcitudAbstracta.php" />
@@ -171,15 +117,16 @@
         <option value="$PROJECT_DIR$/app/views/admin/ModificarSolicitudes.blade.php" />
         <option value="$PROJECT_DIR$/app/models/Aplicacion.php" />
         <option value="$PROJECT_DIR$/app/views/registro/checkbox.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php" />
-        <option value="$PROJECT_DIR$/app/routes.php" />
-        <option value="$PROJECT_DIR$/app/models/SolicitudAbstracta.php" />
-        <option value="$PROJECT_DIR$/app/controllers/PruebaControl.php" />
-        <option value="$PROJECT_DIR$/app/models/MedioComunicacion.php" />
-        <option value="$PROJECT_DIR$/app/models/Cuentacol.php" />
         <option value="$PROJECT_DIR$/app/models/OtraAplicacion.php" />
-        <option value="$PROJECT_DIR$/app/controllers/SolicitudController.php" />
         <option value="$PROJECT_DIR$/app/views/registro/solicitud.blade.php" />
+        <option value="$PROJECT_DIR$/app/models/ModeloComputacional.php" />
+        <option value="$PROJECT_DIR$/app/controllers/SolicitudController.php" />
+        <option value="$PROJECT_DIR$/app/models/SolicitudAbstracta.php" />
+        <option value="$PROJECT_DIR$/app/models/Cuentacol.php" />
+        <option value="$PROJECT_DIR$/app/models/MedioComunicacion.php" />
+        <option value="$PROJECT_DIR$/app/routes.php" />
+        <option value="$PROJECT_DIR$/app/controllers/PruebaControl.php" />
+        <option value="$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php" />
       </list>
     </option>
   </component>
@@ -219,7 +166,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="fileTemplates" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Ignored.Files" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -240,8 +187,8 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1154" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../demoautentic" />
-    <property name="SearchEverywhereHistory" value="comment&#10;reformat&#10;refo&#10;refor&#10;reforma&#10;comm&#10;reform&#10;file&#10;commen" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../demoautentic/.idea/workspace.xml" />
+    <property name="SearchEverywhereHistory" value="comment&#10;version&#10;ignore&#10;reformat&#10;refo&#10;refor&#10;reforma&#10;comm&#10;reform&#10;file&#10;commen" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -327,11 +274,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19432314" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929292" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929292" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -373,11 +320,6 @@
         <state line="22" column="6" selection-start="440" selection-end="440" vertical-scroll-proportion="-15.172414" vertical-offset="0" max-vertical-offset="1020" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="908" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="908" />
@@ -401,16 +343,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/hello.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="960" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="592" selection-end="592" vertical-scroll-proportion="0.0" vertical-offset="220" max-vertical-offset="840" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="580" selection-end="580" vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="580" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/app.php">
@@ -463,11 +395,6 @@
         <state line="3" column="12" selection-start="0" selection-end="3984" vertical-scroll-proportion="0.10020877" vertical-offset="0" max-vertical-offset="5344" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Dependencia.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="33" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/AplicacionController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3328" />
@@ -491,11 +418,6 @@
     <entry file="file://$PROJECT_DIR$/public/js/jquery-1.4.2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.4320736" vertical-offset="3360" max-vertical-offset="5120" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/ModeloComputacional.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="72" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/database.php">
@@ -523,11 +445,6 @@
         <state line="10" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="0.33402923" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Grado.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="1" selection-start="270" selection-end="270" vertical-scroll-proportion="0.4676409" vertical-offset="0" max-vertical-offset="958" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Aplicacion.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="40" selection-start="193" selection-end="193" vertical-scroll-proportion="0.2788671" vertical-offset="0" max-vertical-offset="918" />
@@ -543,97 +460,199 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="53" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.6751323" vertical-offset="418" max-vertical-offset="1376" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="52" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="482" max-vertical-offset="1600">
-          <folding>
-            <marker date="1412054952954" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1412054952954" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1412054952954" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1412054952954" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1412054952954" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/MedioComunicacion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="592" selection-end="592" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Cuentacol.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="38" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/PruebaControl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="29" selection-start="1220" selection-end="1317" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1536">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Solicitud.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="41" selection-end="41" vertical-scroll-proportion="0.10020877" vertical-offset="0" max-vertical-offset="958">
-          <folding />
-        </state>
+        <state line="3" column="33" selection-start="41" selection-end="41" vertical-scroll-proportion="0.10020877" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/OtraAplicacion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="51" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="768">
+        <state line="20" column="51" selection-start="342" selection-end="342" vertical-scroll-proportion="0.53333336" vertical-offset="0" max-vertical-offset="900" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="120" selection-end="120" vertical-scroll-proportion="0.3147541" vertical-offset="0" max-vertical-offset="915" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Grado.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="1" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="640" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/ModeloComputacional.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="5" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/SolicitudAbstracta.php">
+    <entry file="file://$PROJECT_DIR$/app/models/Dependencia.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="27" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1760">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/listarsolicitudes.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="7" selection-start="7" selection-end="7" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1728">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="16" selection-start="1770" selection-end="2706" vertical-scroll-proportion="0.0" vertical-offset="744" max-vertical-offset="1675">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/ModificarSolicitudes.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="22" selection-start="9125" selection-end="9259" vertical-scroll-proportion="-17.34375" vertical-offset="7659" max-vertical-offset="10545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SolicitudController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="27" selection-start="557" selection-end="557" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="6720">
+        <state line="4" column="33" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/registro/solicitud.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="6" selection-start="581" selection-end="581" vertical-scroll-proportion="0.7561762" vertical-offset="192" max-vertical-offset="12960">
+        <state line="10" column="49" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0" vertical-offset="2772" max-vertical-offset="11396">
+          <folding>
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412145233045" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Cuentacol.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="45" selection-start="619" selection-end="619" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SolicitudController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="9" selection-start="3681" selection-end="4359" vertical-scroll-proportion="0.0" vertical-offset="3168" max-vertical-offset="6816">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/MedioComunicacion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="50" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="928">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/SolicitudAbstracta.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="29" selection-start="159" selection-end="186" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1824">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="50" selection-start="1462" selection-end="1462" vertical-scroll-proportion="0.0" vertical-offset="418" max-vertical-offset="1376">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/admin/listarsolicitudes.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="64" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/admin/ModificarSolicitudes.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="74" selection-start="9229" selection-end="9229" vertical-scroll-proportion="0.0" vertical-offset="7494" max-vertical-offset="9120">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="37" selection-start="659" selection-end="659" vertical-scroll-proportion="0.48801744" vertical-offset="0" max-vertical-offset="1344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="580" selection-end="580" vertical-scroll-proportion="0.7682672" vertical-offset="0" max-vertical-offset="958">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="784" selection-end="784" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="800">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/PruebaControl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="65" selection-start="3119" selection-end="3119" vertical-scroll-proportion="0.0" vertical-offset="1920" max-vertical-offset="3584">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/pruebas/checkbox.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="39" selection-start="454" selection-end="454" vertical-scroll-proportion="0.33862433" vertical-offset="0" max-vertical-offset="1856">
           <folding />
         </state>
       </provider>

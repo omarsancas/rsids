@@ -1,5 +1,6 @@
 <?php
 
+
 class SolicitudAbstracta extends Eloquent {
 
     protected $fillable = [];
@@ -7,6 +8,7 @@ class SolicitudAbstracta extends Eloquent {
     protected $table = 'solicitud_abstracta';
     protected $primaryKey = 'SOAB_ID_SOLICITUD_ABSTRACTA';
     public $timestamps = false;
+    protected $with = array('MedioComunicacion');
 
     public function cuentascol()
     {

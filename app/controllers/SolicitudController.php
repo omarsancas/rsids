@@ -17,13 +17,16 @@ class SolicitudController extends BaseController {
             'nombre'           => 'required',
             'apellidoPaterno'  => 'required',
             'apellidoMaterno'  => 'required',
-            'email'            => 'required|email', 	// required and must be unique in the ducks table
+            'email'            => 'required|email',
+            'pdf1'             => 'max:8000|required|mimes:pdf' // required and must be unique in the ducks table
 
         );
 
 
         $mensajes = array(
-            'required' => ' :Este campo es obligatorio.',
+            'required' => 'El :campo es obligatorio.',
+            'mimes'    => 'Este archivo debe de ser pdf',
+            'max'      => 'El archivo no debe ser mayor a 8 mb'
 
         );
 
@@ -182,8 +185,8 @@ class SolicitudController extends BaseController {
 
 
         //$dependencias_catalogo = DB::table('dependencias')->orderBy('nombre_dependencia', 'asc')->lists('nombre_dependencia','id_dependencia');
-        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $aplicaciones = Aplicacion::lists('apli_nombre', 'apli_id_aplicacion');
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
 
 

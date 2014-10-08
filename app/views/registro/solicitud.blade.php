@@ -22,9 +22,9 @@
 
 @if ($errors)
 <div class="alert">
-    <ul>
+    <p style="color:red;">
         {{ implode('', $errors->all('<li>:message</li>')) }}
-    </ul>
+    </p>
 </div>
 @endif
 
@@ -117,7 +117,9 @@
         {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
 
         {{Form::file('pdf1');}}
+        @if ($errors->has('pdf1')) <p class="help-block">{{ $errors->first('pdf1') }}</p> @endif
     </div>
+
 </fieldset>
 
 

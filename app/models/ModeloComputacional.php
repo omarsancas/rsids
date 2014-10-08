@@ -17,7 +17,7 @@ class ModeloComputacional extends Eloquent {
 
     public function proyecto()
     {
-        return $this->hasOne('Proyecto','soab_id_modelo','moco_id_modelo');
+        return $this->hasOne('SolicitudAbstracta','soab_id_modelo','moco_id_modelo');
     }
 
 }
