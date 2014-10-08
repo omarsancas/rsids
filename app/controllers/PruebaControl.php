@@ -8,14 +8,36 @@
 
 class PruebaControl extends BaseController {
 
-    public function getIndex()
+    public function index()
+    {
+
+
+        //$solicitud=  Proyecto::with('mediocomunicacion')->get();
+        //$solicitud = DB::table('solicitud_abstracta')->get();
+        //$solicitud = Proyecto::all();
+        $solicitudes = DB::table('solicitud_abstracta')
+            // ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            //->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            //->join('solicitud_x_app', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_x_app.soap_id_solicitud_abstracta')
+            //->join('solicitud_cta_colaboradora', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'solicitud_cta_colaboradora.soco_id_solicitud_abstracta')
+            //->select('users.id', 'contacts.phone', 'orders.price')
+            ->get();
+
+        //var_dump($solicitudes);
+
+        return View::make('pruebas/modificarsolicitud')->with('solicitudes',$solicitudes);
+    }
+
+
+    public function getIndex($id)
     {
         // Get our artist with associated galleries
         //$solicitud = SolicitudAbstracta::find(55);
         //$solicitud->load('aplicaciones');
 
 
-        $solicitudabstracta = SolicitudAbstracta::find(123);
+        $solicitudabstracta = SolicitudAbstracta::find($id);
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
         $this->data['solicitud'] = $solicitudabstracta;
@@ -25,7 +47,7 @@ class PruebaControl extends BaseController {
         $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
         $cuentascol = $solicitudabstracta->cuentascol;
 
-        $id = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA;
+
 
         $solicitud = DB::table('solicitud_cta_colaboradora')
             ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
@@ -53,7 +75,8 @@ class PruebaControl extends BaseController {
 
     public function getupdate()
     {
-        $solicitudabstracta =  SolicitudAbstracta::find(123);
+        $id = Input::get('id');
+        $solicitudabstracta =  SolicitudAbstracta::find($id);
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
@@ -105,8 +128,9 @@ class PruebaControl extends BaseController {
 
 
 
-
-       $queries = DB::getQueryLog();
-        var_dump($queries);
+        Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+        return Redirect::to('pruebas/modificarsolicitud');
+       //$queries = DB::getQueryLog();
+        //var_dump($queries);
     }
 } 

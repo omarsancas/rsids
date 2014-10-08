@@ -19,7 +19,9 @@ Route::get('apps', 'AplicacionController@create');
 Route::post('apps', ['as' => 'registrer', 'uses' => 'AplicacionController@registrer']);
 
 
+Route::get('/edit/{id}', 'PruebaControl@getIndex');
 Route::get('admin/ModificarSolicitudes', [ 'uses' => 'AdminController@index']);
+Route::get('pruebas/modificarsolicitud', [ 'uses' => 'PruebaControl@index']);
 Route::get('pruebas/checkbox', [ 'uses' => 'PruebaControl@getIndex']);
 Route::post('pruebas/checkbox', [ 'as' => 'update', 'uses' => 'PruebaControl@getupdate']);
 

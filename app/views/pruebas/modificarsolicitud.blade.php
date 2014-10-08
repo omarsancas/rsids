@@ -14,7 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
-    <link href="{{ asset ('js/jquery-1.11.1.js')}}" rel="stylesheet">
+
 
 
     <!-- Custom CSS -->
@@ -234,6 +234,8 @@
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
+                            <th>Accion</th>
+
 
                         </tr>
                         </thead>
@@ -245,6 +247,9 @@
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
+                            <td>
+                            <a href="{{ action('PruebaControl@getIndex', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-default">Edit</a>
+                                                            </td>
 
 
                         </tr>
@@ -268,8 +273,8 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery Version 1.11.0 -->
-
+<link href="{{ asset ('js/jquery-1.11.0.js')}}" rel="stylesheet">
+<link href="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet">
 
 </body>
 
