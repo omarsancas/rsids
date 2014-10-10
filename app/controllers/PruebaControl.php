@@ -32,10 +32,6 @@ class PruebaControl extends BaseController {
 
     public function getIndex($id)
     {
-        // Get our artist with associated galleries
-        //$solicitud = SolicitudAbstracta::find(55);
-        //$solicitud->load('aplicaciones');
-
 
         $solicitudabstracta = SolicitudAbstracta::find($id);
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
@@ -49,6 +45,13 @@ class PruebaControl extends BaseController {
 
 
 
+
+        $meco = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
         $solicitud = DB::table('solicitud_cta_colaboradora')
             ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
@@ -59,17 +62,8 @@ class PruebaControl extends BaseController {
 
 
 
-
-
-        //var_dump();
-
-
-        // Get all galleries to populate our checkboxes
-        //$aplicaciones = Aplicacion::all();
-
-
         // Show form
-        return View::make('pruebas.checkbox',$this->data)->with('cuentascol',$solicitud)->with('solicitudabstracta',$solicitudabstracta)->with('grado',$grado)->with('dependencias_catalogo',$dependencias_catalogo);
+        return View::make('pruebas.checkbox',$this->data)->with('cuentascol',$solicitud)->with('solicitudabstracta',$solicitudabstracta)->with('grado',$grado)->with('dependencias_catalogo',$dependencias_catalogo)->with('meco',$meco);
     }
 
 
@@ -95,8 +89,19 @@ class PruebaControl extends BaseController {
         $solicitudabstracta->soab_mem_ram = Input::get('memoria');
         $solicitudabstracta->save();
 
+        $idmeco = Input::get('idmeco');
+        $mediocomunicacion = MedioComunicacion::find($idmeco);
+        $mediocomunicacion->meco_telefono1 = Input::get('telefono');
+        $mediocomunicacion->meco_extension = Input::get('extension');
+        $mediocomunicacion->meco_telefono2 = Input::get('telefono2');
+        $mediocomunicacion->meco_correo = Input::get('email');
+        $mediocomunicacion->save();
+
+
        $aplicaciones = Input::get('aplicaciones');
-        $solicitudabstracta->aplicaciones()->sync($aplicaciones);
+       $solicitudabstracta->aplicaciones()->sync($aplicaciones);
+
+
 
         $datoscuentacol = Input::get('solcol');
         //var_dump($datoscuentacol);

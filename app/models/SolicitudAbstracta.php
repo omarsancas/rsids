@@ -25,7 +25,6 @@ class SolicitudAbstracta extends Eloquent {
     {
         return $this->hasOne('Grado');
     }
-
     public function mediocomunicacion()
     {
         return $this->belongsTo('MedioComunicacion', 'soab_id_medio_comunicacion', 'meco_id_medio_comunicacion');

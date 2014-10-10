@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>RSIDS Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -50,7 +50,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin</a>
+        <a class="navbar-brand" href="index.html">RSIDS Admin</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
@@ -148,7 +148,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                 </li>
             </ul>
         </li>
@@ -160,13 +160,13 @@
                 <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
-                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Consultar Solicitudes</a>
             </li>
             <li class="active">
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Modificar Solicitudes</a>
             </li>
             <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Eliminar Solicitudes</a>
             </li>
             <li>
                 <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
@@ -208,7 +208,7 @@
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Tables
+                        <i class="fa fa-table"></i> Modificar Solicitudes
                     </li>
                 </ol>
             </div>
@@ -221,15 +221,15 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Eliminar Solicitud de recursos</h2>
+                <h2>Modificar Solicitud de recursos</h2>
 
-                <button id="btnDelete" class="btn btn-danger btn-lg">¡Eliminar!</button>
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-                            <th class="col-lg-1" style="text-align: center;"><input type="checkbox" class="check-all"></th>
+
                             <th>Número de la solicitud</th>
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
@@ -242,14 +242,14 @@
                         <tbody>
                         @foreach ($solicitudes as $solicitud)
                         <tr>
-                            <td class="col-lg-1" style="text-align: center;"> <input type="checkbox" name="check_box[]" data-id="check_box[]" value="{{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}" /></td>
+
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
-                            <a href="{{ action('PruebaControl@getIndex', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-default">Edit</a>
-                                                            </td>
+                            <a href="{{ action('PruebaControl@getIndex', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-default">Modificar Solicitud</a>
+                            </td>
 
 
                         </tr>

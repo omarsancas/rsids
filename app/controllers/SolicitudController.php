@@ -129,14 +129,6 @@ class SolicitudController extends BaseController {
         var_dump($queries);*/
 
 
-        //var_dump($datosMecoCuentasCol);
-
-
-
-
-        //$validation = Validator::make($datos,$rules);
-
-
         $file = Input::file('pdf1');
         $destinationPath = public_path() . '/uploads';
 
