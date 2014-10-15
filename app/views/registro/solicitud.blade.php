@@ -21,11 +21,17 @@
 
 
 @if ($errors)
-<div class="alert">
-    <p style="color:red;">
-        {{ implode('', $errors->all('<li>:message</li>')) }}
-    </p>
-</div>
+
+
+    <ul class="list-group">
+
+        {{ implode('', $errors->all('<li class="list-group-item list-group-item-danger">:message</li>')) }}
+
+    </ul>
+
+
+
+
 @endif
 
 <fieldset>
@@ -33,8 +39,8 @@
 
     <div class="form-group">
         {{ Form::label('nombre', 'Nombre')}}
-        {{ Form::text('nombre', '', ['class' => 'form-control'])}}
-        @if ($errors->has('nombre')) <p class="help-block">{{ $errors->first('nombre') }}</p> @endif
+        {{ Form::text('nombre', Input::old('nombre') , ['class' => 'form-control'])}}
+        @if ($errors->has('nombre')) <li class="list-group-item list-group-item-danger">{{ $errors->first('nombre') }}</li> @endif
     </div>
 
     <div class="form-group">
@@ -116,8 +122,23 @@
     <div class="form-group">
         {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
 
-        {{Form::file('pdf1');}}
-        @if ($errors->has('pdf1')) <p class="help-block">{{ $errors->first('pdf1') }}</p> @endif
+        {{Form::file('curriculum');}}
+        @if ($errors->has('curriculum')) <p class="help-block">{{ $errors->first('curriculum') }}</p> @endif
+    </div>
+
+
+    <div class="form-group">
+        {{ Form::label('docdesc', 'Documento descriptivo del trabajo a realizar')}}
+
+        {{Form::file('documentodescriptivo');}}
+        {{ $errors->first('documentodescriptivo','<span class="error">:message</span>') }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas)')}}
+
+        {{Form::file('constancias');}}
+        {{ $errors->first('constancias','<p class="help-block">:message</p>') }}
     </div>
 
 </fieldset>
@@ -153,11 +174,6 @@
         {{ Form::text('nombreproyecto', '', ['class' => 'form-control'])}}
     </div>
 
-    <div class="form-group">
-        {{ Form::label('descproyecto', 'Descripción del proyecto')}}
-        <textarea id="descproyecto" name="descproyecto" class="form-control" rows="3"></textarea>
-    </div>
-
 
 
 
@@ -171,6 +187,21 @@
         {{ Form::label('modelocomputacional', 'Modelo Computacional')}}
         {{ Form::text('modelocomp', '', ['class' => 'form-control'])}}
     </div>
+
+    <div class="form-group">
+
+
+        {{ Form::label('campo de trabajo', 'Campo Trabajo')}}
+        {{ Form::select('campos',$campos,null, array('class'=>'form-control','style'=>'' ))}}
+
+
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('otrocampo', 'Otro Campo')}}
+        {{ Form::text('otrocampo', '', ['class' => 'form-control'])}}
+    </div>
+
 
     <label for="name">Aplicaciones </label>
 

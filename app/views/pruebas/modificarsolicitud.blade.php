@@ -12,7 +12,15 @@
     <title>RSIDS Admin</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <script src="{{ asset ('js/jquery-1.11.0.js')}}" rel="stylesheet"></script>
+    <script src="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet"></script>
+
+
+
+    <link href="{{ asset ('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset ('css/plugins/morris.css')}}" rel="stylesheet">
+
 
 
 
@@ -175,10 +183,10 @@
                 <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="#">Consultar </a>
                     </li>
                     <li>
                         <a href="#">Dropdown Item</a>
@@ -273,8 +281,6 @@
 </div>
 <!-- /#wrapper -->
 
-<link href="{{ asset ('js/jquery-1.11.0.js')}}" rel="stylesheet">
-<link href="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet">
 
 </body>
 
