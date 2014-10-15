@@ -26,7 +26,7 @@ class PruebaControl extends BaseController {
 
         //var_dump($solicitudes);
 
-        return View::make('pruebas/modificarsolicitud')->with('solicitudes',$solicitudes);
+        return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes',$solicitudes);
     }
 
 

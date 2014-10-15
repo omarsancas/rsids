@@ -2,14 +2,24 @@
 
 class SolicitudController extends BaseController {
 
-    public function registro()
+    public function mostrarSolicitud()
     {
 
-        return View::make('registro/solicitud');
+        // queries the clients db table, orders by client_name and lists client_name and id
+
+        $aplicaciones = Aplicacion::lists('apli_nombre', 'apli_id_aplicacion');
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo','catr_id_campo_trabajo');
+        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+
+
+        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)->with('aplicaciones', $aplicaciones)->with('grado', $grado)->with('campos',$campotrabajo);
+
+
     }
 
 
-    public function registrar()
+    public function generarSolicitud()
     {
         $datos = Input::all();
 
@@ -96,7 +106,7 @@ class SolicitudController extends BaseController {
             $mediocomunicacion->meco_telefono2 = Input::get('telefono2');
             $mediocomunicacion->meco_correo = Input::get('email');
             $mediocomunicacion->save();
-            $datos->soab_id_medio_comunicacion = $mediocomunicacion->meco_id_medio_comunicacion;
+            $datos->soab_id_medio_comunicacion = $mediocomunicacion->MECO_ID_MEDIO_COMUNICACION;
             $datos->save();
 
 
@@ -133,7 +143,7 @@ class SolicitudController extends BaseController {
                 $datos->cuentascol()->save($solcol);
                 $mecoCol = new MedioComunicacion($v2);
                 $mecoCol->save();
-                $solcol->soco_id_medio_comunicacion = $mecoCol->meco_id_medio_comunicacion;
+                $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
                 $solcol->save();
             }
 
@@ -174,44 +184,227 @@ class SolicitudController extends BaseController {
             }
 
 
-            /*
-            $file = Input::file('pdf1');
-
-
-
-                 $destinationPath    = 'uploads/images/'; // The destination were you store the image.
-                   $filename           = $file->getClientOriginalName(); // Original file name that the end user used for it.
-               //$mime_type          = $file->getMimeType(); // Gets this example image/png
-                   $extension          = $file->getClientOriginalExtension(); // The original extension that the user used
-                   $upload_success     = $file->move($destinationPath, $filename); // Now we move the file to its new home.
-
-                   $datos->archivoTrabAcademico = $upload_success;
-
-            */
 
         }
 
 
+    }//fin del método generarSolicitud
+
+    public function eliminarSolicitud()
+    {
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes',$solicitudes);
     }
 
 
-    public function create()
+
+    public function eliminar()
+    {
+        $solicitudes = Input::get('check_box');
+        SolicitudAbstracta::destroy($solicitudes);
+        Session::flash('message', '¡Las solicitudes se han borrado exitosamente!');
+        return Redirect::to('gestionarsolicitudderecursos/eliminarsolicitud');
+    }
+
+
+
+    public function modificarSolicitud()
     {
 
-        // queries the clients db table, orders by client_name and lists client_name and id
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->get();
 
-
-        //$dependencias_catalogo = DB::table('dependencias')->orderBy('nombre_dependencia', 'asc')->lists('nombre_dependencia','id_dependencia');
-        $aplicaciones = Aplicacion::lists('apli_nombre', 'apli_id_aplicacion');
-        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo','catr_id_campo_trabajo');
-        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
-
-
-        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)->with('aplicaciones', $aplicaciones)->with('grado', $grado)->with('campos',$campotrabajo);
-
-
+        return View::make('gestionarsolicitudderecursos.modificarsolicitud')->with('solicitudes',$solicitudes);
     }
+
+
+    public function editarSolicitud($id)
+    {
+
+        $solicitudabstracta = SolicitudAbstracta::find($id);
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+        $this->data['solicitud'] = $solicitudabstracta;
+        $this->data['aplicaciones'] = Aplicacion::all();
+        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas,'APLI_ID_APLICACION');
+        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
+        $cuentascol = $solicitudabstracta->cuentascol;
+
+
+
+
+        $meco = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+        $solicitud = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+
+
+
+
+
+        // Show form
+        return View::make('gestionarsolicitudderecursos.editarsolicitud',$this->data)->with('cuentascol',$solicitud)->with('solicitudabstracta',$solicitudabstracta)->with('grado',$grado)->with('dependencias_catalogo',$dependencias_catalogo)->with('meco',$meco);
+    }
+
+
+
+    public function actualizarSolicitud()
+    {
+        $id = Input::get('id');
+        $solicitudabstracta =  SolicitudAbstracta::find($id);
+        $solicitudabstracta->soab_nombres = Input::get('nombre');
+        $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
+        $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
+        $solicitudabstracta->soab_id_estado_solicitud = 0;
+        $solicitudabstracta->soab_id_tipo_solicitud = 0;
+        $solicitudabstracta->soab_sexo = Input::get('sexo');
+        $solicitudabstracta->soab_prog_paralela = Input::get('progparalela');
+        $solicitudabstracta->soab_num_proc_trab = Input::get('numproc');
+        $solicitudabstracta->soab_duracion = Input::get('duracion');
+        $solicitudabstracta->soab_nombre_proyecto = Input::get('nombreproyecto');
+        $solicitudabstracta->soab_desc_proyecto = Input::get('descproyecto');
+        $solicitudabstracta->SOAB_ID_DEPENDENCIA = Input::get('dependencias');
+        $solicitudabstracta->soab_id_grado = Input::get('grado');
+        $solicitudabstracta->soab_hrs_cpu = Input::get('horasCPU');
+        $solicitudabstracta->soab_esp_hd = Input::get('disco');
+        $solicitudabstracta->soab_mem_ram = Input::get('memoria');
+        $solicitudabstracta->save();
+
+        $idmeco = $solicitudabstracta->SOAB_ID_MEDIO_COMUNICACION;
+        $mediocomunicacion = MedioComunicacion::find($idmeco);
+        $mediocomunicacion->meco_telefono1 = Input::get('telefono');
+        $mediocomunicacion->meco_extension = Input::get('extension');
+        $mediocomunicacion->meco_telefono2 = Input::get('telefono2');
+        $mediocomunicacion->meco_correo = Input::get('email');
+        $mediocomunicacion->save();
+
+
+        $aplicaciones = Input::get('aplicaciones');
+        $solicitudabstracta->aplicaciones()->sync($aplicaciones);
+
+
+
+        $datoscuentacol = Input::get('solcol');
+        //var_dump($datoscuentacol);
+        $datosMecoCuentasCol = Input::get('meco');
+
+        //$cuentacol = $datoscuentacol;
+        //$mecocuentascol = array_slice($datosMecoCuentasCol,1);
+
+
+
+
+        $solcol_ids = array();
+        foreach (Input::get('solcol', array()) as $id => $solcolData)
+        {
+            $solcol = Cuentacol::find($id);
+            $solcol->update($solcolData);
+            $solcol->save();
+        }
+
+        $solcol_ids = array();
+        foreach (Input::get('meco', array()) as $id => $solcolData)
+        {
+            $meco = MedioComunicacion::find($id);
+            $meco->update($solcolData);
+            $meco->save();
+        }
+
+        //$solicitudabstracta->cuentascol()->sync($solcol_ids);
+
+
+
+        Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+        return Redirect::to('gestionarsolicitudderecursos/modificarsolicitud');
+        //$queries = DB::getQueryLog();
+        //var_dump($queries);
+    }
+
+
+
+    public function generarCartas($id)
+    {
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes',$solicitudes)->render();
+        return PDF::load($html, 'A4', 'portrait')->show();
+    }
+
+
+
+
+    public function mostrarSolicitudes()
+    {
+
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 1)
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.generarcartas')->with('solicitudes',$solicitudes);
+    }
+
+
+    public function mostrarNotificacionSolicitudes()
+    {
+
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 1)
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.notificaraprobacion')->with('solicitudes',$solicitudes);
+    }
+
+
+    public function notificarAprobacion($id)
+    {
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('medio_comunicacion','solicitud_abstracta.soab_id_medio_comunicacion' ,'=','medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+         $correelectronico = $solicitudes->MECO_CORREO;
+
+
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes',$solicitudes)->render();
+
+
+
+
+        $outputName = str_random(10); // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
+        $pdfPath = public_path().'/'.$outputName.'.pdf';
+        File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
+
+        $data = [ 'msg' => 'hola' ];
+        Mail::send('emails.welcome' ,$data ,function($message) use ($pdfPath,$correelectronico){
+            $message->from('moroccosc@gmail.com', 'Laravel');
+            $message->to($correelectronico);
+            $message->attach($pdfPath);
+        });
+    }
+
+
 
 
 }

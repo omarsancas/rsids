@@ -9,12 +9,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>RSIDS Admin</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
-    <link href="{{ asset ('js/jquery-1.11.1.js')}}" rel="stylesheet">
+    <script src="{{ asset ('js/jquery-1.11.0.js')}}" rel="stylesheet"></script>
+    <script src="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet"></script>
+
+
+
+    <link href="{{ asset ('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset ('css/plugins/morris.css')}}" rel="stylesheet">
+
+
+
 
 
     <!-- Custom CSS -->
@@ -33,7 +41,6 @@
 
 
     <![endif]-->
-
 </head>
 
 <body>
@@ -50,7 +57,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin</a>
+        <a class="navbar-brand" href="index.html">RSIDS Admin</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
@@ -148,7 +155,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                 </li>
             </ul>
         </li>
@@ -157,36 +164,30 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-            </li>
-            <li class="active">
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-            </li>
-            <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-            </li>
-            <li>
-                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-            </li>
-            <li>
-                <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-            </li>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="#">Consultar solicitudes</a>
+
                     </li>
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitudes</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitudes</a>
+
+                    </li>
+
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/generarcartas') }}">Generar carta de aceptación de recursos</a>
+
                     </li>
                 </ul>
             </li>
+
             <li>
-                <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
+
             </li>
         </ul>
     </div>
@@ -201,14 +202,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Evaluar Solicitud de recursos
                 </h1>
                 <ol class="breadcrumb">
                     <li>
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Tables
+                        <i class="fa fa-table"></i> Evaluar solicitud de recursos
                     </li>
                 </ol>
             </div>
@@ -217,34 +218,42 @@
 
         <div class="row">
             <div class="col-lg-12">
-                {{ Form::open(array('route' => array('solicitud.destroy' ), 'id' => 'idForm')) }}
+                <!-- Revisar la ruta de actualizacion-->
+                {{ Form::open(array('route' => array('generar' ), 'id' => 'idForm')) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Eliminar Solicitud de recursos</h2>
+                <h2>Evaluar Solicitud de recursos</h2>
 
-                <button id="btnDelete" class="btn btn-danger btn-lg">¡Eliminar!</button>
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-                            <th class="col-lg-1" style="text-align: center;"><input type="checkbox" class="check-all"></th>
+
                             <th>Número de la solicitud</th>
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
+                            <th>Acción</th>
+
 
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($solicitudes as $solicitud)
                         <tr>
-                            <td class="col-lg-1" style="text-align: center;"> <input type="checkbox" name="check_box[]" data-id="check_box[]" value="{{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}" /></td>
+
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
+                            <td>
+                                <a href="{{ action('EvaluarSolicitudController@aceptar', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Aceptar</a>
+
+
+                            </td>
 
 
                         </tr>
@@ -267,8 +276,6 @@
 
 </div>
 <!-- /#wrapper -->
-
-<!-- jQuery Version 1.11.0 -->
 
 
 </body>

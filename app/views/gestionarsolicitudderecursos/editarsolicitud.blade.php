@@ -12,8 +12,7 @@
 <h1></h1>
 
 <h1>Modificar solicitud de recursos</h1>
-{{ Form::open (['route' => 'update', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>
-'form', 'files' =>true]) }}
+{{ Form::open (['route' => 'update', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)

@@ -41,7 +41,6 @@
 
 
     <![endif]-->
-
 </head>
 
 <body>
@@ -72,7 +71,7 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                             <div class="media-body">
-                                <h5 class="media-heading"><strong>John Smith</strong>
+                                <h5 class="media-heading"><strong>Yoli</strong>
                                 </h5>
                                 <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur...</p>
@@ -156,7 +155,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -164,38 +163,38 @@
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li>
-                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Consultar Solicitudes</a>
-            </li>
-            <li class="active">
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Modificar Solicitudes</a>
-            </li>
-            <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Eliminar Solicitudes</a>
-            </li>
-            <li>
-                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-            </li>
-            <li>
-                <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-            </li>
+
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Consultar </a>
+                        <a href="#">Consultar solicitudes</a>
+
                     </li>
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitudes</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitudes</a>
+
+                    </li>
+
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/generarcartas') }}">Generar carta de aceptación de recursos</a>
+
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de recursos</a>
+
                     </li>
                 </ul>
             </li>
+
             <li>
-                <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
+
             </li>
+
         </ul>
     </div>
     <!-- /.navbar-collapse -->
@@ -216,7 +215,7 @@
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar Solicitudes
+                        <i class="fa fa-table"></i> Tables
                     </li>
                 </ol>
             </div>
@@ -225,39 +224,34 @@
 
         <div class="row">
             <div class="col-lg-12">
-                {{ Form::open(array('route' => array('solicitud.destroy' ), 'id' => 'idForm')) }}
+                {{ Form::open(array('route' => array('delete' ), 'id' => 'idForm')) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar Solicitud de recursos</h2>
+                <h2>Eliminar Solicitud de recursos</h2>
 
-
+                <button id="btnDelete" class="btn btn-danger btn-lg">¡Eliminar!</button>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-
+                            <th class="col-lg-1" style="text-align: center;"><input type="checkbox" class="check-all"></th>
                             <th>Número de la solicitud</th>
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
-                            <th>Accion</th>
-
 
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($solicitudes as $solicitud)
                         <tr>
-
+                            <td class="col-lg-1" style="text-align: center;"> <input type="checkbox" name="check_box[]" data-id="check_box[]" value="{{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}" /></td>
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
-                            <td>
-                            <a href="{{ action('PruebaControl@getIndex', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-default">Modificar Solicitud</a>
-                            </td>
 
 
                         </tr>
@@ -280,6 +274,8 @@
 
 </div>
 <!-- /#wrapper -->
+
+<!-- jQuery Version 1.11.0 -->
 
 
 </body>

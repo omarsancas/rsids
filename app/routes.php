@@ -45,7 +45,7 @@ Route::get('/', function()
     //var_dump($solicitudes);
 
     $html = View::make('admin.generarcarta')->with('solicitudes',$solicitudes)->render();
-    //return PDF::load($html, 'A4', 'portrait')->show();
+    return PDF::load($html, 'A4', 'portrait')->show();
 
     $outputName = str_random(10); // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
     $pdfPath = public_path().'/'.$outputName.'.pdf';
@@ -60,19 +60,46 @@ Route::get('/', function()
 });
 
 
-Route::get('solicitud', ['as' => 'solicitud', 'uses' => 'SolicitudController@create']);
-Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@registrar']);
+//Estas rutas son para el caso de uso gestionar solicitud de recursos
+Route::get('solicitud', ['as' => 'solicitud', 'uses' => 'SolicitudController@mostrarSolicitud']);
+Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@generarSolicitud']);
+Route::get('gestionarsolicitudderecursos/eliminarsolicitud', ['as' => 'delete', 'uses' => 'SolicitudController@eliminarSolicitud']);
+Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [	'uses' => 'SolicitudController@eliminar' ]);
+Route::get('gestionarsolicitudderecursos/modificarsolicitud', [ 'uses' => 'SolicitudController@modificarsolicitud']);
+//Route::get('gestionarsolicitudderecursos/editarsolicitud', [ 'uses' => 'SolicitudController@editarSolicitud']);
+Route::get('/edit/{id}', 'SolicitudController@editarSolicitud');
+Route::post('gestionarsolicitudderecursos/modificarsolicitud', [ 'as' => 'update', 'uses' => 'SolicitudController@actualizarSolicitud']);
 
-Route::get('apps', 'AplicacionController@create');
-Route::post('apps', ['as' => 'registrer', 'uses' => 'AplicacionController@registrer']);
+
+//Estas rutas son para el caso de uso evaluar solicitud
+
+Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [ 'uses' => 'EvaluarSolicitudController@modificarSolicitud']);
+Route::get('/aceptar/{id}', array(
+    'as' => 'aceptar',
+    'uses' => 'EvaluarSolicitudController@aceptar'
+));
+
+Route::get('gestionarsolicitudderecursos/generarcartas', [ 'uses' => 'SolicitudController@mostrarSolicitudes']);
+
+Route::get('/generar/{id}', array(
+    'as' => 'generar',
+    'uses' => 'SolicitudController@generarCartas'
+));
 
 
-Route::get('/edit/{id}', 'PruebaControl@getIndex');
-Route::get('admin/ModificarSolicitudes', [ 'uses' => 'AdminController@index']);
-Route::get('pruebas/modificarsolicitud', [ 'uses' => 'PruebaControl@index']);
-Route::get('pruebas/checkbox', [ 'uses' => 'PruebaControl@getIndex']);
-Route::post('pruebas/checkbox', [ 'as' => 'update', 'uses' => 'PruebaControl@getupdate']);
+Route::get('gestionarsolicitudderecursos/notificaraprobacion', [ 'uses' => 'SolicitudController@mostrarNotificacionSolicitudes']);
 
-Route::post('solicitud/destroy', ['as' => 'solicitud.destroy', 	'uses' => 'AdminController@destroy' ]);
+Route::get('/notificar/{id}', array(
+    'as' => 'notificar',
+    'uses' => 'SolicitudController@notificarAprobacion'
+));
+
+
+
+
+
+
+
+
 
 
