@@ -19,7 +19,8 @@
 
 	"require-dev": {
     "way/generators": "2.*",
-    "raahul/larryfour": "1.*"
+    "raahul/larryfour": "1.*",
+    "thujohn/pdf": "dev-master"
 	},
 
 
