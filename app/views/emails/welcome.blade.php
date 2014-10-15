@@ -1,0 +1,1 @@
+<h1> Hola has recibido la carta de aceptacion de recursos</h1>
