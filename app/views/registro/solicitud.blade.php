@@ -275,8 +275,13 @@
     <div class="form-group">
         {{ Form::label('dura', 'Duracion estimada por trabajo(tiempo de pared)')}}
         <select name="duracion" id="duracion" class="form-control">
-            <option value="1"> 1 hora </option>
-            <option value="2">mayor o igual a dos semanas</option>
+            <option value="1" > 1 hora</option>
+            <option value="2" > 1 a 12 horas</option>
+            <option value="3" > 12 a 24 horas</option>
+            <option value="4"> 24 a 72 horas</option>
+            <option value="5"> 72 horas a 1 semanas</option>
+            <option value="6"> Mas de 2 semanas</option>
+
         </select>
     </div>
 

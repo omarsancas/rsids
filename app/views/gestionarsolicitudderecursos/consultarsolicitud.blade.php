@@ -188,8 +188,12 @@
                         <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de recursos</a>
 
                     </li>
+
+
+
                 </ul>
             </li>
+
 
 
 
@@ -197,7 +201,6 @@
                 <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
 
             </li>
-
         </ul>
     </div>
     <!-- /.navbar-collapse -->
@@ -218,7 +221,7 @@
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar carta de aceptación solicitud de recursos
+                        <i class="fa fa-table"></i> Consultar Solicitudes
                     </li>
                 </ol>
             </div>
@@ -228,11 +231,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(array('route' => array('aceptar' ), 'id' => 'idForm')) }}
+                {{ Form::open(array('route' => array('update' ), 'id' => 'idForm')) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Generar carta de aceptación de recursos</h2>
+                <h2>Modificar Solicitud de recursos</h2>
 
 
 
@@ -245,7 +248,7 @@
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
-                            <th>Acción</th>
+                            <th>Accion</th>
 
 
                         </tr>
@@ -259,9 +262,7 @@
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('SolicitudController@generarCartas', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Generar Carta de aceptación</a>
-
-
+                                <a href="{{ action('SolicitudController@consultarSolicitudVista', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success btn-lg">Consultar Solicitud</a>
                             </td>
 
 

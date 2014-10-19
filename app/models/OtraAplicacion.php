@@ -13,8 +13,10 @@ class OtraAplicacion extends Eloquent {
     
     protected $fillable = array('otap_opcion');
     protected $table = 'otra_app';
-
+    protected $primaryKey = 'OTAP_ID_OTRA_APP';
     public $timestamps = false;
+
+
 
     public function proyecto()
     {

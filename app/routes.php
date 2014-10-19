@@ -66,8 +66,17 @@ Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@ge
 Route::get('gestionarsolicitudderecursos/eliminarsolicitud', ['as' => 'delete', 'uses' => 'SolicitudController@eliminarSolicitud']);
 Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [	'uses' => 'SolicitudController@eliminar' ]);
 Route::get('gestionarsolicitudderecursos/modificarsolicitud', [ 'uses' => 'SolicitudController@modificarsolicitud']);
+Route::get('gestionarsolicitudderecursos/consultarsolicitud', [ 'uses' => 'SolicitudController@consultarSolicitud']);
 //Route::get('gestionarsolicitudderecursos/editarsolicitud', [ 'uses' => 'SolicitudController@editarSolicitud']);
 Route::get('/edit/{id}', 'SolicitudController@editarSolicitud');
+
+Route::get('/consultar/{id}', array(
+    'as' => 'consultar',
+    'uses' => 'SolicitudController@consultarSolicitudVista'
+));
+
+
+Route::get('/bajararchivo/{id}', array('as' => 'bajararchivo','uses'=> 'SolicitudController@mostrarArchivo'));
 Route::post('gestionarsolicitudderecursos/modificarsolicitud', [ 'as' => 'update', 'uses' => 'SolicitudController@actualizarSolicitud']);
 
 

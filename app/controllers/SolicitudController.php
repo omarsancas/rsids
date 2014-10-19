@@ -2,6 +2,11 @@
 
 class SolicitudController extends BaseController {
 
+
+    /**
+     * Obtiene de la BD los catálogos para formar la vista del formulario generar solicitud
+     * @return mixed
+     */
     public function mostrarSolicitud()
     {
 
@@ -9,29 +14,33 @@ class SolicitudController extends BaseController {
 
         $aplicaciones = Aplicacion::lists('apli_nombre', 'apli_id_aplicacion');
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo','catr_id_campo_trabajo');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
 
 
-        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)->with('aplicaciones', $aplicaciones)->with('grado', $grado)->with('campos',$campotrabajo);
+        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)->with('aplicaciones', $aplicaciones)->with('grado', $grado)->with('campos', $campotrabajo);
 
 
     }
 
 
+    /**
+     * Inserta en la BD los datos de la solicitud de registros
+     * @return mixed
+     */
     public function generarSolicitud()
     {
         $datos = Input::all();
 
 
         $rules = array(
-            'nombre'          => 'required',
-            'apellidoPaterno' => 'required',
-            'apellidoMaterno' => 'required',
-            'email'           => 'required|email',
-            'documentodescriptivo' => 'required|mimes:pdf|max:8000',//para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a sus necesidades
-            'constancias' => 'required|mimes:pdf|max:8000',
-            'curriculum' => 'required|mimes:pdf|max:8000',
+            'nombre'               => 'required',
+            'apellidoPaterno'      => 'required',
+            'apellidoMaterno'      => 'required',
+            'email'                => 'required|email',
+            'documentodescriptivo' => 'required|mimes:pdf|max:8000', //para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a sus necesidades
+            'constancias'          => 'required|mimes:pdf|max:8000',
+            'curriculum'           => 'required|mimes:pdf|max:8000',
 
 
         );
@@ -40,7 +49,7 @@ class SolicitudController extends BaseController {
         $mensajes = array(
             'required' => ' El :attribute es obligatorio',
             'mimes'    => 'El archivo :attribute archivo debe de ser pdf',
-            'max'   => 'El archivo :attribute no debe de pasar los 8MB'
+            'max'      => 'El archivo :attribute no debe de pasar los 8MB'
 
 
         );
@@ -49,28 +58,17 @@ class SolicitudController extends BaseController {
         // validate against the inputs from our form
         $validator = Validator::make(Input::all(), $rules, $mensajes);
 
-        $dataapp = Input::get('otraapp');
-        foreach ((array_slice($dataapp, 1)) as $otraapData)
-        {
-            $otraap = new OtraAplicacion($otraapData);
-            $datos->otraaplicacion()->save($otraap);
-        }
 
-
-
-
-               // check if the validator failed -----------------------;
+        // check if the validator failed -----------------------;
         if ($validator->fails())
         {
-
-
 
 
             $messages = $validator->messages();
 
             // redirect our user back to the form with the errors from the validator
             return Redirect::to('solicitud')
-                ->withErrors($validator)->withInput(Input::except('curriculum','constancias','documentodescriptivo'));;
+                ->withErrors($validator)->withInput(Input::except('curriculum', 'constancias', 'documentodescriptivo'));;
         } else
         {
 
@@ -110,16 +108,17 @@ class SolicitudController extends BaseController {
             $datos->save();
 
 
-
-
             $otrocampo = new OtroCampo();
             $otrocampo->otca_nombre = Input::get('otrocampo');
             $otrocampo->save();
-            $datos->soab_id_otro_campo = $otrocampo->otca_id_otro_campo;
+            $datos->soab_id_otro_campo = $otrocampo->OTCA_ID_OTRO_CAMPO;
             $datos->save();
 
 
             $dataapp = Input::get('otraapp');
+            $otraappDatos = array_slice($dataapp, 1);
+
+
             foreach ((array_slice($dataapp, 1)) as $otraapData)
             {
                 $otraap = new OtraAplicacion($otraapData);
@@ -184,33 +183,44 @@ class SolicitudController extends BaseController {
             }
 
 
-
         }
 
 
     }//fin del método generarSolicitud
 
+    /**
+     * Obtiene los datos para la vista eliminar solicitud
+     * @return mixed
+     */
     public function eliminarSolicitud()
     {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->get();
 
-        return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes',$solicitudes);
+        return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes', $solicitudes);
     }
 
 
-
+    /**
+     * Elimina de la BD un conjunto de solicitudes seleccionada por el usuario
+     * @return mixed
+     */
     public function eliminar()
     {
         $solicitudes = Input::get('check_box');
         SolicitudAbstracta::destroy($solicitudes);
         Session::flash('message', '¡Las solicitudes se han borrado exitosamente!');
+
         return Redirect::to('gestionarsolicitudderecursos/eliminarsolicitud');
     }
 
 
-
+    /**
+     *
+     * Obtiene los datos de la BD y genera la vista de modificar solicitud
+     * @return mixed
+     */
     public function modificarSolicitud()
     {
 
@@ -218,24 +228,43 @@ class SolicitudController extends BaseController {
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->get();
 
-        return View::make('gestionarsolicitudderecursos.modificarsolicitud')->with('solicitudes',$solicitudes);
+        return View::make('gestionarsolicitudderecursos.modificarsolicitud')->with('solicitudes', $solicitudes);
     }
 
 
+    /**
+     * Obtiene los datos de la BD y genera la vista de consultar solicitud
+     * @return mixed
+     */
+    public function consultarSolicitud()
+    {
+
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.consultarsolicitud')->with('solicitudes', $solicitudes);
+    }
+
+
+    /**
+     * Obtiene los datos de la solicitud y regresa la vista con los datos de la solicitud seleccionada para su actualización
+     * @param $id
+     * @return mixed
+     */
     public function editarSolicitud($id)
     {
 
         $solicitudabstracta = SolicitudAbstracta::find($id);
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
         $this->data['solicitud'] = $solicitudabstracta;
         $this->data['aplicaciones'] = Aplicacion::all();
         $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
-        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas,'APLI_ID_APLICACION');
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
         $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
         $cuentascol = $solicitudabstracta->cuentascol;
-
-
 
 
         $meco = DB::table('solicitud_abstracta')
@@ -249,21 +278,88 @@ class SolicitudController extends BaseController {
             ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
             ->get();
 
+        $otraapp = DB::table('otra_app')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
+            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
+            ->get();
 
-
-
-
+        $otrocampo = DB::table('otro_campo')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo.otca_id_otro_campo')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
 
         // Show form
-        return View::make('gestionarsolicitudderecursos.editarsolicitud',$this->data)->with('cuentascol',$solicitud)->with('solicitudabstracta',$solicitudabstracta)->with('grado',$grado)->with('dependencias_catalogo',$dependencias_catalogo)->with('meco',$meco);
+        return View::make('gestionarsolicitudderecursos.editarsolicitud', $this->data)
+            ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+            ->with('grado', $grado)
+            ->with('dependencias_catalogo', $dependencias_catalogo)
+            ->with('otrocampo', $otrocampo)
+            ->with('otraapp', $otraapp)
+            ->with('campotrabajo', $campotrabajo)
+            ->with('meco', $meco);
+    }
+
+    /**
+     * Obtiene los datos de la solicitud y regresa la vista con los datos de la solicitud seleccionada para consultar la solicitud
+     * @param $id
+     * @return mixed
+     */
+    public function consultarSolicitudVista($id)
+    {
+
+        $solicitudabstracta = SolicitudAbstracta::find($id);
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+        $this->data['solicitud'] = $solicitudabstracta;
+        $this->data['aplicaciones'] = Aplicacion::all();
+        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
+        $cuentascol = $solicitudabstracta->cuentascol;
+
+
+        $meco = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+        $solicitud = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+        $otraapp = DB::table('otra_app')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
+            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+        $otrocampo = DB::table('otro_campo')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo.otca_id_otro_campo')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+        // Show form
+        return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)
+            ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+            ->with('grado', $grado)
+            ->with('dependencias_catalogo', $dependencias_catalogo)
+            ->with('otrocampo', $otrocampo)
+            ->with('otraapp', $otraapp)
+            ->with('campotrabajo', $campotrabajo)
+            ->with('meco', $meco);
     }
 
 
-
+    /**
+     * Actualiza la solicitud de recursos seleccionada
+     * @return mixed
+     */
     public function actualizarSolicitud()
     {
         $id = Input::get('id');
-        $solicitudabstracta =  SolicitudAbstracta::find($id);
+        $solicitudabstracta = SolicitudAbstracta::find($id);
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
@@ -274,12 +370,13 @@ class SolicitudController extends BaseController {
         $solicitudabstracta->soab_num_proc_trab = Input::get('numproc');
         $solicitudabstracta->soab_duracion = Input::get('duracion');
         $solicitudabstracta->soab_nombre_proyecto = Input::get('nombreproyecto');
-        $solicitudabstracta->soab_desc_proyecto = Input::get('descproyecto');
         $solicitudabstracta->SOAB_ID_DEPENDENCIA = Input::get('dependencias');
         $solicitudabstracta->soab_id_grado = Input::get('grado');
         $solicitudabstracta->soab_hrs_cpu = Input::get('horasCPU');
         $solicitudabstracta->soab_esp_hd = Input::get('disco');
         $solicitudabstracta->soab_mem_ram = Input::get('memoria');
+        $solicitudabstracta->soab_lin_especializacion = Input::get('lineaesp');
+        $solicitudabstracta->soab_mod_computacional = Input::get('modelocomp');
         $solicitudabstracta->save();
 
         $idmeco = $solicitudabstracta->SOAB_ID_MEDIO_COMUNICACION;
@@ -291,19 +388,33 @@ class SolicitudController extends BaseController {
         $mediocomunicacion->save();
 
 
+        $idotrocampo = $solicitudabstracta->SOAB_ID_OTRO_CAMPO;
+        $otrocampo = OtroCampo::find($idotrocampo);
+        $otrocampo->otca_nombre = Input::get('otrocampo');
+        $otrocampo->save();
+
+
         $aplicaciones = Input::get('aplicaciones');
         $solicitudabstracta->aplicaciones()->sync($aplicaciones);
 
 
-
         $datoscuentacol = Input::get('solcol');
-        //var_dump($datoscuentacol);
+        $datosotraapp = Input::get('otraapp');
+
+        //var_dump($datosotraapp);
+        //$datosOtraApp = array_slice($datosotraapp,1);
         $datosMecoCuentasCol = Input::get('meco');
 
         //$cuentacol = $datoscuentacol;
         //$mecocuentascol = array_slice($datosMecoCuentasCol,1);
 
+        foreach (Input::get('otraapp', array()) as $id => $otraappData)
+        {
 
+            $otraap = OtraAplicacion::find($id);
+            $otraap->update($otraappData);
+            $otraap->save();
+        }
 
 
         $solcol_ids = array();
@@ -325,15 +436,19 @@ class SolicitudController extends BaseController {
         //$solicitudabstracta->cuentascol()->sync($solcol_ids);
 
 
-
         Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+
         return Redirect::to('gestionarsolicitudderecursos/modificarsolicitud');
         //$queries = DB::getQueryLog();
         //var_dump($queries);
     }
 
 
-
+    /**
+     * Genera un PDF con la carta seleccionada
+     * @param $id
+     * @return mixed
+     */
     public function generarCartas($id)
     {
         $solicitudes = DB::table('solicitud_abstracta')
@@ -343,61 +458,72 @@ class SolicitudController extends BaseController {
             ->first();
 
 
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
 
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes',$solicitudes)->render();
         return PDF::load($html, 'A4', 'portrait')->show();
     }
 
 
-
-
+    /**
+     * Regresa la vista de las solicitudes para generar cartas
+     * @return mixed
+     */
     public function mostrarSolicitudes()
     {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 1)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
             ->get();
 
-        return View::make('gestionarsolicitudderecursos.generarcartas')->with('solicitudes',$solicitudes);
+        return View::make('gestionarsolicitudderecursos.generarcartas')->with('solicitudes', $solicitudes);
     }
 
 
+    /**
+     *
+     * Genera la vista de las solicitudes aceptadas para ser notificadas
+     * @return mixed
+     */
     public function mostrarNotificacionSolicitudes()
     {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 1)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
             ->get();
 
-        return View::make('gestionarsolicitudderecursos.notificaraprobacion')->with('solicitudes',$solicitudes);
+        return View::make('gestionarsolicitudderecursos.notificaraprobacion')->with('solicitudes', $solicitudes);
     }
 
 
+    /**
+     *
+     * Notifica al usuario de sus recursos aceptados
+     * @param $id
+     */
     public function notificarAprobacion($id)
     {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-            ->join('medio_comunicacion','solicitud_abstracta.soab_id_medio_comunicacion' ,'=','medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
 
-         $correelectronico = $solicitudes->MECO_CORREO;
+        $correelectronico = $solicitudes->MECO_CORREO;
 
 
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes',$solicitudes)->render();
-
-
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
 
 
         $outputName = str_random(10); // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
-        $pdfPath = public_path().'/'.$outputName.'.pdf';
+        $pdfPath = public_path() . '/' . $outputName . '.pdf';
         File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
 
-        $data = [ 'msg' => 'hola' ];
-        Mail::send('emails.welcome' ,$data ,function($message) use ($pdfPath,$correelectronico){
+        $data = ['msg' => 'hola'];
+        Mail::send('emails.welcome', $data, function ($message) use ($pdfPath, $correelectronico)
+        {
             $message->from('moroccosc@gmail.com', 'Laravel');
             $message->to($correelectronico);
             $message->attach($pdfPath);
@@ -405,6 +531,26 @@ class SolicitudController extends BaseController {
     }
 
 
+    /**
+     *
+     * Descarga el achivo curriculum
+     * @param $id
+     * @return mixed
+     */
+    public function mostrarArchivo($id)
+    {
+
+        $solicitud = SolicitudAbstracta::find($id);
+        $rutaarchivo = $solicitud->SOAB_CURRICULUM;
+
+        $file = public_path() . '/' . $rutaarchivo;
+
+        return Response::download($file);
+
+        //return Redirect::to('');
+
+
+    }
 
 
 }

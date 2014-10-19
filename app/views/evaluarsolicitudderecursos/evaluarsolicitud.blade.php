@@ -167,7 +167,7 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Consultar solicitudes</a>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/consultarsolicitud') }}">Consultar solicitudes</a>
 
                     </li>
                     <li>
@@ -180,6 +180,11 @@
 
                     <li>
                         <a href="{{ URL::to('gestionarsolicitudderecursos/generarcartas') }}">Generar carta de aceptación de recursos</a>
+
+                    </li>
+
+                    <li>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de recursos</a>
 
                     </li>
                 </ul>

@@ -168,7 +168,7 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Consultar solicitud</a>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/consultarsolicitud') }}">Consultar solicitud</a>
 
                     </li>
                     <li>
