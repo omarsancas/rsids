@@ -20,7 +20,9 @@
 	"require-dev": {
     "way/generators": "2.*",
     "raahul/larryfour": "1.*",
-    "thujohn/pdf": "dev-master"
+    "thujohn/pdf": "dev-master",
+    "league/csv": "6.0.*@dev",
+     "hackzilla/password-generator": "~0.1"
 	},
 
 

@@ -33,30 +33,31 @@ Route::get('download', function()
 
 });
 
+
+Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'EvaluarSolicitudController@prueba2']);
+
 Route::get('/', function()
 {
 
-    $solicitudes = DB::table('solicitud_abstracta')
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
-        ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 4)
-        ->first();
+    //$total = DB::table('usuario_x_proyecto')->sum('uspr_num_hrscpu');
+    $links = DB::table('usuario_x_proyecto')
+        ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))
+        //->sum('uspr_num_hrscpu')
+        //->select(DB::raw('sum(\'usuario_x_proyecto.uspr_num_jobs\')'))
+        ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
+        //->sum('usuario_x_proyecto.uspr_num_jobs')
 
-    //var_dump($solicitudes);
+        ->groupBy('proy_id_proyecto')
+        ->whereBetween(DB::raw('MONTH(uspr_fecha)'),array( 10, 11))
+        //->where(DB::raw('MONTH(uspr_fecha)'), '=', 10)
+        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
+        ->get(
 
-    $html = View::make('admin.generarcarta')->with('solicitudes',$solicitudes)->render();
-    return PDF::load($html, 'A4', 'portrait')->show();
+        );
 
-    $outputName = str_random(10); // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
-    $pdfPath = public_path().'/'.$outputName.'.pdf';
-    File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
+    //$queries = DB::getQueryLog();
+    var_dump($links);
 
-    $data = [ 'msg' => 'hola' ];
-    Mail::send('emails.welcome' ,$data ,function($message) use ($pdfPath){
-        $message->from('moroccosc@gmail.com', 'Laravel');
-        $message->to('vic.raval.val@gmail.com');
-        $message->attach($pdfPath);
-    });
 });
 
 
@@ -67,6 +68,13 @@ Route::get('gestionarsolicitudderecursos/eliminarsolicitud', ['as' => 'delete', 
 Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [	'uses' => 'SolicitudController@eliminar' ]);
 Route::get('gestionarsolicitudderecursos/modificarsolicitud', [ 'uses' => 'SolicitudController@modificarsolicitud']);
 Route::get('gestionarsolicitudderecursos/consultarsolicitud', [ 'uses' => 'SolicitudController@consultarSolicitud']);
+Route::get('gestionarsolicitudderecursos/buscarsolicitud', function()
+{
+
+    return View::make('gestionarsolicitudderecursos/buscarsolicitud');
+});
+
+Route::post('gestionarsolicitudderecursos/buscarsolicitud', ['as' => 'buscar', 'uses' => 'SolicitudController@buscarSolicitud']);
 //Route::get('gestionarsolicitudderecursos/editarsolicitud', [ 'uses' => 'SolicitudController@editarSolicitud']);
 Route::get('/edit/{id}', 'SolicitudController@editarSolicitud');
 
@@ -76,7 +84,9 @@ Route::get('/consultar/{id}', array(
 ));
 
 
-Route::get('/bajararchivo/{id}', array('as' => 'bajararchivo','uses'=> 'SolicitudController@mostrarArchivo'));
+Route::get('/bajarcurriculum/{id}', array('as' => 'bajarcurriculum','uses'=> 'SolicitudController@mostrarCurriculum'));
+Route::get('/bajardocdesc/{id}', array('as' => 'bajardocdesc','uses'=> 'SolicitudController@mostrarDocumentoDesc'));
+Route::get('/bajarconads/{id}', array('as' => 'bajarconads','uses'=> 'SolicitudController@mostrarConstancia'));
 Route::post('gestionarsolicitudderecursos/modificarsolicitud', [ 'as' => 'update', 'uses' => 'SolicitudController@actualizarSolicitud']);
 
 

@@ -116,9 +116,20 @@
     </div>
     <div class="form-group">
         {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
+        {{Form::file('curriculum');}}
 
-        {{Form::file('pdf1');}}
-        @if ($errors->has('pdf1')) <p class="help-block">{{ $errors->first('pdf1') }}</p> @endif
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('docdesc', 'Documento descriptivo del trabajo a realizar')}}
+        {{Form::file('docdesc');}}
+
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas)')}}
+        {{Form::file('constancias');}}
+
     </div>
 
 </fieldset>

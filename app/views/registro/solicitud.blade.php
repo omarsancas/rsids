@@ -150,17 +150,17 @@
 
         <div class="col-xs-3">
             {{ Form::label('horasCPU', 'Horas en CPU')}}
-            {{ Form::text('horasCPU', '', ['class' => 'form-control'])}}
+            {{ Form::text('horasCPU', '', ['class' => 'form-control' , 'data-placement'=>'top' , 'title' =>'Las horas CPU'])}}
         </div>
 
 
         <div class="col-xs-3">
             {{ Form::label('disco', 'Disco en GB')}}
-            {{ Form::text('disco', '', ['class' => 'form-control'])}}
+            {{ Form::text('disco', '', ['class' => 'form-control' , 'data-placement'=>'top' , 'title' =>'Disco en GB'])}}
         </div>
         <div class="col-xs-3">
             {{ Form::label('memoria', 'Memoria en GB')}}
-            {{ Form::text('memoria', '', ['class' => 'form-control'])}}
+            {{ Form::text('memoria', '', ['class' => 'form-control', 'data-placement'=>'top' , 'title' =>'Memoria en Gb'])}}
         </div>
     </div>
 

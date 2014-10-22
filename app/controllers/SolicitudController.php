@@ -34,9 +34,16 @@ class SolicitudController extends BaseController {
 
 
         $rules = array(
-            'nombre'               => 'required',
-            'apellidoPaterno'      => 'required',
-            'apellidoMaterno'      => 'required',
+            'nombre'               => 'required|alpha',
+            'apellidoPaterno'      => 'required|alpha',
+            'telefono'             => 'required|numeric',
+            'extension'            => 'required|numeric',
+            'horasCPU'             => 'required|numeric|max:5000000',
+            'disco'                => 'required|numeric',
+            'memoria'              => 'required|numeric',
+            'lineaesp'             => 'required',
+            'modelocomp'           => 'required',
+            'numproc'              => 'required|numeric',
             'email'                => 'required|email',
             'documentodescriptivo' => 'required|mimes:pdf|max:8000', //para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a sus necesidades
             'constancias'          => 'required|mimes:pdf|max:8000',
@@ -47,10 +54,11 @@ class SolicitudController extends BaseController {
 
 
         $mensajes = array(
-            'required' => ' El :attribute es obligatorio',
+            'required' => ' El campo :attribute es obligatorio',
             'mimes'    => 'El archivo :attribute archivo debe de ser pdf',
-            'max'      => 'El archivo :attribute no debe de pasar los 8MB'
-
+            'max'      => 'El archivo :attribute no debe de pasar los 8MB',
+            'horasCPU.max'=> 'Las horas cpu no deben sobrepasar las 5000000 de horas',
+            'numeric' => ' El campo :attribute solo debe contener números'
 
         );
 
@@ -226,6 +234,7 @@ class SolicitudController extends BaseController {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->where(DB::raw('YEAR(soab_fec_registro)'), '=',  DB::raw('YEAR(CURDATE())'))
             ->get();
 
         return View::make('gestionarsolicitudderecursos.modificarsolicitud')->with('solicitudes', $solicitudes);
@@ -256,6 +265,11 @@ class SolicitudController extends BaseController {
     {
 
         $solicitudabstracta = SolicitudAbstracta::find($id);
+        //dd($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION);
+        /*Esta funcion de empty es para que cuando se implemente la solicitud de renovacion se pueda cambiar de vista*/
+        if(empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
+        {
+
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
         $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
@@ -297,6 +311,7 @@ class SolicitudController extends BaseController {
             ->with('otraapp', $otraapp)
             ->with('campotrabajo', $campotrabajo)
             ->with('meco', $meco);
+        }
     }
 
     /**
@@ -401,9 +416,63 @@ class SolicitudController extends BaseController {
         $datoscuentacol = Input::get('solcol');
         $datosotraapp = Input::get('otraapp');
 
+
+        if (Input::hasFile('curriculum'))
+        {
+            $archivo = $solicitudabstracta->SOAB_CURRICULUM;
+            File::delete(public_path(). '/' . $archivo );
+            $destinationPath = public_path() . '/uploads';
+            /** @var $filename1 TYPE_NAME */
+            $filename1 = str_random(6) . time() . '.' . Input::file('curriculum')->getClientOriginalExtension();
+            $upload_success = Input::file('curriculum')->move($destinationPath, $filename1);
+
+
+            if ($upload_success)
+            {
+                $solicitudabstracta->soab_curriculum = 'uploads/' . $filename1;
+                $solicitudabstracta->save();
+            }
+        }
+
+
+        if (Input::hasFile('docdesc'))
+        {
+            $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
+            File::delete(public_path(). '/' . $archivo );
+            $destinationPath = public_path() . '/uploads';
+            /** @var $filename1 TYPE_NAME */
+            $filename2 = str_random(6) . time() . '.' . Input::file('docdesc')->getClientOriginalExtension();
+            $upload_success = Input::file('docdesc')->move($destinationPath, $filename2);
+
+
+            if ($upload_success)
+            {
+                $solicitudabstracta->soab_desc_proyecto = 'uploads/' . $filename2;
+                $solicitudabstracta->save();
+            }
+        }
+
+
+        if (Input::hasFile('constancias'))
+        {
+            $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
+            File::delete(public_path(). '/' . $archivo );
+            $destinationPath = public_path() . '/uploads';
+            /** @var $filename1 TYPE_NAME */
+            $filename3 = str_random(6) . time() . '.' . Input::file('constancias')->getClientOriginalExtension();
+            $upload_success = Input::file('constancias')->move($destinationPath, $filename3);
+
+
+            if ($upload_success)
+            {
+                $solicitudabstracta->soab_con_adscripcion = 'uploads/' . $filename3;
+                $solicitudabstracta->save();
+            }
+        }
+
         //var_dump($datosotraapp);
         //$datosOtraApp = array_slice($datosotraapp,1);
-        $datosMecoCuentasCol = Input::get('meco');
+        //$datosMecoCuentasCol = Input::get('meco');
 
         //$cuentacol = $datoscuentacol;
         //$mecocuentascol = array_slice($datosMecoCuentasCol,1);
@@ -417,7 +486,7 @@ class SolicitudController extends BaseController {
         }
 
 
-        $solcol_ids = array();
+
         foreach (Input::get('solcol', array()) as $id => $solcolData)
         {
             $solcol = Cuentacol::find($id);
@@ -425,7 +494,7 @@ class SolicitudController extends BaseController {
             $solcol->save();
         }
 
-        $solcol_ids = array();
+
         foreach (Input::get('meco', array()) as $id => $solcolData)
         {
             $meco = MedioComunicacion::find($id);
@@ -537,17 +606,64 @@ class SolicitudController extends BaseController {
      * @param $id
      * @return mixed
      */
-    public function mostrarArchivo($id)
+    public function mostrarCurriculum($id)
     {
 
         $solicitud = SolicitudAbstracta::find($id);
         $rutaarchivo = $solicitud->SOAB_CURRICULUM;
-
         $file = public_path() . '/' . $rutaarchivo;
-
         return Response::download($file);
 
         //return Redirect::to('');
+
+    }
+
+
+    public function mostrarDocumentoDesc($id)
+    {
+
+        $solicitud = SolicitudAbstracta::find($id);
+        $rutaarchivo = $solicitud->SOAB_DESC_PROYECTO;
+        $file = public_path() . '/' . $rutaarchivo;
+        return Response::download($file);
+
+        //return Redirect::to('');
+
+    }
+
+
+    public function mostrarConstancia($id)
+    {
+
+        $solicitud = SolicitudAbstracta::find($id);
+        $rutaarchivo = $solicitud->SOAB_CON_ADSCRIPCION;
+        $file = public_path() . '/' . $rutaarchivo;
+        return Response::download($file);
+
+        //return Redirect::to('');
+
+    }
+
+    public function buscarSolicitud()
+    {
+        $tipo = Input::get('tiposolicitud');
+        $mes = Input::get('mes');
+        $estado = Input::get('estadosolicitud');
+        $anio = Input::get('anio');
+
+        //dd($estado);
+
+
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->join('estado_solicitud', 'solicitud_abstracta.soab_id_estado_solicitud', '=', 'estado_solicitud.esso_id_esado_solicitud')
+            ->where(DB::raw('MONTH(soab_fec_registro)'), '=', $mes)
+            ->where('estado_solicitud.esso_id_esado_solicitud', '=', $estado)
+            ->where('tipo_solicitud.tiso_id_tipo_solicitud', '=', $tipo)
+            ->where(DB::raw('YEAR(soab_fec_registro)'), '=', $anio )
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.consultarsolicitud')->with('solicitudes', $solicitudes);
 
 
     }

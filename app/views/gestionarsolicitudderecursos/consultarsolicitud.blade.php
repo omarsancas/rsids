@@ -237,7 +237,9 @@
                 @endif
                 <h2>Modificar Solicitud de recursos</h2>
 
-
+                @if (empty($solicitudes))
+                <h2>No se encontró ninguna solicitud con los parametros elegidos</h2>
+                @else
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
@@ -254,6 +256,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @foreach ($solicitudes as $solicitud)
                         <tr>
 
@@ -271,6 +274,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
                 {{ Form::close() }}
             </div>
 

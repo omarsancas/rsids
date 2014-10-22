@@ -12,7 +12,7 @@
 <h1></h1>
 
 <h1>Consultar solicitud de recursos</h1>
-{{ Form::open (['route' => 'bajararchivo', 'method' => 'GET','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
+{{ Form::open (['route' => 'bajarcurriculum', 'method' => 'GET','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)
@@ -111,14 +111,26 @@
 
 <fieldset>
     <legend>Documento requeridos</legend>
-    <div class="well">ATENCIÓN: Le recordamos que la documentación debe ser enviada en formato .pdf y el tamaño del
-        archivo no debe sobrepasar los 8 MB
-    </div>
+
     <div class="form-group">
         {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
 
 
-        <a href="{{action('SolicitudController@mostrarArchivo', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA)}}">Ver curriculum</a>
+        <a href="{{action('SolicitudController@mostrarCurriculum', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA)}}">Ver curriculum</a>
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('curriculum', 'Documento descriptivo')}}
+
+
+        <a href="{{action('SolicitudController@mostrarDocumentoDesc', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA)}}">Ver Documento descriptivo</a>
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
+
+
+        <a href="{{action('SolicitudController@mostrarConstancia', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA)}}">Ver constancias de adscripción</a>
     </div>
 
 </fieldset>

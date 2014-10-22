@@ -5,7 +5,7 @@
  * Date: 15/10/14
  * Time: 11:13 AM
  */
-
+use League\Csv\Reader;
 class EvaluarSolicitudController extends BaseController{
 
     public function modificarSolicitud()
@@ -66,6 +66,50 @@ class EvaluarSolicitudController extends BaseController{
         Session::flash('message', '¡La solicitud se ha aceptado exitosamente!');
         return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
 
+    }
+
+
+    public function prueba()
+    {
+        $moved = public_path() . '/uploads/contabilidad.txt';
+
+        //DB::table('wc_program_1')->truncate();
+
+        $csv = new Reader($moved);
+        $csv->setOffset(0); //because we don't want to insert the header
+        $nbInsert = $csv->each(function ($row) use (&$sth) {
+            DB::table('usuario_x_proyecto')->insert(
+                array(
+
+                    'uspr_id_usuario' => (isset($row[0]) ? $row[0] : ''),
+                    'uspr_num_jobs' => (isset($row[1]) ? $row[1] : ''),
+                    'uspr_num_hrscpu' => (isset($row[2]) ? $row[2] : '')
+
+            ));
+            return true;
+        });
+
+        return Response::json('success', 200);
+
+
+    }
+
+
+    public function prueba2()
+    {
+        $links = DB::table('usuario_x_proyecto')
+            ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))
+            //->sum('uspr_num_hrscpu')
+            //->select(DB::raw('sum(\'usuario_x_proyecto.uspr_num_jobs\')'))
+            ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
+            //->sum('usuario_x_proyecto.uspr_num_jobs')
+
+            ->groupBy('proy_id_proyecto')
+
+            //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
+            ->get();
+
+        return \Illuminate\Support\Facades\View::make('proyectos')->with('proyectos',$links);
     }
 
 } 
