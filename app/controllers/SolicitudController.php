@@ -10,15 +10,15 @@ class SolicitudController extends BaseController {
     public function mostrarSolicitud()
     {
 
-        // queries the clients db table, orders by client_name and lists client_name and id
-
         $aplicaciones = Aplicacion::lists('apli_nombre', 'apli_id_aplicacion');
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
 
 
-        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)->with('aplicaciones', $aplicaciones)->with('grado', $grado)->with('campos', $campotrabajo);
+        return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)
+                                                ->with('aplicaciones', $aplicaciones)
+                                                ->with('grado', $grado)->with('campos', $campotrabajo);
 
 
     }
@@ -34,8 +34,8 @@ class SolicitudController extends BaseController {
 
 
         $rules = array(
-            'nombre'               => 'required|alpha',
-            'apellidoPaterno'      => 'required|alpha',
+            'nombre'               => 'required',
+            'apellidoPaterno'      => 'required',
             'telefono'             => 'required|numeric',
             'extension'            => 'required|numeric',
             'horasCPU'             => 'required|numeric|max:5000000',
@@ -202,9 +202,7 @@ class SolicitudController extends BaseController {
      */
     public function eliminarSolicitud()
     {
-        $solicitudes = DB::table('solicitud_abstracta')
-            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->get();
+        $solicitudes = $this->obtenerSolicitudes();
 
         return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes', $solicitudes);
     }
@@ -248,9 +246,7 @@ class SolicitudController extends BaseController {
     public function consultarSolicitud()
     {
 
-        $solicitudes = DB::table('solicitud_abstracta')
-            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->get();
+        $solicitudes = $this->obtenerSolicitudes();
 
         return View::make('gestionarsolicitudderecursos.consultarsolicitud')->with('solicitudes', $solicitudes);
     }
@@ -264,43 +260,7 @@ class SolicitudController extends BaseController {
     public function editarSolicitud($id)
     {
 
-        $solicitudabstracta = SolicitudAbstracta::find($id);
-        //dd($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION);
-        /*Esta funcion de empty es para que cuando se implemente la solicitud de renovacion se pueda cambiar de vista*/
-        if(empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
-        {
-
-        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
-        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
-        $this->data['solicitud'] = $solicitudabstracta;
-        $this->data['aplicaciones'] = Aplicacion::all();
-        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
-        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
-        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
-        $cuentascol = $solicitudabstracta->cuentascol;
-
-
-        $meco = DB::table('solicitud_abstracta')
-            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->first();
-
-
-        $solicitud = DB::table('solicitud_cta_colaboradora')
-            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-            ->get();
-
-        $otraapp = DB::table('otra_app')
-            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
-            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
-            ->get();
-
-        $otrocampo = DB::table('otro_campo')
-            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo.otca_id_otro_campo')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->first();
+        list($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo) = $this->obtenerListaSolicitudes($id);
 
         // Show form
         return View::make('gestionarsolicitudderecursos.editarsolicitud', $this->data)
@@ -311,7 +271,7 @@ class SolicitudController extends BaseController {
             ->with('otraapp', $otraapp)
             ->with('campotrabajo', $campotrabajo)
             ->with('meco', $meco);
-        }
+
     }
 
     /**
@@ -322,38 +282,7 @@ class SolicitudController extends BaseController {
     public function consultarSolicitudVista($id)
     {
 
-        $solicitudabstracta = SolicitudAbstracta::find($id);
-        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
-        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
-        $this->data['solicitud'] = $solicitudabstracta;
-        $this->data['aplicaciones'] = Aplicacion::all();
-        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
-        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
-        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
-        $cuentascol = $solicitudabstracta->cuentascol;
-
-
-        $meco = DB::table('solicitud_abstracta')
-            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->first();
-
-
-        $solicitud = DB::table('solicitud_cta_colaboradora')
-            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-            ->get();
-
-        $otraapp = DB::table('otra_app')
-            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
-            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
-            ->get();
-
-        $otrocampo = DB::table('otro_campo')
-            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo.otca_id_otro_campo')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->first();
+        list($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo) = $this->obtenerListaSolicitudes($id);
 
         // Show form
         return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)
@@ -364,6 +293,7 @@ class SolicitudController extends BaseController {
             ->with('otraapp', $otraapp)
             ->with('campotrabajo', $campotrabajo)
             ->with('meco', $meco);
+
     }
 
 
@@ -664,6 +594,67 @@ class SolicitudController extends BaseController {
             ->get();
 
         return View::make('gestionarsolicitudderecursos.consultarsolicitud')->with('solicitudes', $solicitudes);
+
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function obtenerSolicitudes()
+    {
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->get();
+
+        return $solicitudes;
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function obtenerListaSolicitudes($id)
+    {
+        $solicitudabstracta = SolicitudAbstracta::find($id);
+        /*Esta funcion de empty es para que cuando se implemente la solicitud de renovacion se pueda cambiar de vista*/
+        if (empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
+        {
+
+            $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+            $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+            $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+            $this->data['solicitud'] = $solicitudabstracta;
+            $this->data['aplicaciones'] = Aplicacion::all();
+            $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
+            $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+            $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
+            $cuentascol = $solicitudabstracta->cuentascol;
+
+
+            $meco = DB::table('solicitud_abstracta')
+                ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+                ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+                ->first();
+
+
+            $solicitud = DB::table('solicitud_cta_colaboradora')
+                ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+                ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+                ->get();
+
+            $otraapp = DB::table('otra_app')
+                ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
+                ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
+                ->get();
+
+            $otrocampo = DB::table('otro_campo_trabajo')
+                ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo_trabajo.otca_id_otro_campo')
+                ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+                ->first();
+
+            return array($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo);
+        }
 
 
     }

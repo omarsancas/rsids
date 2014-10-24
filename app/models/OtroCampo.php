@@ -12,7 +12,7 @@
 class OtroCampo extends Eloquent {
     
     protected $fillable = array('otca_id_otro_campo','otca_nombre');
-    protected $table = 'otro_campo';
+    protected $table = 'otro_campo_trabajo';
     protected $primaryKey = 'OTCA_ID_OTRO_CAMPO';
     public $timestamps = false;
 

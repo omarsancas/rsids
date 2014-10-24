@@ -11,7 +11,7 @@
 
 class Usuario extends Eloquent {
     
-    //protected $fillable = [];
+    protected $fillable = array('usua_id_usuario,usua_login,usua_pass_md5');
     protected $table = 'usuario';
     protected $primaryKey = 'USUA_ID_USUARIO';
     public $timestamps = false;

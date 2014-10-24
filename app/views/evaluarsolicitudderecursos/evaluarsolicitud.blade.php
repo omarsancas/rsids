@@ -167,7 +167,7 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/consultarsolicitud') }}">Consultar solicitudes</a>
+                        <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}">Consultar solicitudes</a>
 
                     </li>
                     <li>
@@ -257,6 +257,7 @@
                             <td>
                                 <a href="{{ action('EvaluarSolicitudController@aceptar', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Aceptar</a>
 
+                                <a href="{{ action('EvaluarSolicitudController@rechazar', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-danger">Rechazar</a>
 
                             </td>
 

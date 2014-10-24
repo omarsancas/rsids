@@ -11,8 +11,8 @@
 
 <h1></h1>
 
-<h1>Modificar solicitud de recursos</h1>
-{{ Form::open (['route' => 'update', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
+<h1>Aceptar Solicitud de recursos</h1>
+{{ Form::open (['route' => 'aceptarsolicitud', 'method' => 'POST','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)
@@ -383,18 +383,46 @@
     </fieldset>
 
 
+
+
+
     @endforeach
-
-
 
 
 
     @endif
 
+    <div class="form-group">
+        {{ Form::label('tipo', 'Tipo de Proyecto')}}
+        <select name="tipoproyecto" id="tipoproyecto" class="form-control" >
+            <option value="0" > Proyecto de investigación</option>
+            <option value="1" > Semilla </option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        {{ Form::label('horas aprobadas', 'Horas aprobadas')}}
+        {{ Form::text('horasaprobadas', '', ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('nombre', 'Login cuenta titular')}}
+        {{ Form::text('cuentatitular', '', ['class' => 'form-control'])}}
+    </div>
+
+    @foreach($numerocuentascol as $numero)
+
+    <div class="form-group">
+        {{ Form::label('nombre', 'Login cuenta colaboradoras')}}
+        {{ Form::text('cuentacolaboradora[]', '', ['class' => 'form-control'])}}
+    </div>
+    @endforeach
+
 
     <div class="form-group">
         <p>
-            <input type="submit" value="Enviar" class="btn btn-success btn-lg">
+            <input type="submit" value="Aceptar" class="btn btn-success btn-lg">
         </p>
     </div>
     {{ Form::close() }}

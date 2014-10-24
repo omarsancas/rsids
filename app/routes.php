@@ -39,7 +39,11 @@ Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'EvaluarSolicitudControl
 Route::get('/', function()
 {
 
-    //$total = DB::table('usuario_x_proyecto')->sum('uspr_num_hrscpu');
+    $numerocuentascol = DB::table('solicitud_cta_colaboradora')
+        ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
+        ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', 18)
+        ->get();
+    /*//$total = DB::table('usuario_x_proyecto')->sum('uspr_num_hrscpu');
     $links = DB::table('usuario_x_proyecto')
         ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))
         //->sum('uspr_num_hrscpu')
@@ -53,20 +57,25 @@ Route::get('/', function()
         //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
         ->get(
 
-        );
+        );*/
 
-    //$queries = DB::getQueryLog();
-    var_dump($links);
+    $queries = DB::getQueryLog();
+    var_dump($numerocuentascol);
 
 });
 
 
 //Estas rutas son para el caso de uso gestionar solicitud de recursos
 Route::get('solicitud', ['as' => 'solicitud', 'uses' => 'SolicitudController@mostrarSolicitud']);
+
 Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@generarSolicitud']);
+
 Route::get('gestionarsolicitudderecursos/eliminarsolicitud', ['as' => 'delete', 'uses' => 'SolicitudController@eliminarSolicitud']);
+
 Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [	'uses' => 'SolicitudController@eliminar' ]);
+
 Route::get('gestionarsolicitudderecursos/modificarsolicitud', [ 'uses' => 'SolicitudController@modificarsolicitud']);
+
 Route::get('gestionarsolicitudderecursos/consultarsolicitud', [ 'uses' => 'SolicitudController@consultarSolicitud']);
 Route::get('gestionarsolicitudderecursos/buscarsolicitud', function()
 {
@@ -75,8 +84,9 @@ Route::get('gestionarsolicitudderecursos/buscarsolicitud', function()
 });
 
 Route::post('gestionarsolicitudderecursos/buscarsolicitud', ['as' => 'buscar', 'uses' => 'SolicitudController@buscarSolicitud']);
-//Route::get('gestionarsolicitudderecursos/editarsolicitud', [ 'uses' => 'SolicitudController@editarSolicitud']);
+
 Route::get('/edit/{id}', 'SolicitudController@editarSolicitud');
+
 
 Route::get('/consultar/{id}', array(
     'as' => 'consultar',
@@ -89,14 +99,6 @@ Route::get('/bajardocdesc/{id}', array('as' => 'bajardocdesc','uses'=> 'Solicitu
 Route::get('/bajarconads/{id}', array('as' => 'bajarconads','uses'=> 'SolicitudController@mostrarConstancia'));
 Route::post('gestionarsolicitudderecursos/modificarsolicitud', [ 'as' => 'update', 'uses' => 'SolicitudController@actualizarSolicitud']);
 
-
-//Estas rutas son para el caso de uso evaluar solicitud
-
-Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [ 'uses' => 'EvaluarSolicitudController@modificarSolicitud']);
-Route::get('/aceptar/{id}', array(
-    'as' => 'aceptar',
-    'uses' => 'EvaluarSolicitudController@aceptar'
-));
 
 Route::get('gestionarsolicitudderecursos/generarcartas', [ 'uses' => 'SolicitudController@mostrarSolicitudes']);
 
@@ -112,6 +114,24 @@ Route::get('/notificar/{id}', array(
     'as' => 'notificar',
     'uses' => 'SolicitudController@notificarAprobacion'
 ));
+
+
+
+//Estas rutas son para el caso de uso evaluar solicitud
+Route::post('evaluarsolicituderecursos/aceptarsolicitud', [ 'as' => 'aceptarsolicitud', 'uses' => 'EvaluarSolicitudController@actualizarSolicitud']);
+Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [ 'uses' => 'EvaluarSolicitudController@listarSolicitudes']);
+Route::get('/aceptar/{id}', array(
+    'as' => 'aceptar',
+    'uses' => 'EvaluarSolicitudController@aceptar'
+));
+
+Route::get('/rechazar/{id}', array(
+    'as' => 'rechazar',
+    'uses' => 'EvaluarSolicitudController@rechazar'
+));
+
+Route::post('evaluarsolicituderecursos/rechazarsolicitud', [ 'as' => 'rechazarsolicitud', 'uses' => 'EvaluarSolicitudController@rechazarSolicitud']);
+
 
 
 
