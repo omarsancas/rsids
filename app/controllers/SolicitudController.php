@@ -282,7 +282,14 @@ class SolicitudController extends BaseController {
     public function consultarSolicitudVista($id)
     {
 
-        list($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo) = $this->obtenerListaSolicitudes($id);
+        list($solicitudabstracta,
+            $dependencias_catalogo,
+            $grado,
+            $campotrabajo,
+            $meco,
+            $solicitud,
+            $otraapp,
+            $otrocampo) = $this->obtenerListaSolicitudes($id);
 
         // Show form
         return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)

@@ -22,7 +22,9 @@
     "raahul/larryfour": "1.*",
     "thujohn/pdf": "dev-master",
     "league/csv": "6.0.*@dev",
-     "hackzilla/password-generator": "~0.1"
+    "hackzilla/password-generator": "~0.1",
+    "maatwebsite/excel": "1.*"
+
 	},
 
 

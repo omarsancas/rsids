@@ -39,10 +39,24 @@ Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'EvaluarSolicitudControl
 Route::get('/', function()
 {
 
+
+
+    Excel::create('Filename', function($excel) {
+
+        $excel->sheet('Sheetname', function($sheet) {
+            $model = Vpn::all();
+
+            $sheet->fromModel($model);
+
+        });
+
+    })->download('txt');
+    /*
     $numerocuentascol = DB::table('solicitud_cta_colaboradora')
         ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
         ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', 18)
         ->get();
+    */
     /*//$total = DB::table('usuario_x_proyecto')->sum('uspr_num_hrscpu');
     $links = DB::table('usuario_x_proyecto')
         ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))

@@ -15,7 +15,7 @@ class EvaluarSolicitudController extends BaseController{
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 0)
-            ->where('solicitud_abstracta.soab_es_proyecto', '=' , 0)
+            //->where('solicitud_abstracta.soab_es_proyecto', '=' , 0)
             ->get();
 
         return View::make('evaluarsolicitudderecursos/evaluarsolicitud')->with('solicitudes',$solicitudes);
@@ -287,6 +287,17 @@ class EvaluarSolicitudController extends BaseController{
         $usuario->usua_id_proyecto = $esproyecto->proy_id_proyecto;
         $usuario->save();
 
+        $generator = new ComputerPasswordGenerator();
+        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS);
+        $generator->setLength(12);
+        $passwordvpn = $generator->generatePassword();
+
+        $vpn = new Vpn;
+        $logintitular =  Input::get('cuentatitular');
+        $vpn->vplo_id_vpn =  $logintitular;
+        $vpn->vpn_password = $passwordvpn;
+        $vpn->save();
+
 
 
         $cuentascolaboradora = Input::get('cuentacolaboradora');
@@ -304,6 +315,16 @@ class EvaluarSolicitudController extends BaseController{
             $usuariocol->usua_id_proyecto = $esproyecto->proy_id_proyecto;
             $usuariocol->usua_pass_md5 = Hash::make($password);
             $usuariocol->save();
+
+            $generator = new ComputerPasswordGenerator();
+            $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS|ComputerPasswordGenerator::OPTION_SYMBOLS|ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
+            $generator->setLength(12);
+            $passwordvpn = $generator->generatePassword();
+
+            $vpncol = new Vpn;
+            $vpncol->vplo_login =  $cuentacol;
+            $vpncol->vpn_password = $passwordvpn;
+            $vpncol->save();
 
         }
 
