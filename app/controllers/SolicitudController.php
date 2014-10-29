@@ -158,30 +158,34 @@ class SolicitudController extends BaseController {
             /*$queries = DB::getQueryLog();
             var_dump($queries);*/
 
+            $destinationPath = public_path() . '/uploads/'. $datos->SOAB_ID_SOLICITUD_ABSTRACTA. '_'.'Solicitud'. '_'. time();
 
-            $file = Input::file('curriculum');
-            $destinationPath = public_path() . '/uploads';
+            $result = File::makeDirectory($destinationPath);
+
+            $datos->soab_ruta_archivos = $destinationPath;
+            $datos->save();
+
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
             /** @var $filename1 TYPE_NAME */
-            $filename1 = str_random(6) . time() . '.' . Input::file('curriculum')->getClientOriginalExtension();
+            $filename1 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
             $upload_success = Input::file('curriculum')->move($destinationPath, $filename1);
 
-            $file1 = Input::file('documentodescriptivo');
+
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
-            $filename2 = str_random(6) . time() . '.' . Input::file('documentodescriptivo')->getClientOriginalExtension();
+            $filename2 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
             $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
 
-            $file2 = Input::file('constancias');
+
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
-            $filename3 = str_random(6) . time() . '.' . Input::file('constancias')->getClientOriginalExtension();
+            $filename3 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
             $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
 
 
-            if ($upload_success)
+            if ($upload_success && $upload_success2 && $upload_success3 )
             {
-                $datos->soab_curriculum = 'uploads/' . $filename1;
-                $datos->soab_desc_proyecto = 'uploads/' . $filename2;
-                $datos->soab_con_adscripcion = 'uploads/' . $filename3;
+                $datos->soab_curriculum = $destinationPath .'/'. $filename1;
+                $datos->soab_desc_proyecto = $destinationPath .'/'. $filename2;
+                $datos->soab_con_adscripcion = $destinationPath .'/'. $filename3;
                 $datos->save();
 
                 return Response::json('success', 200);
@@ -357,16 +361,16 @@ class SolicitudController extends BaseController {
         if (Input::hasFile('curriculum'))
         {
             $archivo = $solicitudabstracta->SOAB_CURRICULUM;
-            File::delete(public_path(). '/' . $archivo );
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename1 = str_random(6) . time() . '.' . Input::file('curriculum')->getClientOriginalExtension();
-            $upload_success = Input::file('curriculum')->move($destinationPath, $filename1);
+            $filename1 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
+            $upload_success1 = Input::file('curriculum')->move($destinationPath, $filename1);
 
 
-            if ($upload_success)
+            if ($upload_success1)
             {
-                $solicitudabstracta->soab_curriculum = 'uploads/' . $filename1;
+                $solicitudabstracta->soab_curriculum = $destinationPath .'/'. $filename1;
                 $solicitudabstracta->save();
             }
         }
@@ -375,16 +379,17 @@ class SolicitudController extends BaseController {
         if (Input::hasFile('docdesc'))
         {
             $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
-            File::delete(public_path(). '/' . $archivo );
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename2 = str_random(6) . time() . '.' . Input::file('docdesc')->getClientOriginalExtension();
-            $upload_success = Input::file('docdesc')->move($destinationPath, $filename2);
+            $filename2 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
+            $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
 
 
-            if ($upload_success)
+
+            if ($upload_success2)
             {
-                $solicitudabstracta->soab_desc_proyecto = 'uploads/' . $filename2;
+                $solicitudabstracta->soab_desc_proyecto = $destinationPath .'/'. $filename2;
                 $solicitudabstracta->save();
             }
         }
@@ -393,16 +398,15 @@ class SolicitudController extends BaseController {
         if (Input::hasFile('constancias'))
         {
             $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
-            File::delete(public_path(). '/' . $archivo );
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename3 = str_random(6) . time() . '.' . Input::file('constancias')->getClientOriginalExtension();
-            $upload_success = Input::file('constancias')->move($destinationPath, $filename3);
+            $filename3 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
+            $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
 
-
-            if ($upload_success)
+            if ($upload_success3)
             {
-                $solicitudabstracta->soab_con_adscripcion = 'uploads/' . $filename3;
+                $solicitudabstracta->soab_con_adscripcion = $destinationPath .'/'. $filename3;
                 $solicitudabstracta->save();
             }
         }
@@ -548,8 +552,8 @@ class SolicitudController extends BaseController {
 
         $solicitud = SolicitudAbstracta::find($id);
         $rutaarchivo = $solicitud->SOAB_CURRICULUM;
-        $file = public_path() . '/' . $rutaarchivo;
-        return Response::download($file);
+
+        return Response::download($rutaarchivo);
 
         //return Redirect::to('');
 
@@ -561,8 +565,7 @@ class SolicitudController extends BaseController {
 
         $solicitud = SolicitudAbstracta::find($id);
         $rutaarchivo = $solicitud->SOAB_DESC_PROYECTO;
-        $file = public_path() . '/' . $rutaarchivo;
-        return Response::download($file);
+        return Response::download($rutaarchivo);
 
         //return Redirect::to('');
 
@@ -574,8 +577,8 @@ class SolicitudController extends BaseController {
 
         $solicitud = SolicitudAbstracta::find($id);
         $rutaarchivo = $solicitud->SOAB_CON_ADSCRIPCION;
-        $file = public_path() . '/' . $rutaarchivo;
-        return Response::download($file);
+
+        return Response::download($rutaarchivo);
 
         //return Redirect::to('');
 

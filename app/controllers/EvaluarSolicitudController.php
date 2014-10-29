@@ -120,7 +120,6 @@ class EvaluarSolicitudController extends BaseController{
                     'uspr_id_usuario' => (isset($row[0]) ? $row[0] : ''),
                     'uspr_num_jobs' => (isset($row[1]) ? $row[1] : ''),
                     'uspr_num_hrscpu' => (isset($row[2]) ? $row[2] : '')
-
             ));
             return true;
         });
@@ -267,7 +266,9 @@ class EvaluarSolicitudController extends BaseController{
 
 
         $generator = new ComputerPasswordGenerator();
-        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS);
+        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE
+                               | ComputerPasswordGenerator::OPTION_LOWER_CASE
+                               | ComputerPasswordGenerator::OPTION_NUMBERS);
         $generator->setLength(12);
         $passwordtitular = $generator->generatePassword();
 
@@ -287,15 +288,38 @@ class EvaluarSolicitudController extends BaseController{
         $usuario->usua_id_proyecto = $esproyecto->proy_id_proyecto;
         $usuario->save();
 
+
+
         $generator = new ComputerPasswordGenerator();
         $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS);
         $generator->setLength(12);
         $passwordvpn = $generator->generatePassword();
+        $idlog = Input::get('id');
+       $solicitudabs = SolicitudAbstracta::find($idlog);
+       $nombre = $solicitudabs->SOAB_NOMBRES;
+       $appaterno =  $solicitudabs->SOAB_AP_PATERNO;
+       $apmaterno =  $solicitudabs->SOAB_AP_MATERNO ;
+
+        $nombre_login1 = $nombre .'_' .$appaterno .'_'. $apmaterno;
+
+        $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                                    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                                    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                                    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                                    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+        $str = strtr( $nombre_login1, $unwanted_array );
+        $nombre_login = strtoupper($str);
+
+        $grupo = substr($usuariotitular, 0, 2);
+
+
 
         $vpn = new Vpn;
-        $logintitular =  Input::get('cuentatitular');
-        $vpn->vplo_id_vpn =  $logintitular;
+        $cuentatitular = Input::get('cuentatitular');
+        $vpn->vplo_login =  $cuentatitular;
         $vpn->vpn_password = $passwordvpn;
+        $vpn->vplo_nombre = $nombre_login;
+        $vpn->vplo_grupo = $grupo . '_'. 'g';
         $vpn->save();
 
 
@@ -306,7 +330,7 @@ class EvaluarSolicitudController extends BaseController{
         foreach ($cuentascolaboradora as  $cuentacol)
         {
             $generator = new ComputerPasswordGenerator();
-            $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS);
+            $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS|ComputerPasswordGenerator::OPTION_SYMBOLS|ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
             $generator->setLength(12);
             $password = $generator->generatePassword();
             $usuariocol = new Usuario();
