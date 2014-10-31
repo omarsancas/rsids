@@ -86,8 +86,8 @@ class SolicitudController extends BaseController {
             $datos->soab_nombres = Input::get('nombre');
             $datos->soab_ap_paterno = Input::get('apellidoPaterno');
             $datos->soab_ap_materno = Input::get('apellidoMaterno');
-            $datos->soab_id_estado_solicitud = 0;
-            $datos->soab_id_tipo_solicitud = 0;
+            $datos->soab_id_estado_solicitud = 1;
+            $datos->soab_id_tipo_solicitud = 1;
             $datos->soab_sexo = Input::get('sexo');
             $datos->soab_prog_paralela = Input::get('progparalela');
             $datos->soab_num_proc_trab = Input::get('numproc');
@@ -107,6 +107,8 @@ class SolicitudController extends BaseController {
             $aplicaciones = Input::get('aplicaciones');
             $datos->aplicaciones()->sync($aplicaciones);
 
+
+
             $mediocomunicacion = new MedioComunicacion;
             $mediocomunicacion->meco_telefono1 = Input::get('telefono');
             $mediocomunicacion->meco_extension = Input::get('extension');
@@ -125,8 +127,6 @@ class SolicitudController extends BaseController {
 
 
             $dataapp = Input::get('otraapp');
-            $otraappDatos = array_slice($dataapp, 1);
-
 
             foreach ((array_slice($dataapp, 1)) as $otraapData)
             {
@@ -210,7 +210,10 @@ class SolicitudController extends BaseController {
      */
     public function eliminarSolicitud()
     {
-        $solicitudes = $this->obtenerSolicitudes();
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
+            ->get();
 
         return View::make('gestionarsolicitudderecursos.eliminarsolicitud')->with('solicitudes', $solicitudes);
     }
@@ -356,15 +359,12 @@ class SolicitudController extends BaseController {
         $solicitudabstracta->aplicaciones()->sync($aplicaciones);
 
 
-        $datoscuentacol = Input::get('solcol');
-        $datosotraapp = Input::get('otraapp');
-
 
         if (Input::hasFile('curriculum'))
         {
             $archivo = $solicitudabstracta->SOAB_CURRICULUM;
             File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
+            $destinationPath = $solicitudabstracta->soab_ruta_archivos;
             /** @var $filename1 TYPE_NAME */
             $filename1 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
             $upload_success1 = Input::file('curriculum')->move($destinationPath, $filename1);
@@ -382,7 +382,7 @@ class SolicitudController extends BaseController {
         {
             $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
             File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
+            $destinationPath = $solicitudabstracta->soab_ruta_archivos;
             /** @var $filename1 TYPE_NAME */
             $filename2 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
             $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
@@ -401,7 +401,7 @@ class SolicitudController extends BaseController {
         {
             $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
             File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
+            $destinationPath = $solicitudabstracta->soab_ruta_archivos;
             /** @var $filename1 TYPE_NAME */
             $filename3 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
             $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
@@ -413,12 +413,7 @@ class SolicitudController extends BaseController {
             }
         }
 
-        //var_dump($datosotraapp);
-        //$datosOtraApp = array_slice($datosotraapp,1);
-        //$datosMecoCuentasCol = Input::get('meco');
 
-        //$cuentacol = $datoscuentacol;
-        //$mecocuentascol = array_slice($datosMecoCuentasCol,1);
 
         foreach (Input::get('otraapp', array()) as $id => $otraappData)
         {
@@ -485,7 +480,7 @@ class SolicitudController extends BaseController {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 2)
             ->get();
 
         return View::make('gestionarsolicitudderecursos.generarcartas')->with('solicitudes', $solicitudes);
@@ -502,7 +497,7 @@ class SolicitudController extends BaseController {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 2)
             ->get();
 
         return View::make('gestionarsolicitudderecursos.notificaraprobacion')->with('solicitudes', $solicitudes);

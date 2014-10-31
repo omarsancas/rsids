@@ -76,12 +76,7 @@ class GestionarDependenciasController extends BaseController{
 
     public function modificarDependencia($id)
     {
-        $dependencia = DB::table('dependencia')
-            ->join('tipo_dependencia', 'dependencia.depe_id_tipo_dependencia', '=', 'tipo_dependencia.tide_id_tipo_dependencia')
-            ->where('dependencia.depe_id_dependencia','=',$id)
-            ->first();
-
-        $tipodependencia = TipoDependencia::lists('tide_tipo', 'tide_id_tipo_dependencia');
+        list($dependencia, $tipodependencia) = $this->obtenerDependenciasJoin($id);
 
         return View::make('gestionardependencias/modificardependencia')
                          ->with('dependencia',$dependencia)
@@ -102,6 +97,22 @@ class GestionarDependenciasController extends BaseController{
         return Redirect::to('gestionardependencias/modificardependenciasvista');
     }
 
+    public function mostrarConsultar()
+    {
+        $dependencias = $this->obtenerDependencias();
+
+        return View::make('gestionardependencias/consultardependenciasvista')->with('dependencias',$dependencias);
+    }
+
+    public function consultarDependencia($id)
+    {
+        list($dependencia, $tipodependencia) = $this->obtenerDependenciasJoin($id);
+
+        return View::make('gestionardependencias/consultardependencia')
+            ->with('dependencia',$dependencia)
+            ->with('tipodependencia',$tipodependencia);
+    }
+
 
     /**
      * @return mixed
@@ -113,6 +124,22 @@ class GestionarDependenciasController extends BaseController{
             ->get();
 
         return $dependencias;
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function obtenerDependenciasJoin($id)
+    {
+        $dependencia = DB::table('dependencia')
+            ->join('tipo_dependencia', 'dependencia.depe_id_tipo_dependencia', '=', 'tipo_dependencia.tide_id_tipo_dependencia')
+            ->where('dependencia.depe_id_dependencia', '=', $id)
+            ->first();
+
+        $tipodependencia = TipoDependencia::lists('tide_tipo', 'tide_id_tipo_dependencia');
+
+        return array($dependencia, $tipodependencia);
     }
 
 } 

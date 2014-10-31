@@ -34,18 +34,18 @@ Route::get('download', function()
 });
 
 
-Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'EvaluarSolicitudController@prueba2']);
+Route::get('proyectos', ['as' => 'contabilidad', 'uses' => 'EvaluarSolicitudController@prueba']);
 
 Route::get('/', function()
 {
 
-    $solicitudabs = SolicitudAbstracta::find(11);
-    $aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
-    $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
-    $dependencia = DB::table('solicitud_abstracta')
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 12)
-        ->first();
+    //$solicitudabs = SolicitudAbstracta::find(11);
+    //$aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
+    //$aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+    //$dependencia = DB::table('solicitud_abstracta')
+        //->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        //->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 12)
+        //->first();
 
    // dd($aplicacionesseleccionadas);
 
@@ -78,7 +78,7 @@ Route::get('/', function()
     Excel::create('Filename', function($excel) {
 
         $excel->sheet('Sheetname', function($sheet) {
-        $model = Vpn::select('vplo_login', 'vpn_password')->get();
+        $model = Vpn::select('vplo_login', 'vplo_password','vplo_grupo_principal')->get();
         $sheet->fromModel($model);
         });
     })->download('txt');
@@ -207,7 +207,7 @@ Route::get('/notificar/{id}', array(
  * */
 Route::post('evaluarsolicituderecursos/aceptarsolicitud', [
     'as' => 'aceptarsolicitud',
-    'uses' => 'EvaluarSolicitudController@actualizarSolicitud'
+    'uses' => 'EvaluarSolicitudController@actualizarAceptarSolicitud'
 ]);
 Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [
     'uses' => 'EvaluarSolicitudController@listarSolicitudes'
@@ -267,6 +267,17 @@ Route::post('gestionarsolicitudderecursos/modificardependencia', [
     'as' => 'modificardependencia',
     'uses' => 'GestionarDependenciasController@actualizarDependencia'
 ]);
+
+Route::get('gestionardependencias/consultardependenciasvista',[
+    'uses' => 'GestionarDependenciasController@mostrarConsultar'
+]);
+
+
+Route::get('/consultardependencia/{id}', array(
+    'uses' => 'GestionarDependenciasController@consultarDependencia'
+));
+
+
 
 
 

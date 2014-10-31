@@ -209,13 +209,13 @@
         <div class="col-lg-6">
 
             @foreach ($aplicaciones as $key=>$aplicacion)
-            @if($key>0)
+            @if($key>1)
             <label class="checkbox-inline">
                 <input type="checkbox" name="aplicaciones[]" value="{{$key}}"> <label> {{$aplicacion}} </label>
             </label>
             @endif
             @endforeach
-            <input type="hidden" name="aplicaciones[1]" value="0"/>
+            <input type="hidden" name="aplicaciones[]" value="1"/>
 
 
         </div>

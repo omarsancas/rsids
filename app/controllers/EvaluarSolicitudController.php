@@ -15,7 +15,7 @@ class EvaluarSolicitudController extends BaseController {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 0)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 1)
             //->where('solicitud_abstracta.soab_es_proyecto', '=' , 0)
             ->get();
 
@@ -34,6 +34,8 @@ class EvaluarSolicitudController extends BaseController {
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
         $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+        $tipoproyecto = TipoProyecto::lists('tipr_nombre_tipo_proyecto','tipr_id_tipo_proyecto');
+        $anio = Anio::lists('ANIO_ID','ANIO');
         $this->data['solicitud'] = $solicitudabstracta;
         $this->data['aplicaciones'] = Aplicacion::all();
         $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
@@ -63,10 +65,7 @@ class EvaluarSolicitudController extends BaseController {
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
 
-        $numerocuentascol = DB::table('solicitud_cta_colaboradora')
-            ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
-            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-            ->first();
+
 
 
         // Show form
@@ -79,7 +78,9 @@ class EvaluarSolicitudController extends BaseController {
             ->with('otrocampo', $otrocampo)
             ->with('otraapp', $otraapp)
             ->with('campotrabajo', $campotrabajo)
-            ->with('meco', $meco);
+            ->with('meco', $meco)
+            ->with('tipoproyecto',$tipoproyecto)
+            ->with('anio',$anio);
 
 
     }
@@ -97,7 +98,7 @@ class EvaluarSolicitudController extends BaseController {
     {
         $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
-        $solicitudabstracta->soab_id_estado_solicitud = 2;
+        $solicitudabstracta->soab_id_estado_solicitud = 3;
         $solicitudabstracta->soab_desc_rechazo = Input::get('descrechazo');
         $solicitudabstracta->save();
 
@@ -109,7 +110,7 @@ class EvaluarSolicitudController extends BaseController {
 
     public function prueba()
     {
-        $moved = public_path() . '/uploads/contabilidad.txt';
+        $moved = public_path() . '/uploads/contabilidad1.txt';
 
         //DB::table('wc_program_1')->truncate();
 
@@ -117,12 +118,12 @@ class EvaluarSolicitudController extends BaseController {
         $csv->setOffset(0); //because we don't want to insert the header
         $nbInsert = $csv->each(function ($row) use (&$sth)
         {
-            DB::table('usuario_x_proyecto')->insert(
+            DB::table('contabilidad')->insert(
                 array(
 
-                    'uspr_id_usuario' => (isset($row[0]) ? $row[0] : ''),
-                    'uspr_num_jobs'   => (isset($row[1]) ? $row[1] : ''),
-                    'uspr_num_hrscpu' => (isset($row[2]) ? $row[2] : '')
+                    'cont_id_usuario' => (isset($row[0]) ? $row[0] : ''),
+                    'cont_num_jobs'   => (isset($row[1]) ? $row[1] : ''),
+                    'cont_hrs_nodo' => (isset($row[2]) ? $row[2] : '')
                 ));
 
             return true;
@@ -134,14 +135,14 @@ class EvaluarSolicitudController extends BaseController {
     }
 
 
-    public function actualizarSolicitud()
+    public function actualizarAceptarSolicitud()
     {
         $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
-        $solicitudabstracta->soab_id_estado_solicitud = 1;
+        $solicitudabstracta->soab_id_estado_solicitud = 2;
         $solicitudabstracta->soab_es_proyecto = 1;
         $solicitudabstracta->soab_sexo = Input::get('sexo');
         $solicitudabstracta->soab_prog_paralela = Input::get('progparalela');
@@ -176,43 +177,38 @@ class EvaluarSolicitudController extends BaseController {
         $solicitudabstracta->aplicaciones()->sync($aplicaciones);
 
 
-        $datoscuentacol = Input::get('solcol');
-        $datosotraapp = Input::get('otraapp');
-
-
         if (Input::hasFile('curriculum'))
         {
             $archivo = $solicitudabstracta->SOAB_CURRICULUM;
-            File::delete(public_path() . '/' . $archivo);
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename1 = str_random(6) . time() . '.' . Input::file('curriculum')->getClientOriginalExtension();
-            $upload_success = Input::file('curriculum')->move($destinationPath, $filename1);
+            $filename1 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
+            $upload_success1 = Input::file('curriculum')->move($destinationPath, $filename1);
 
 
-            if ($upload_success)
+            if ($upload_success1)
             {
-                $solicitudabstracta->soab_curriculum = 'uploads/' . $filename1;
+                $solicitudabstracta->soab_curriculum = $destinationPath .'/'. $filename1;
                 $solicitudabstracta->save();
             }
-
-
         }
 
 
         if (Input::hasFile('docdesc'))
         {
             $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
-            File::delete(public_path() . '/' . $archivo);
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename2 = str_random(6) . time() . '.' . Input::file('docdesc')->getClientOriginalExtension();
-            $upload_success = Input::file('docdesc')->move($destinationPath, $filename2);
+            $filename2 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
+            $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
 
 
-            if ($upload_success)
+
+            if ($upload_success2)
             {
-                $solicitudabstracta->soab_desc_proyecto = 'uploads/' . $filename2;
+                $solicitudabstracta->soab_desc_proyecto = $destinationPath .'/'. $filename2;
                 $solicitudabstracta->save();
             }
         }
@@ -221,26 +217,20 @@ class EvaluarSolicitudController extends BaseController {
         if (Input::hasFile('constancias'))
         {
             $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
-            File::delete(public_path() . '/' . $archivo);
-            $destinationPath = public_path() . '/uploads';
+            File::delete($archivo);
+            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
             /** @var $filename1 TYPE_NAME */
-            $filename3 = str_random(6) . time() . '.' . Input::file('constancias')->getClientOriginalExtension();
-            $upload_success = Input::file('constancias')->move($destinationPath, $filename3);
+            $filename3 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
+            $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
 
-
-            if ($upload_success)
+            if ($upload_success3)
             {
-                $solicitudabstracta->soab_con_adscripcion = 'uploads/' . $filename3;
+                $solicitudabstracta->soab_con_adscripcion = $destinationPath .'/'. $filename3;
                 $solicitudabstracta->save();
             }
         }
 
-        //var_dump($datosotraapp);
-        //$datosOtraApp = array_slice($datosotraapp,1);
-        //$datosMecoCuentasCol = Input::get('meco');
 
-        //$cuentacol = $datoscuentacol;
-        //$mecocuentascol = array_slice($datosMecoCuentasCol,1);
 
         foreach (Input::get('otraapp', array()) as $id => $otraappData)
         {
@@ -266,13 +256,24 @@ class EvaluarSolicitudController extends BaseController {
             $meco->save();
         }
 
+        $anio = Input::get('anio');
+        $tipoproyecto = Input::get('tipoproyecto');
+        if($tipoproyecto == 1)
+        {
+             $tipoproyectocomp = 'S';
+        }else{
 
+            $tipoproyectocomp = 'I';
+        }
+
+        $convocatoria =  Input::get('convocatoria');
         $passwordtitular = $this->generarPassword();
         $esproyecto = new Proyecto;
         $esproyecto->proy_id_solicitud_abstracta = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA;
         $esproyecto->proy_id_tipo_proyecto = Input::get('tipoproyecto');
         $esproyecto->proy_hrs_aprobadas = Input::get('horasaprobadas');
         $esproyecto->proy_nombre = Input::get('nombreproyecto');
+        $esproyecto->proy_id_compuesto = 'SC'.$anio.$convocatoria.'-'.$tipoproyectocomp.'-'.$solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA;
         $esproyecto->proy_id_estado_proyecto = 1;
         $esproyecto->save();
 
@@ -300,10 +301,19 @@ class EvaluarSolicitudController extends BaseController {
         $vpn = new Vpn;
         $cuentatitular = Input::get('cuentatitular');
         $vpn->vplo_login = $cuentatitular;
-        $vpn->vpn_password = $passwordvpn;
+        $vpn->vplo_password = $passwordvpn;
         $vpn->vplo_nombre = $nombre_login1;
-        $vpn->vplo_grupo = $grupo . '_' . 'g';
+        $vpn->vplo_grupo_principal = $grupo . '_' . 'g';
         $vpn->save();
+
+        $passwordmaquinatitular = $this->generarPassword();
+        $maquina = new Maquina();
+        $cuentatitular = Input::get('cuentatitular');
+        $maquina->malo_login = $cuentatitular;
+        $maquina->malo_password = $passwordmaquinatitular;
+        $maquina->malo_nombre = $nombre_login1;
+        $maquina->malo_grupo_principal = $grupo . '_' . 'g';
+        $maquina->save();
 
         $aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
         $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
@@ -317,35 +327,44 @@ class EvaluarSolicitudController extends BaseController {
         $this->obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn);
         $cuentascolaboradora = Input::get('cuentacolaboradora');
 
-
-        foreach ($cuentascolaboradora as $id => $cuentacol)
+        if(!empty($cuentascolaboradora))
         {
-            $password = $this->generarPassword();
-            $usuariocol = new Usuario();
-            $usuariocol->usua_id_usuario = $cuentacol;
-            $usuariocol->usua_id_tipo_usuario = 3;
-            $usuariocol->usua_id_proyecto = $esproyecto->proy_id_proyecto;
-            $usuariocol->usua_pass_md5 = Hash::make($password);
-            $usuariocol->save();
+            foreach ($cuentascolaboradora as $id => $cuentacol)
+            {
+                $password = $this->generarPassword();
+                $usuariocol = new Usuario();
+                $usuariocol->usua_id_usuario = $cuentacol;
+                $usuariocol->usua_id_tipo_usuario = 3;
+                $usuariocol->usua_id_proyecto = $esproyecto->proy_id_proyecto;
+                $usuariocol->usua_pass_md5 = Hash::make($password);
+                $usuariocol->save();
 
-            $usrcol = Cuentacol::find($id);
-            $nombre = $usrcol->SOCO_NOMBRES;
-            $appaterno = $usrcol->SOCO_AP_PATERNO;
-            $apmaterno = $usrcol->SOCO_AP_MATERNO;
+                $usrcol = Cuentacol::find($id);
+                $nombre = $usrcol->SOCO_NOMBRES;
+                $appaterno = $usrcol->SOCO_AP_PATERNO;
+                $apmaterno = $usrcol->SOCO_AP_MATERNO;
 
-            $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
-            $nombre_login1 = $this->quitarAcentos($nombre_login1);
+                $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
+                $nombre_login1 = $this->quitarAcentos($nombre_login1);
 
-            $passwordvpn = $this->generarPassword();
-            $vpncol = new Vpn;
-            $vpncol->vplo_login = $cuentacol;
-            $vpncol->vpn_password = $passwordvpn;
-            $vpncol->vplo_nombre = $nombre_login1;
-            $vpncol->vplo_grupo = $grupo . '_' . 'g';
-            $vpncol->save();
+                $passwordvpn = $this->generarPassword();
+                $vpncol = new Vpn;
+                $vpncol->vplo_login = $cuentacol;
+                $vpncol->vplo_password = $passwordvpn;
+                $vpncol->vplo_nombre = $nombre_login1;
+                $vpncol->vplo_grupo_principal = $grupo . '_' . 'g';
+                $vpncol->save();
 
-
+                $passwordmaquina = $this->generarPassword();
+                $maquinacol = new Maquina();
+                $maquinacol->malo_login = $cuentacol;
+                $maquinacol->malo_password = $passwordmaquina;
+                $maquinacol->malo_nombre = $nombre_login1;
+                $maquinacol->malo_grupo_principal = $grupo . '_' . 'g';
+                $maquinacol->save();
+            }
         }
+
 
 
         Session::flash('message', '¡La solicitud se ha aceptado exitosamente!');
@@ -397,11 +416,11 @@ class EvaluarSolicitudController extends BaseController {
      */
     public function obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn)
     {
-        if ($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 0)
+        if ($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 1)
         {
             foreach ($aplicacionesseleccionadas as $aplicacion)
             {
-                if ($aplicacion == 8)
+                if ($aplicacion == 9)
                 {
                     foreach ($aplicacionesseleccionadas as $aplicaciones2)
                     {

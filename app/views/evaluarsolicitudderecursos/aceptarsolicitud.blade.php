@@ -394,17 +394,28 @@
 
     <div class="form-group">
         {{ Form::label('tipo', 'Tipo de Proyecto')}}
-        <select name="tipoproyecto" id="tipoproyecto" class="form-control" >
-            <option value="0" > Proyecto de investigación</option>
-            <option value="1" > Semilla </option>
-        </select>
+        {{ Form::select('tipoproyecto',$tipoproyecto,null, array('class'=>'form-control','style'=>'' ))}}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('Año', 'Año')}}
+        {{ Form::select('anio',$anio,null, array('class'=>'form-control','style'=>'' ))}}
     </div>
 
 
     <div class="form-group">
+        {{ Form::label('convocatoria', 'Convocatoria')}}
+        <select name="convocatoria" id="convocatoria" class="form-control">
+            <option value="-1" > -1</option>
+            <option value="-2" > -2</option>
+        </select>
+    </div>
+    <div class="form-group">
         {{ Form::label('horas aprobadas', 'Horas aprobadas')}}
         {{ Form::text('horasaprobadas', '', ['class' => 'form-control'])}}
     </div>
+
+
 
     <div class="form-group">
 
