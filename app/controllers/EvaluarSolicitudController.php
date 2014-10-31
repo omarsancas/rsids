@@ -7,18 +7,19 @@
  */
 use League\Csv\Reader;
 use \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
-class EvaluarSolicitudController extends BaseController{
+
+class EvaluarSolicitudController extends BaseController {
 
     public function listarSolicitudes()
     {
 
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
-            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=' , 0)
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 0)
             //->where('solicitud_abstracta.soab_es_proyecto', '=' , 0)
             ->get();
 
-        return View::make('evaluarsolicitudderecursos/evaluarsolicitud')->with('solicitudes',$solicitudes);
+        return View::make('evaluarsolicitudderecursos/evaluarsolicitud')->with('solicitudes', $solicitudes);
     }
 
 
@@ -30,55 +31,55 @@ class EvaluarSolicitudController extends BaseController{
         /*Esta funcion de empty es para que cuando se implemente la solicitud de renovacion se pueda cambiar de vista*/
 
 
-            $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-            $grado = Grado::lists('grad_nombre', 'grad_id_grado');
-            $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
-            $this->data['solicitud'] = $solicitudabstracta;
-            $this->data['aplicaciones'] = Aplicacion::all();
-            $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
-            $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
-            $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
-            $cuentascol = $solicitudabstracta->cuentascol;
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+        $this->data['solicitud'] = $solicitudabstracta;
+        $this->data['aplicaciones'] = Aplicacion::all();
+        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
+        $cuentascol = $solicitudabstracta->cuentascol;
 
 
-            $meco = DB::table('solicitud_abstracta')
-                ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-                ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-                ->first();
+        $meco = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
 
 
-            $solicitud = DB::table('solicitud_cta_colaboradora')
-                ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-                ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-                ->get();
+        $solicitud = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->get();
 
-            $otraapp = DB::table('otra_app')
-                ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
-                ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
-                ->get();
+        $otraapp = DB::table('otra_app')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
+            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
+            ->get();
 
-            $otrocampo = DB::table('otro_campo_trabajo')
-                ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo_trabajo.otca_id_otro_campo')
-                ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-                ->first();
+        $otrocampo = DB::table('otro_campo_trabajo')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo_trabajo.otca_id_otro_campo')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
 
-            $numerocuentascol = DB::table('solicitud_cta_colaboradora')
-                ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
-                ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-                ->first();
+        $numerocuentascol = DB::table('solicitud_cta_colaboradora')
+            ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->first();
 
 
-            // Show form
-            return View::make('evaluarsolicitudderecursos.aceptarsolicitud', $this->data)
-                ->with('cuentascol', $solicitud)
-                ->with('solicitudabstracta', $solicitudabstracta)
-                ->with('grado', $grado)
-                ->with('numerocuentascol',$cuentascol)
-                ->with('dependencias_catalogo', $dependencias_catalogo)
-                ->with('otrocampo', $otrocampo)
-                ->with('otraapp', $otraapp)
-                ->with('campotrabajo', $campotrabajo)
-                ->with('meco', $meco);
+        // Show form
+        return View::make('evaluarsolicitudderecursos.aceptarsolicitud', $this->data)
+            ->with('cuentascol', $solicitud)
+            ->with('solicitudabstracta', $solicitudabstracta)
+            ->with('grado', $grado)
+            ->with('numerocuentascol', $cuentascol)
+            ->with('dependencias_catalogo', $dependencias_catalogo)
+            ->with('otrocampo', $otrocampo)
+            ->with('otraapp', $otraapp)
+            ->with('campotrabajo', $campotrabajo)
+            ->with('meco', $meco);
 
 
     }
@@ -87,8 +88,9 @@ class EvaluarSolicitudController extends BaseController{
     public function rechazar($id)
     {
         $solicitudabstracta = SolicitudAbstracta::find($id);
+
         return View::make('evaluarsolicitudderecursos.rechazarsolicitud')
-               ->with('solicitudabstracta', $solicitudabstracta);
+            ->with('solicitudabstracta', $solicitudabstracta);
     }
 
     public function rechazarSolicitud()
@@ -113,14 +115,16 @@ class EvaluarSolicitudController extends BaseController{
 
         $csv = new Reader($moved);
         $csv->setOffset(0); //because we don't want to insert the header
-        $nbInsert = $csv->each(function ($row) use (&$sth) {
+        $nbInsert = $csv->each(function ($row) use (&$sth)
+        {
             DB::table('usuario_x_proyecto')->insert(
                 array(
 
                     'uspr_id_usuario' => (isset($row[0]) ? $row[0] : ''),
-                    'uspr_num_jobs' => (isset($row[1]) ? $row[1] : ''),
+                    'uspr_num_jobs'   => (isset($row[1]) ? $row[1] : ''),
                     'uspr_num_hrscpu' => (isset($row[2]) ? $row[2] : '')
-            ));
+                ));
+
             return true;
         });
 
@@ -179,7 +183,7 @@ class EvaluarSolicitudController extends BaseController{
         if (Input::hasFile('curriculum'))
         {
             $archivo = $solicitudabstracta->SOAB_CURRICULUM;
-            File::delete(public_path(). '/' . $archivo );
+            File::delete(public_path() . '/' . $archivo);
             $destinationPath = public_path() . '/uploads';
             /** @var $filename1 TYPE_NAME */
             $filename1 = str_random(6) . time() . '.' . Input::file('curriculum')->getClientOriginalExtension();
@@ -193,14 +197,13 @@ class EvaluarSolicitudController extends BaseController{
             }
 
 
-
         }
 
 
         if (Input::hasFile('docdesc'))
         {
             $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
-            File::delete(public_path(). '/' . $archivo );
+            File::delete(public_path() . '/' . $archivo);
             $destinationPath = public_path() . '/uploads';
             /** @var $filename1 TYPE_NAME */
             $filename2 = str_random(6) . time() . '.' . Input::file('docdesc')->getClientOriginalExtension();
@@ -218,7 +221,7 @@ class EvaluarSolicitudController extends BaseController{
         if (Input::hasFile('constancias'))
         {
             $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
-            File::delete(public_path(). '/' . $archivo );
+            File::delete(public_path() . '/' . $archivo);
             $destinationPath = public_path() . '/uploads';
             /** @var $filename1 TYPE_NAME */
             $filename3 = str_random(6) . time() . '.' . Input::file('constancias')->getClientOriginalExtension();
@@ -248,7 +251,6 @@ class EvaluarSolicitudController extends BaseController{
         }
 
 
-
         foreach (Input::get('solcol', array()) as $id => $solcolData)
         {
             $solcol = Cuentacol::find($id);
@@ -265,13 +267,7 @@ class EvaluarSolicitudController extends BaseController{
         }
 
 
-        $generator = new ComputerPasswordGenerator();
-        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE
-                               | ComputerPasswordGenerator::OPTION_LOWER_CASE
-                               | ComputerPasswordGenerator::OPTION_NUMBERS);
-        $generator->setLength(12);
-        $passwordtitular = $generator->generatePassword();
-
+        $passwordtitular = $this->generarPassword();
         $esproyecto = new Proyecto;
         $esproyecto->proy_id_solicitud_abstracta = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA;
         $esproyecto->proy_id_tipo_proyecto = Input::get('tipoproyecto');
@@ -281,58 +277,50 @@ class EvaluarSolicitudController extends BaseController{
         $esproyecto->save();
 
         $usuario = new Usuario;
-        $usuariotitular =  Input::get('cuentatitular');
-        $usuario->usua_id_usuario =  $usuariotitular;
+        $usuariotitular = Input::get('cuentatitular');
+        $usuario->usua_id_usuario = $usuariotitular;
         $usuario->usua_id_tipo_usuario = 2;
         $usuario->usua_pass_md5 = Hash::make($passwordtitular);
         $usuario->usua_id_proyecto = $esproyecto->proy_id_proyecto;
         $usuario->save();
 
 
-
-        $generator = new ComputerPasswordGenerator();
-        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS);
-        $generator->setLength(12);
-        $passwordvpn = $generator->generatePassword();
+        $passwordvpn = $this->generarPassword();
         $idlog = Input::get('id');
-       $solicitudabs = SolicitudAbstracta::find($idlog);
-       $nombre = $solicitudabs->SOAB_NOMBRES;
-       $appaterno =  $solicitudabs->SOAB_AP_PATERNO;
-       $apmaterno =  $solicitudabs->SOAB_AP_MATERNO ;
+        $solicitudabs = SolicitudAbstracta::find($idlog);
+        $nombre = $solicitudabs->SOAB_NOMBRES;
+        $appaterno = $solicitudabs->SOAB_AP_PATERNO;
+        $apmaterno = $solicitudabs->SOAB_AP_MATERNO;
 
-        $nombre_login1 = $nombre .'_' .$appaterno .'_'. $apmaterno;
-
-        $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-                                    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-                                    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-                                    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-                                    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
-        $str = strtr( $nombre_login1, $unwanted_array );
-        $nombre_login = strtoupper($str);
-
+        $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
+        $nombre_login1 = $this->quitarAcentos($nombre_login1);
         $grupo = substr($usuariotitular, 0, 2);
-
 
 
         $vpn = new Vpn;
         $cuentatitular = Input::get('cuentatitular');
-        $vpn->vplo_login =  $cuentatitular;
+        $vpn->vplo_login = $cuentatitular;
         $vpn->vpn_password = $passwordvpn;
-        $vpn->vplo_nombre = $nombre_login;
-        $vpn->vplo_grupo = $grupo . '_'. 'g';
+        $vpn->vplo_nombre = $nombre_login1;
+        $vpn->vplo_grupo = $grupo . '_' . 'g';
         $vpn->save();
 
+        $aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+        $dependencia = DB::table('solicitud_abstracta')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $idlog)
+            ->first();
 
+        //dd($aplicacionesseleccionadas);
 
+        $this->obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn);
         $cuentascolaboradora = Input::get('cuentacolaboradora');
 
 
-        foreach ($cuentascolaboradora as  $cuentacol)
+        foreach ($cuentascolaboradora as $id => $cuentacol)
         {
-            $generator = new ComputerPasswordGenerator();
-            $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS|ComputerPasswordGenerator::OPTION_SYMBOLS|ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
-            $generator->setLength(12);
-            $password = $generator->generatePassword();
+            $password = $this->generarPassword();
             $usuariocol = new Usuario();
             $usuariocol->usua_id_usuario = $cuentacol;
             $usuariocol->usua_id_tipo_usuario = 3;
@@ -340,25 +328,24 @@ class EvaluarSolicitudController extends BaseController{
             $usuariocol->usua_pass_md5 = Hash::make($password);
             $usuariocol->save();
 
-            $generator = new ComputerPasswordGenerator();
-            $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE | ComputerPasswordGenerator::OPTION_LOWER_CASE | ComputerPasswordGenerator::OPTION_NUMBERS|ComputerPasswordGenerator::OPTION_SYMBOLS|ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
-            $generator->setLength(12);
-            $passwordvpn = $generator->generatePassword();
+            $usrcol = Cuentacol::find($id);
+            $nombre = $usrcol->SOCO_NOMBRES;
+            $appaterno = $usrcol->SOCO_AP_PATERNO;
+            $apmaterno = $usrcol->SOCO_AP_MATERNO;
 
+            $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
+            $nombre_login1 = $this->quitarAcentos($nombre_login1);
+
+            $passwordvpn = $this->generarPassword();
             $vpncol = new Vpn;
-            $vpncol->vplo_login =  $cuentacol;
+            $vpncol->vplo_login = $cuentacol;
             $vpncol->vpn_password = $passwordvpn;
+            $vpncol->vplo_nombre = $nombre_login1;
+            $vpncol->vplo_grupo = $grupo . '_' . 'g';
             $vpncol->save();
 
+
         }
-
-
-
-
-
-
-
-
 
 
         Session::flash('message', '¡La solicitud se ha aceptado exitosamente!');
@@ -383,7 +370,62 @@ class EvaluarSolicitudController extends BaseController{
             //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
             ->get();
 
-        return \Illuminate\Support\Facades\View::make('proyectos')->with('proyectos',$links);
+        return \Illuminate\Support\Facades\View::make('proyectos')->with('proyectos', $links);
     }
 
-} 
+    /**
+     * @return array
+     */
+    public function generarPassword()
+    {
+        $generator = new ComputerPasswordGenerator();
+        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE
+            | ComputerPasswordGenerator::OPTION_LOWER_CASE
+            | ComputerPasswordGenerator::OPTION_NUMBERS
+            | ComputerPasswordGenerator::OPTION_SYMBOLS
+            | ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
+        $generator->setLength(12);
+        $password = $generator->generatePassword();
+
+        return $password;
+    }
+
+    /**
+     * @param $dependencia
+     * @param $aplicacionesseleccionadas
+     * @param $vpn
+     */
+    public function obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn)
+    {
+        if ($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 0)
+        {
+            foreach ($aplicacionesseleccionadas as $aplicacion)
+            {
+                if ($aplicacion == 8)
+                {
+                    foreach ($aplicacionesseleccionadas as $aplicaciones2)
+                    {
+                        if ($aplicaciones2 == 14 )
+                        {
+                            $vpn->vplo_grupo_secundario = 'g009,g001';
+                            $vpn->save();
+                            break;
+
+                        }
+                    }
+
+                    $vpn->vplo_grupo_secundario = 'g009';
+                    $vpn->save();
+                    break;
+                } elseif ($aplicacion == 14)
+                {
+                    $vpn->vplo_grupo_secundario = 'g001';
+                    $vpn->save();
+                    break;
+                }
+            }
+        }
+    }
+
+
+}

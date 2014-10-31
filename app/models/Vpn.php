@@ -13,7 +13,7 @@ class Vpn extends Eloquent {
     
     protected $fillable = [];
     protected $table = 'vpn_login';
-    protected $primaryKey = 'vplo_id_vpn';
+    protected $primaryKey = 'vplo_id_login';
     public $timestamps = false;
 
 }

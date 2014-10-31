@@ -409,15 +409,17 @@
     <div class="form-group">
 
         <label for="nombre">Login cuenta titular para {{$solicitudabstracta->SOAB_NOMBRES }} {{$solicitudabstracta->SOAB_AP_PATERNO }}</label>
-
         {{ Form::text('cuentatitular', '', ['class' => 'form-control'])}}
     </div>
 
-    @foreach($numerocuentascol as $numero)
+    @foreach($numerocuentascol as $cuentacol)
 
     <div class="form-group">
-        <label for="nombre">Login cuenta colaboradora para {{$numero->SOCO_NOMBRES }} {{$numero->SOCO_AP_PATERNO }}</label>
-        {{ Form::text('cuentacolaboradora[]', '', ['class' => 'form-control'])}}
+        <label for="nombre">Login cuenta colaboradora para {{$cuentacol->SOCO_NOMBRES }} {{$cuentacol->SOCO_AP_PATERNO }}</label>
+        <input class="form-control"
+               name="cuentacolaboradora[{{$cuentacol->SOCO_ID_SOLICITUD_COLABORADORA}}]" type="text"
+               value=""
+               id="cuentacolaboradora[{{$cuentacol->SOCO_ID_SOLICITUD_COLABORADORA}}]">
     </div>
     @endforeach
 

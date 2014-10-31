@@ -18,7 +18,8 @@ class SolicitudController extends BaseController {
 
         return View::make('registro.solicitud')->with('dependencias_catalogo', $dependencias_catalogo)
                                                 ->with('aplicaciones', $aplicaciones)
-                                                ->with('grado', $grado)->with('campos', $campotrabajo);
+                                                ->with('grado', $grado)
+                                                ->with('campos', $campotrabajo);
 
 
     }
@@ -76,7 +77,7 @@ class SolicitudController extends BaseController {
 
             // redirect our user back to the form with the errors from the validator
             return Redirect::to('solicitud')
-                ->withErrors($validator)->withInput(Input::except('curriculum', 'constancias', 'documentodescriptivo'));;
+                ->withErrors($validator)->withInput(Input::except('curriculum', 'constancias', 'documentodescriptivo'));
         } else
         {
 
@@ -135,7 +136,6 @@ class SolicitudController extends BaseController {
 
 
             $datoscuentacol = Input::get('solcol');
-            //var_dump($datoscuentacol);
             $datosMecoCuentasCol = Input::get('meco');
 
             $cuentacol = array_slice($datoscuentacol, 1);
@@ -162,30 +162,34 @@ class SolicitudController extends BaseController {
 
             $result = File::makeDirectory($destinationPath);
 
-            $datos->soab_ruta_archivos = $destinationPath;
-            $datos->save();
+            if($result)
+            {
+                $datos->soab_ruta_archivos = $destinationPath;
+                $datos->save();
+            }
+
+
+
+            /** @var $archivocurriculum TYPE_NAME */
+            $archivocurriculum = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
+            $upload_success = Input::file('curriculum')->move($destinationPath, $archivocurriculum);
+
 
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
-            /** @var $filename1 TYPE_NAME */
-            $filename1 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
-            $upload_success = Input::file('curriculum')->move($destinationPath, $filename1);
+            $archivodesc = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
+            $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $archivodesc);
 
 
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
-            $filename2 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
-            $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
-
-
-            // If the uploads fail due to file system, you can try doing public_path().'/uploads'
-            $filename3 = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
-            $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
+            $archivocons = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
+            $upload_success3 = Input::file('constancias')->move($destinationPath, $archivocons);
 
 
             if ($upload_success && $upload_success2 && $upload_success3 )
             {
-                $datos->soab_curriculum = $destinationPath .'/'. $filename1;
-                $datos->soab_desc_proyecto = $destinationPath .'/'. $filename2;
-                $datos->soab_con_adscripcion = $destinationPath .'/'. $filename3;
+                $datos->soab_curriculum = $destinationPath .'/'. $archivocurriculum;
+                $datos->soab_desc_proyecto = $destinationPath .'/'. $archivodesc;
+                $datos->soab_con_adscripcion = $destinationPath .'/'. $archivocons;
                 $datos->save();
 
                 return Response::json('success', 200);
@@ -319,8 +323,6 @@ class SolicitudController extends BaseController {
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
-        $solicitudabstracta->soab_id_estado_solicitud = 0;
-        $solicitudabstracta->soab_id_tipo_solicitud = 0;
         $solicitudabstracta->soab_sexo = Input::get('sexo');
         $solicitudabstracta->soab_prog_paralela = Input::get('progparalela');
         $solicitudabstracta->soab_num_proc_trab = Input::get('numproc');

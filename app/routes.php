@@ -39,18 +39,54 @@ Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'EvaluarSolicitudControl
 Route::get('/', function()
 {
 
+    $solicitudabs = SolicitudAbstracta::find(11);
+    $aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
+    $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+    $dependencia = DB::table('solicitud_abstracta')
+        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 12)
+        ->first();
+
+   // dd($aplicacionesseleccionadas);
+
+    /*if($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 0)
+    {
+    foreach($aplicacionesseleccionadas as  $aplicacion)
+    {
+        if($aplicacion == 8)
+        {
+            foreach($aplicacionesseleccionadas as $aplicaciones2)
+            {
+                if($aplicaciones2 == 14)
+                {
+                    return 'Son las dos apps';
+
+                }
+            }
+
+            return 'solo es ocho';
+        }elseif($aplicacion == 14)
+        {
+            return 'solo es 14 ';
+        }
+    }*/
+
+
+    //}
 
 
     Excel::create('Filename', function($excel) {
 
         $excel->sheet('Sheetname', function($sheet) {
-            $model = Vpn::all();
-
-            $sheet->fromModel($model);
-
+        $model = Vpn::select('vplo_login', 'vpn_password')->get();
+        $sheet->fromModel($model);
         });
-
     })->download('txt');
+
+
+
+
+
     /*
     $numerocuentascol = DB::table('solicitud_cta_colaboradora')
         ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
@@ -74,30 +110,48 @@ Route::get('/', function()
         );*/
 
     $queries = DB::getQueryLog();
-    var_dump($numerocuentascol);
+    //var_dump($numerocuentascol);
 
 });
 
+/*
+ * Gestionar solicitud de recursos
+ */
+Route::get('solicitud',[
+    'as' => 'solicitud',
+    'uses' => 'SolicitudController@mostrarSolicitud'
+]);
 
-//Estas rutas son para el caso de uso gestionar solicitud de recursos
-Route::get('solicitud', ['as' => 'solicitud', 'uses' => 'SolicitudController@mostrarSolicitud']);
+Route::post('solicitud', [
+    'as' => 'registrar',
+    'uses' => 'SolicitudController@generarSolicitud'
+]);
 
-Route::post('solicitud', ['as' => 'registrar', 'uses' => 'SolicitudController@generarSolicitud']);
+Route::get('gestionarsolicitudderecursos/eliminarsolicitud', [
+    'as' => 'delete',
+    'uses' => 'SolicitudController@eliminarSolicitud'
+]);
 
-Route::get('gestionarsolicitudderecursos/eliminarsolicitud', ['as' => 'delete', 'uses' => 'SolicitudController@eliminarSolicitud']);
+Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [
+    'uses' => 'SolicitudController@eliminar'
+]);
 
-Route::post('gestionarsolicitudderecursos/eliminarsolicitud', [	'uses' => 'SolicitudController@eliminar' ]);
+Route::get('gestionarsolicitudderecursos/modificarsolicitud', [
+    'uses' => 'SolicitudController@modificarsolicitud'
+]);
 
-Route::get('gestionarsolicitudderecursos/modificarsolicitud', [ 'uses' => 'SolicitudController@modificarsolicitud']);
-
-Route::get('gestionarsolicitudderecursos/consultarsolicitud', [ 'uses' => 'SolicitudController@consultarSolicitud']);
+Route::get('gestionarsolicitudderecursos/consultarsolicitud', [
+    'uses' => 'SolicitudController@consultarSolicitud'
+]);
 Route::get('gestionarsolicitudderecursos/buscarsolicitud', function()
 {
 
     return View::make('gestionarsolicitudderecursos/buscarsolicitud');
 });
 
-Route::post('gestionarsolicitudderecursos/buscarsolicitud', ['as' => 'buscar', 'uses' => 'SolicitudController@buscarSolicitud']);
+Route::post('gestionarsolicitudderecursos/buscarsolicitud', [
+    'as' => 'buscar', 'uses' => 'SolicitudController@buscarSolicitud'
+]);
 
 Route::get('/edit/{id}', 'SolicitudController@editarSolicitud');
 
@@ -108,13 +162,27 @@ Route::get('/consultar/{id}', array(
 ));
 
 
-Route::get('/bajarcurriculum/{id}', array('as' => 'bajarcurriculum','uses'=> 'SolicitudController@mostrarCurriculum'));
-Route::get('/bajardocdesc/{id}', array('as' => 'bajardocdesc','uses'=> 'SolicitudController@mostrarDocumentoDesc'));
-Route::get('/bajarconads/{id}', array('as' => 'bajarconads','uses'=> 'SolicitudController@mostrarConstancia'));
-Route::post('gestionarsolicitudderecursos/modificarsolicitud', [ 'as' => 'update', 'uses' => 'SolicitudController@actualizarSolicitud']);
+Route::get('/bajarcurriculum/{id}', array(
+    'as' => 'bajarcurriculum',
+    'uses'=> 'SolicitudController@mostrarCurriculum'
+));
+Route::get('/bajardocdesc/{id}', array(
+    'as' => 'bajardocdesc',
+    'uses'=> 'SolicitudController@mostrarDocumentoDesc'
+));
+Route::get('/bajarconads/{id}', array(
+    'as' => 'bajarconads',
+    'uses'=> 'SolicitudController@mostrarConstancia'
+));
+Route::post('gestionarsolicitudderecursos/modificarsolicitud', [
+    'as' => 'update',
+    'uses' => 'SolicitudController@actualizarSolicitud'
+]);
 
 
-Route::get('gestionarsolicitudderecursos/generarcartas', [ 'uses' => 'SolicitudController@mostrarSolicitudes']);
+Route::get('gestionarsolicitudderecursos/generarcartas', [
+    'uses' => 'SolicitudController@mostrarSolicitudes'
+]);
 
 Route::get('/generar/{id}', array(
     'as' => 'generar',
@@ -122,7 +190,9 @@ Route::get('/generar/{id}', array(
 ));
 
 
-Route::get('gestionarsolicitudderecursos/notificaraprobacion', [ 'uses' => 'SolicitudController@mostrarNotificacionSolicitudes']);
+Route::get('gestionarsolicitudderecursos/notificaraprobacion', [
+    'uses' => 'SolicitudController@mostrarNotificacionSolicitudes'
+]);
 
 Route::get('/notificar/{id}', array(
     'as' => 'notificar',
@@ -131,9 +201,17 @@ Route::get('/notificar/{id}', array(
 
 
 
-//Estas rutas son para el caso de uso evaluar solicitud
-Route::post('evaluarsolicituderecursos/aceptarsolicitud', [ 'as' => 'aceptarsolicitud', 'uses' => 'EvaluarSolicitudController@actualizarSolicitud']);
-Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [ 'uses' => 'EvaluarSolicitudController@listarSolicitudes']);
+/*
+ *
+ * Evaluar solicitud
+ * */
+Route::post('evaluarsolicituderecursos/aceptarsolicitud', [
+    'as' => 'aceptarsolicitud',
+    'uses' => 'EvaluarSolicitudController@actualizarSolicitud'
+]);
+Route::get('evaluarsolicitudderecursos/evaluarsolicitud', [
+    'uses' => 'EvaluarSolicitudController@listarSolicitudes'
+]);
 Route::get('/aceptar/{id}', array(
     'as' => 'aceptar',
     'uses' => 'EvaluarSolicitudController@aceptar'
@@ -144,7 +222,51 @@ Route::get('/rechazar/{id}', array(
     'uses' => 'EvaluarSolicitudController@rechazar'
 ));
 
-Route::post('evaluarsolicituderecursos/rechazarsolicitud', [ 'as' => 'rechazarsolicitud', 'uses' => 'EvaluarSolicitudController@rechazarSolicitud']);
+Route::post('evaluarsolicituderecursos/rechazarsolicitud', [
+    'as' => 'rechazarsolicitud',
+    'uses' => 'EvaluarSolicitudController@rechazarSolicitud'
+]);
+
+
+/*
+ * Gestionar dependencias
+ * */
+
+Route::get('gestionardependencias/daraltadependecia',[
+    'uses' => 'GestionarDependenciasController@mostrarDarAlta'
+]);
+
+
+Route::post('gestionardependencias/daraltadependecia',[
+    'as' => 'daraltadependencia',
+    'uses' => 'GestionarDependenciasController@darDeAltaDependencia'
+]);
+
+Route::get('gestionardependencias/darbajadependencia',[
+     'uses' => 'GestionarDependenciasController@mostrarDarBaja'
+]);
+
+
+Route::post('gestionardependencias/darbajadependencia',[
+    'as' => 'eliminardependencias',
+    'uses' => 'GestionarDependenciasController@darDeBajaDependencia'
+]);
+
+
+Route::get('gestionardependencias/modificardependenciasvista',[
+    'uses' => 'GestionarDependenciasController@mostrarModificar'
+]);
+
+
+Route::get('/modificardependencia/{id}', array(
+    'uses' => 'GestionarDependenciasController@modificarDependencia'
+));
+
+
+Route::post('gestionarsolicitudderecursos/modificardependencia', [
+    'as' => 'modificardependencia',
+    'uses' => 'GestionarDependenciasController@actualizarDependencia'
+]);
 
 
 
