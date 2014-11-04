@@ -10,26 +10,66 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('prueba', function()
+{
+    $reportesproyectos = DB::table('contabilidad')
+        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
+            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
+        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+        ->where('proyecto.proy_id_proyecto','=',7 )
+        ->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
+        ->where(DB::raw('YEAR(cont_fecha)'), '=', 2014)
+        ->groupBy('usuario.usua_id_usuario')
+        ->get();
+
+    var_dump($reportesproyectos);
+});
 
 Route::get('download', function()
 {
 
+    //query por contabilidad por proyecto específico
+    $links = DB::table('contabilidad')
+        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,sum(contabilidad.cont_hrs_nodo) AS totalnodo'))
+        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+        ->where('usuario.usua_id_proyecto', '=',11  )
+        ->whereBetween(DB::raw('MONTH(cont_fecha)'),array( 10,11))
+        ->whereBetween(DB::raw('YEAR(cont_fecha)'),array( 2014,2018))
+        //->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
+        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))'
+        //->sum('usuario_x_proyecto.uspr_num_jobs')
 
-    $solicitudes = DB::table('solicitud_abstracta')
-        ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 4)
-        ->first();
+        ->groupBy('usua_id_usuario')
 
-    $pathfile = $solicitudes->SOAB_CURRICULUM;
-    $nombre = $solicitudes->SOAB_NOMBRES;
-    $apellido = $solicitudes->SOAB_AP_PATERNO;
+        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
+        ->get();
 
-    //PDF file is stored under project/public/download/info.pdf
-    $file= public_path() ."/". $pathfile;
-    $filename1 = 'curriculum'.$nombre .'.'.'pdf';
-    $headers = array(
-        'Content-Type: application/pdf',
-    );
-    return Response::download($file, $filename1 ,$headers);
+    //query por dependencia
+
+    //var_dump($links);
+
+    $links2 = DB::table('contabilidad')
+        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, depe_nombre ,proy_id_proyecto,sum(contabilidad.cont_hrs_nodo) AS totalnodo ,proy_hrs_aprobadas,
+        CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2))
+       AS average'))
+        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+        ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        ->groupBy('usuario.usua_id_proyecto')
+
+        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
+        ->get();
+
+
+    foreach($links2 as $link){
+
+        if($link->average > 22)
+        {
+            echo $link->proy_id_proyecto . '_';
+        }
+    }
 
 });
 
@@ -280,11 +320,35 @@ Route::get('/consultardependencia/{id}', array(
 
 
 
+/*
+ *
+ * Rutas para Caso de uso generar reportes
+ */
+
+Route::get('generarreportes/contabilidadmensualproyectos',[
+    'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualProyecto'
+]);
+
+Route::post('generarreportes/contabilidadmensualproyectos',[
+    'as' => 'genreportes',
+    'uses' => 'GenerarReportesController@generarReporteMensualProyecto'
+]);
 
 
+Route::get('/reportemensualespecifico/{id}/{mes}/{anio}', [
+    'as' => 'reportemensualespecifico',
+    'uses' => 'GenerarReportesController@mostrarReporteProyectoEspecifico'
+]);
+
+Route::get('generarreportes/contabilidadporperiodoproyectos',[
+    'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoProyecto'
+]);
 
 
-
+Route::post('generarreportes/contabilidadporperiodoproyectos',[
+    'as' => 'genreportesporperiodo',
+    'uses' => 'GenerarReportesController@generarReportePeriodoProyecto'
+]);
 
 
 

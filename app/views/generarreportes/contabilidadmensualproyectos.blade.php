@@ -9,14 +9,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                   Generar reportes
                 </h1>
                 <ol class="breadcrumb">
                     <li>
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar Solicitudes
+                        <i class="fa fa-table"></i> Generar reportes
                     </li>
                 </ol>
             </div>
@@ -24,34 +24,17 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-6">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(['route' => 'buscar', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form']) }}
+                {{ Form::open(['route' => 'genreportes', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form']) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar Solicitud de recursos</h2>
+                <h2>Contabilidad mensual para proyectos</h2>
+
+                <h3>Elige el mes y el año que deseas consultar</h3>
 
 
-                <div class="form-group">
-                    {{ Form::label('tipo', 'Tipo de solicitud')}}
-                    <select name="tiposolicitud" id="tiposolicitud" class="form-control" >
-                        <option value="1" > Del periodo</option>
-                        <option value="2" > Renovación </option>
-                        <option value="3" > Ampliación</option>
-
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    {{ Form::label('edo', 'Estado de la solicitud')}}
-                    <select name="estadosolicitud" id="estadosolicitud" class="form-control" >
-                        <option value="1" > Pendiente </option>
-                        <option value="2" > Aceptada</option>
-                        <option value="3" > Rechazada</option>
-                    </select>
-                </div>
 
                 <div class="form-group">
                     {{ Form::label('mes', 'Mes')}}
@@ -98,7 +81,7 @@
 
                 <div class="form-group">
                     <p>
-                        <input type="submit" value="Buscar" class="btn btn-success btn-lg">
+                        <input type="submit" value="Generar reporte" class="btn btn-success btn-lg">
                     </p>
                 </div>
 

@@ -377,11 +377,12 @@ class EvaluarSolicitudController extends BaseController {
 
     public function prueba2()
     {
-        $links = DB::table('usuario_x_proyecto')
-            ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))
+
+        $links = DB::table('contabilidad')
+            ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, proy_id_proyecto ,sum(contabilidad.cont_hrs_nodo) AS totalnodo'))
             //->sum('uspr_num_hrscpu')
             //->select(DB::raw('sum(\'usuario_x_proyecto.uspr_num_jobs\')'))
-            ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
+            ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
             //->sum('usuario_x_proyecto.uspr_num_jobs')
 
             ->groupBy('proy_id_proyecto')
@@ -389,7 +390,11 @@ class EvaluarSolicitudController extends BaseController {
             //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
             ->get();
 
-        return \Illuminate\Support\Facades\View::make('proyectos')->with('proyectos', $links);
+         var_dump($links);
+
+
+
+            //\Illuminate\Support\Facades\View::make('proyectos')->with('proyectos', $links);
     }
 
     /**

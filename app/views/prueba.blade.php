@@ -1,6 +1,8 @@
 @extends('dashboardlayout')
 
 @section('content')
+
+
 <div id="page-wrapper">
 
     <div class="container-fluid">
@@ -9,14 +11,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Evaluar Solicitud de recursos
                 </h1>
                 <ol class="breadcrumb">
                     <li>
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar Solicitudes
+                        <i class="fa fa-table"></i> Evaluar solicitud de recursos
                     </li>
                 </ol>
             </div>
@@ -26,11 +28,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(array('route' => array('update' ), 'id' => 'idForm')) }}
+                {{ Form::open(array('route' => array('generar' ), 'id' => 'idForm')) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar Solicitud de recursos</h2>
+                <h2>Evaluar Solicitud de recursos</h2>
 
 
 
@@ -43,26 +45,29 @@
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
-                            <th>Accion</th>
+                            <th>Acción</th>
 
 
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($solicitudes as $solicitud)
+
                         <tr>
 
-                            <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
-                            <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
-                            <td> {{$solicitud->SOAB_NOMBRES}}</td>
-                            <td> {{$solicitud->TISO_NOMBRE}}</td>
+                            <td class="visible-xs visible-lg"> s pavos /td>
+                            <td> </td>
+                            <td>  s pavos</td>
+                            <td> </td>
                             <td>
-                            <a href="{{ action('SolicitudController@editarSolicitud', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-default">Modificar Solicitud</a>
+                                <a href="#" class="btn btn-success">Aceptar</a>
+
+                                <a href="#" class="btn btn-danger">Rechazar</a>
+
                             </td>
 
 
                         </tr>
-                        @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -77,6 +82,5 @@
     <!-- /.container-fluid -->
 
 </div>
-<!-- /#page-wrapper -->
 
 @endsection
