@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(array('route' => array('reportemensualespecifico' ), 'id' => 'idForm')) }}
+                {{ Form::open(array('route' => array('reporteporperiodoespecifico' ), 'id' => 'idForm')) }}
                 <input type="hidden" name="mes" value="{{ $mes}}">
                 <input type="hidden" name="anio" value="{{ $anio}}">
                 @if (Session::has('message'))
@@ -74,7 +74,7 @@
                             <td>  <span class="label label-danger">{{ $reportesproyecto->porcentajeproyecto  }}%</span></td>
                             @endif
                             <td>
-                                <a href="{{ action('GenerarReportesController@mostrarReporteProyectoEspecifico', array($reportesproyecto->proy_id_proyecto, $mes, $anio, false) ) }}" class="btn btn-info btn-md">Ver desglose del proyecto</a>
+                                <a href="{{ action('GenerarReportesController@mostrarReportePorPeriodoProyectoEspecifico', array($reportesproyecto->proy_id_proyecto, $mes, $anio, $mes2, $anio2,false) ) }}" class="btn btn-info btn-md">Ver desglose del proyecto</a>
                             </td>
 
 

@@ -73,7 +73,7 @@
                                     <td> {{$reportesproyecto->totalnodo}}</td>
                                     @if ($reportesproyecto->porcentajeproyecto < 50)
                                     <td>  <span class="label label-success">{{$reportesproyecto->porcentajeproyecto }}%</span></td>
-                                    @elseif ($reportesproyecto->porcentajeproyecto >= 50)
+                                    @elseif ($reportesproyecto->porcentajeproyecto >= 50 && $reportesproyecto->porcentajeproyecto < 80)
                                     <td>  <span class="label label-warning">{{ $reportesproyecto->porcentajeproyecto  }}%</span></td>
                                     @else ($reportesproyecto->porcentajeproyecto > 80)
                                     <td>  <span class="label label-danger">{{ $reportesproyecto->porcentajeproyecto  }}%</span></td>

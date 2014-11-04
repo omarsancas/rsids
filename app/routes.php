@@ -351,5 +351,11 @@ Route::post('generarreportes/contabilidadporperiodoproyectos',[
 ]);
 
 
+Route::get('/reporteperiodoespecifico/{id}/{mes}/{anio}/{mes2}/{anio2}', [
+    'as' => 'reporteporperiodoespecifico',
+    'uses' => 'GenerarReportesController@mostrarReportePorPeriodoProyectoEspecifico'
+]);
+
+
 
 
