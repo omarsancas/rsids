@@ -221,16 +221,50 @@
 
                     </li>
                     <li>
-                        <a href="{{ URL::to('gestionardependencias/daraltadependecia') }}">Contabilidad por periodo para proyectos</a>
+                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Contabilidad por periodo para proyectos</a>
 
                     </li>
                     <li>
-                        <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}">Contablidad mensual para dependencias</a>
+                        <a href="{{ URL::to('generarreportes/contabilidadmensualdependencias') }}">Contablidad mensual para dependencias</a>
                     </li>
                     <li>
-                        <a href="{{ URL::to('gestionardependencias/darbajadependencia') }}">Contabilidad por periodo para dependencias</a>
+                        <a href="{{ URL::to('generarreportes/contabilidadporperiododependencias') }}">Contabilidad por periodo para dependencias</a>
 
                     </li>
+
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-arrows-v"></i> Gestionar proyectos <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo4" class="collapse">
+                    <li>
+                        <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}">Consultar proyectos</a>
+
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Consumo de recursos Miztli</a>
+
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-arrows-v"></i> Consultar recursos disponibles <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo5" class="collapse">
+                    <li>
+                        <a href="{{ URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos') }}">Recursos consumidos</a>
+
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Consumo de recursos Miztli</a>
+
+                    </li>
+
 
 
                 </ul>

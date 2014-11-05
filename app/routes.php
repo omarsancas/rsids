@@ -17,13 +17,21 @@ Route::get('prueba', function()
             proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
         ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
         ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-        ->where('proyecto.proy_id_proyecto','=',7 )
-        ->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
-        ->where(DB::raw('YEAR(cont_fecha)'), '=', 2014)
-        ->groupBy('usuario.usua_id_usuario')
+        ->where('proyecto.proy_id_estado_proyecto', '=', 1)
+        ->groupBy('proyecto.proy_id_proyecto')
         ->get();
 
-    var_dump($reportesproyectos);
+
+
+    $users = DB::table('usuario')
+        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+        ->where('usua_id_usuario', 'LIKE', '%vicval%')
+        ->where('usua_id_usuario', 'LIKE', '%vicval%')
+        ->orWhere('proy_nombre', 'LIKE', '%natural proc%')
+        //->orWhere('email', 'LIKE', '%foo%')
+        ->get();
+
+    var_dump($users);
 });
 
 Route::get('download', function()
@@ -356,6 +364,65 @@ Route::get('/reporteperiodoespecifico/{id}/{mes}/{anio}/{mes2}/{anio2}', [
     'uses' => 'GenerarReportesController@mostrarReportePorPeriodoProyectoEspecifico'
 ]);
 
+Route::get('generarreportes/contabilidadmensualdependencias',[
+    'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualDependencia'
+]);
+
+
+Route::post('generarreportes/contabilidadmensualdependencias',[
+    'as' => 'genreportesmensualdependencias',
+    'uses' => 'GenerarReportesController@generarReporteMensualDependencia'
+]);
+
+
+Route::get('generarreportes/contabilidadporperiododependencias',[
+    'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoDependencia'
+]);
+
+
+Route::post('generarreportes/contabilidadporperiododependencias',[
+    'as' => 'genreportesporperiododependencias',
+    'uses' => 'GenerarReportesController@generarReportePeriodoDependencia'
+]);
+
+
+
+Route::get('/generarreportemensualpdfproyectos/{mes}/{anio}', [
+    'as' => 'generarreportemensualpdfproyectos',
+    'uses' => 'GenerarReportesController@generarPdfMensualPorProyectos'
+]);
+
+
+
+/*Consultar Recursos disponibles*/
+
+Route::get('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
+    'uses' => 'ConsultarRecursosDisponiblesController@recursosDisponiblesProyectos'
+]);
+
+Route::post('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
+    'as' => 'mostrarrecursosdisponibles',
+    'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesProyectos'
+]);
+
+
+/* Gestionar proyectos */
+
+
+Route::get('gestionarproyectos/consultarproyectosvista',[
+    'uses' => 'GestionarProyectosController@mostrarConsultarProyectos'
+]);
+
+
+Route::post('gestionarproyectos/consultarproyectosvista',[
+    'as' => 'consultarproyecto',
+    'uses' => 'GestionarProyectosController@consultarProyectos'
+]);
+
+Route::get('/consultarproyectoespecifico/{id}', [
+    'as' => 'consultarproyectoespecifico',
+    'uses' => 'GestionarProyectosController@consultarProyectoEspecifico'
+]);
 
 
 

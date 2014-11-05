@@ -12,14 +12,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar reporte mensual del mes {{$mes }} del {{ $anio}}
+                    Gestionar proyectos
                 </h1>
                 <ol class="breadcrumb">
                     <li>
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar reporte mensual por proyecto
+                        <i class="fa fa-table"></i> Consultar un proyecto
                     </li>
                 </ol>
             </div>
@@ -30,37 +30,26 @@
             <div class="col-lg-10">
 
                 <div class="jumbotron">
-                    <h3>ID del proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h3>
-                    <h3>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h3>
-                    <h3>Dependencia: {{$reportesproyectodatos->depe_nombre}}</h3>
-                    <h3>Nombre de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h3>
-                    <h3>Horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h3>
-                    <h3>Saldo de horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h3>
+                    <h2>ID del proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h2>
+                    <h2>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h2>
+                    <h2>Estado del proyecto: {{$reportesproyectodatos->espr_tipo_estado}}</h2>
+                    <h2>Fecha de inicio de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
+                    <h2>Fecha de termino de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
+                    <h2>Fecha de ultimo cambio de estado: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
+                    <h2>Fecha de registro del proyecto: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
+                    <h2>Nombre de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h2>
+                    <h2>Número de trabajos: {{$reportesproyectodatos->totaljobs}}</h2>
+                    <h2>Número total de horas : {{$reportesproyectodatos->totalnodo}}</h2>
+                    <h2>Horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
+                    <h2>Saldo de horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
 
-                    <h3>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h3>
-                    @if ($reportesproyectodatos->porcentajeproyecto < 50)
+                    <h2>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h2>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
                             <span class="sr-only">40% Complete (success)</span>
                         </div>
 
                     </div>
-                    @elseif ($reportesproyectodatos->porcentajeproyecto >= 50 && $reportesproyectodatos->porcentajeproyecto < 80)
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
-                            <span class="sr-only">40% Complete (success)</span>
-                        </div>
-
-                    </div>
-                    @else ($reportesproyectodatos->porcentajeproyecto > 80)
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
-                            <span class="sr-only">40% Complete (success)</span>
-                        </div>
-
-                    </div>
-                    @endif
-
                 </div>
 
                 <h2>Uso de recursos del proyecto por usuario</h2>

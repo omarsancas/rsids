@@ -35,6 +35,7 @@
                 @endif
                 <h2>Contabilidad mensual para proyectos</h2>
 
+
                 @if (empty($reportesproyectos))
                 <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
                 @else
