@@ -12,7 +12,7 @@ class Proyecto extends Eloquent {
     
     protected $fillable = [];
     protected $table = 'proyecto';
-    protected $primaryKey = 'proy_id_proyecto';
+    protected $primaryKey = 'PROY_ID_PROYECTO';
     public $timestamps = false;
 
 }

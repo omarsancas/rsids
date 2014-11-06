@@ -17,12 +17,8 @@
     <script src="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet"></script>
 
 
-
     <link href="{{ asset ('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset ('css/plugins/morris.css')}}" rel="stylesheet">
-
-
-
 
 
     <!-- Custom CSS -->
@@ -49,237 +45,280 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">RSIDS Admin</a>
-    </div>
-    <!-- Top Menu Items -->
-    <ul class="nav navbar-right top-nav">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-            <ul class="dropdown-menu message-dropdown">
-                <li class="message-preview">
-                    <a href="#">
-                        <div class="media">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">RSIDS Admin</a>
+</div>
+<!-- Top Menu Items -->
+<ul class="nav navbar-right top-nav">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu message-dropdown">
+            <li class="message-preview">
+                <a href="#">
+                    <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
-                            <div class="media-body">
-                                <h5 class="media-heading"><strong>John Smith</strong>
-                                </h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                            </div>
+
+                        <div class="media-body">
+                            <h5 class="media-heading"><strong>John Smith</strong>
+                            </h5>
+
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
                         </div>
-                    </a>
-                </li>
-                <li class="message-preview">
-                    <a href="#">
-                        <div class="media">
+                    </div>
+                </a>
+            </li>
+            <li class="message-preview">
+                <a href="#">
+                    <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
-                            <div class="media-body">
-                                <h5 class="media-heading"><strong>John Smith</strong>
-                                </h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                            </div>
+
+                        <div class="media-body">
+                            <h5 class="media-heading"><strong>John Smith</strong>
+                            </h5>
+
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
                         </div>
-                    </a>
-                </li>
-                <li class="message-preview">
-                    <a href="#">
-                        <div class="media">
+                    </div>
+                </a>
+            </li>
+            <li class="message-preview">
+                <a href="#">
+                    <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
-                            <div class="media-body">
-                                <h5 class="media-heading"><strong>John Smith</strong>
-                                </h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                            </div>
+
+                        <div class="media-body">
+                            <h5 class="media-heading"><strong>John Smith</strong>
+                            </h5>
+
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
                         </div>
-                    </a>
-                </li>
-                <li class="message-footer">
-                    <a href="#">Read All New Messages</a>
-                </li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-            <ul class="dropdown-menu alert-dropdown">
-                <li>
-                    <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                </li>
-                <li>
-                    <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                </li>
-                <li>
-                    <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                </li>
-                <li>
-                    <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                </li>
-                <li>
-                    <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                </li>
-                <li>
-                    <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">View All</a>
-                </li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}">Consultar solicitudes</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitudes</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitudes</a>
-
-                    </li>
-
-                    <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/generarcartas') }}">Generar carta de aceptación de recursos</a>
-
-                    </li>
-
-                    <li>
-                        <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de recursos</a>
-
-                    </li>
-                </ul>
+                    </div>
+                </a>
             </li>
-
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Gestionar dependencias <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo2" class="collapse">
-                    <li>
-                        <a href="{{ URL::to('gestionardependencias/consultardependenciasvista') }}">Consultar dependencias</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('gestionardependencias/daraltadependecia') }}">Dar de alta dependencia</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}">Modificar dependencias</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('gestionardependencias/darbajadependencia') }}">Dar baja una dependencia</a>
-
-                    </li>
-
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> Generar reportes <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo3" class="collapse">
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadmensualproyectos') }}">Contabilidad mensual para proyectos</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Contabilidad por periodo para proyectos</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadmensualdependencias') }}">Contablidad mensual para dependencias</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadporperiododependencias') }}">Contabilidad por periodo para dependencias</a>
-
-                    </li>
-
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-arrows-v"></i> Gestionar proyectos <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo4" class="collapse">
-                    <li>
-                        <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}">Consultar proyectos</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Consumo de recursos Miztli</a>
-
-                    </li>
-
-
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-arrows-v"></i> Consultar recursos disponibles <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo5" class="collapse">
-                    <li>
-                        <a href="{{ URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos') }}">Recursos consumidos</a>
-
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Consumo de recursos Miztli</a>
-
-                    </li>
-
-
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
-
+            <li class="message-footer">
+                <a href="#">Read All New Messages</a>
             </li>
         </ul>
-    </div>
-    <!-- /.navbar-collapse -->
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu alert-dropdown">
+            <li>
+                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+            </li>
+            <li>
+                <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+            </li>
+            <li>
+                <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+            </li>
+            <li>
+                <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+            </li>
+            <li>
+                <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+            </li>
+            <li>
+                <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">View All</a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+                class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}">Consultar solicitudes</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitudes</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitudes</a>
+
+                </li>
+
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/generarcartas') }}">Generar carta de aceptación de
+                        recursos</a>
+
+                </li>
+
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de
+                        recursos</a>
+
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar dependencias <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo2" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/consultardependenciasvista') }}">Consultar
+                        dependencias</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/daraltadependecia') }}">Dar de alta dependencia</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}">Modificar
+                        dependencias</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/darbajadependencia') }}">Dar baja una dependencia</a>
+
+                </li>
+
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i>
+                Generar reportes <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo3" class="collapse">
+                <li>
+                    <a href="{{ URL::to('generarreportes/contabilidadmensualproyectos') }}">Contabilidad mensual para
+                        proyectos</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('generarreportes/contabilidadporperiodoproyectos') }}">Contabilidad por periodo
+                        para proyectos</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('generarreportes/contabilidadmensualdependencias') }}">Contablidad mensual para
+                        dependencias</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('generarreportes/contabilidadporperiododependencias') }}">Contabilidad por
+                        periodo para dependencias</a>
+
+                </li>
+
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar proyectos <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo4" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}">Consultar un proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/modificarproyectosvista') }}">Modificar un proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/cambiarestadoproyectovista') }}">Cambiar estado a un
+                        proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/buscarusuariosvista') }}">Buscar Usuarios</a>
+                </li>
+
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-arrows-v"></i>
+                Consultar recursos disponibles <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo5" class="collapse">
+                <li>
+                    <a href="{{ URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos') }}">Recursos
+                        consumidos</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('consultarrecursosdisponibles/consumorecursosmiztli') }}">Consumo de recursos
+                        Miztli</a>
+
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar cuentas titulares <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo6" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/modificarcuentatitularvista') }}">Modificar cuentas titulares</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('consultarrecursosdisponibles/consumorecursosmiztli') }}">Consultar cuentas titulares</a>
+
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
+
+        </li>
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
 </nav>
 
-    @yield('content')
+@yield('content')
 
 </div>
 <!-- /#wrapper -->

@@ -293,6 +293,10 @@ class EvaluarSolicitudController extends BaseController {
         $appaterno = $solicitudabs->SOAB_AP_PATERNO;
         $apmaterno = $solicitudabs->SOAB_AP_MATERNO;
 
+        $usua_nombre_concatenado = $nombre . ' '. $appaterno  .' '. $apmaterno;
+        $usuario->usua_nom_completo = $usua_nombre_concatenado;
+        $usuario->save();
+
         $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
         $nombre_login1 = $this->quitarAcentos($nombre_login1);
         $grupo = substr($usuariotitular, 0, 2);
@@ -331,18 +335,21 @@ class EvaluarSolicitudController extends BaseController {
         {
             foreach ($cuentascolaboradora as $id => $cuentacol)
             {
+
+                $usrcol = Cuentacol::find($id);
+                $nombre = $usrcol->SOCO_NOMBRES;
+                $appaterno = $usrcol->SOCO_AP_PATERNO;
+                $apmaterno = $usrcol->SOCO_AP_MATERNO;
+
+                $usua_nombre_concatenado = $nombre . ' ' . $appaterno . ' ' . $apmaterno;
                 $password = $this->generarPassword();
                 $usuariocol = new Usuario();
                 $usuariocol->usua_id_usuario = $cuentacol;
                 $usuariocol->usua_id_tipo_usuario = 3;
                 $usuariocol->usua_id_proyecto = $esproyecto->proy_id_proyecto;
                 $usuariocol->usua_pass_md5 = Hash::make($password);
+                $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();
-
-                $usrcol = Cuentacol::find($id);
-                $nombre = $usrcol->SOCO_NOMBRES;
-                $appaterno = $usrcol->SOCO_AP_PATERNO;
-                $apmaterno = $usrcol->SOCO_AP_MATERNO;
 
                 $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
                 $nombre_login1 = $this->quitarAcentos($nombre_login1);

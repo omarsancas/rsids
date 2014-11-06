@@ -1,12 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Omar
  * Date: 4/11/14
  * Time: 09:46 PM
  */
-
-class GestionarProyectosController extends BaseController{
+class GestionarProyectosController extends BaseController {
 
     public function mostrarConsultarProyectos()
     {
@@ -15,18 +15,10 @@ class GestionarProyectosController extends BaseController{
 
     public function consultarProyectos()
     {
-        $querynombre = Input::get('q');
-        $queryestado = Input::get('estado');
-
-
-        $proyectos = Proyecto::where('proy_nombre', 'LIKE', "%$querynombre%")
-            ->where('proy_id_estado_proyecto' ,'=', $queryestado)
-            ->groupBy('proy_id_proyecto')
-            ->get();
-
+        $usuarios = $this->obtenerProyectos();
 
         return View::make('gestionarproyectos/consultarproyecto')
-                   ->with('proyectos',$proyectos);
+            ->with('proyectos', $usuarios);
     }
 
     public function consultarProyectoEspecifico($id)
@@ -41,7 +33,7 @@ class GestionarProyectosController extends BaseController{
             ->join('estado_proyecto', 'proyecto.proy_id_estado_proyecto', '=', 'estado_proyecto.espr_id_estado_proyecto')
             ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-            ->where('proyecto.proy_id_proyecto','=',$id )
+            ->where('proyecto.proy_id_proyecto', '=', $id)
             ->groupBy('proyecto.proy_id_proyecto')
             ->first();
 
@@ -50,18 +42,155 @@ class GestionarProyectosController extends BaseController{
             proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
             ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
             ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-            ->where('proyecto.proy_id_proyecto','=',$id )
+            ->where('proyecto.proy_id_proyecto', '=', $id)
             ->groupBy('usuario.usua_id_usuario')
             ->get();
 
 
         return View::make('gestionarproyectos/consultarproyectoespecifico')
-            ->with('reportesproyectos',$reportesproyectos)
-            ->with('reportesproyectodatos',$reportesproyectodatos);
+            ->with('reportesproyectos', $reportesproyectos)
+            ->with('reportesproyectodatos', $reportesproyectodatos);
+
+
+    }
+
+    public function mostrarModificarProyectos()
+    {
+        return View::make('gestionarproyectos/modificarproyectosvista');
+    }
+
+
+    public function modificarProyectos()
+    {
+        $usuarios = $this->obtenerProyectos();
+
+
+        return View::make('gestionarproyectos/modificarproyecto')
+            ->with('proyectos', $usuarios);
+    }
+
+    public function modificarProyectoEspecifico($id)
+    {
+        $proyecto = Proyecto::findOrFail($id);
+
+        return View::make('gestionarproyectos/modificarproyectoespecifico')->with('proyecto', $proyecto);
+    }
+
+    public function modificarGuardarProyectoEspecifico()
+    {
+        $id = Input::get('id');
+        $proyecto = Proyecto::find($id);
+        $proyecto->proy_nombre = Input::get('nombreproyecto');
+        $proyecto->proy_fec_ini_recu = Input::get('fechaini');
+        $proyecto->proy_fec_term_recu = Input::get('fechaterm');
+        $proyecto->proy_fecha_registro = Input::get('fechaterm');
+        $proyecto->save();
+
+
+        Session::flash('message', '¡El proyecto se ha modificado exitosamente!');
+
+
+        return Redirect::to('gestionarproyectos/modificarproyectosvista');
+    }
+
+
+    public function mostrarCambiarEstadoProyectos()
+    {
+        return View::make('gestionarproyectos/cambiarestadoproyectovista');
+    }
+
+
+    public function cambiarEstadoProyectos()
+    {
+        $usuarios = $this->obtenerProyectos();
+
+        return View::make('gestionarproyectos/cambiarestadoproyecto')
+            ->with('proyectos', $usuarios);
+    }
+
+    public function cambiarEstadoProyectoEspecifico($id)
+    {
+        $proyecto = Proyecto::findOrFail($id);
+        $estadoproyecto = EstadoProyecto::lists('espr_tipo_estado', 'espr_id_estado_proyecto');
+
+        return View::make('gestionarproyectos/cambiarestadoproyectoespecifico')->with('proyecto', $proyecto)->with('estadoproyecto', $estadoproyecto);
+    }
+
+    public function guardarCambiarEstadoProyectoEspecifico()
+    {
+        $id = Input::get('id');
+        $proyecto = Proyecto::find($id);
+        $proyecto->proy_id_estado_proyecto = Input::get('estadoproyecto');
+        $proyecto->save();
+        Session::flash('message', '¡El proyecto se ha modificado exitosamente!');
+
+        return Redirect::to('gestionarproyectos/cambiarestadoproyectovista');
+    }
+
+    public function mostrarBuscarUsuarios()
+    {
+        return View::make('gestionarproyectos/buscarusuariosvista');
+    }
+
+
+    public function buscarUsuarios()
+    {
+        $querynombre = Input::get('q');
+        $queryusuariotipo = Input::get('tipousuario');
+
+        if ($queryusuariotipo == 2)
+        {
+            $usuarios = $this->obtenerCuentasTitulares($querynombre);
+
+            return View::make('gestionarproyectos/buscarusuarios')->with('usuarios',$usuarios);
+
+        } elseif ($queryusuariotipo == 3)
+        {
+            $usuarios = DB::table('usuario')
+                ->join('proyecto','usuario.usua_id_proyecto','=','proyecto.proy_id_proyecto')
+                ->join('tipo_usuario','usuario.usua_id_tipo_usuario','=','tipo_usuario.tius_id_tipo_usuario')
+                ->where('usua_nom_completo','LIKE',"%$querynombre%")
+                ->where('usua_id_tipo_usuario', '=', 3)
+                ->get();
+
+            return View::make('gestionarproyectos/buscarusuarios')->with('usuarios',$usuarios);
+
+        } elseif ($queryusuariotipo == 4)
+        {
+            $usuarios = DB::table('usuario')
+                ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+                ->join('tipo_usuario', 'usuario.usua_id_tipo_usuario', '=', 'tipo_usuario.tius_id_tipo_usuario')
+                ->where('usua_nom_completo', 'LIKE', "%$querynombre%")
+                ->get();
+
+
+
+            return View::make('gestionarproyectos/buscarusuarios')->with('usuarios',$usuarios);
+
+
+
+        }
 
 
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function obtenerProyectos()
+    {
+        $querynombre = Input::get('q');
+        $queryestado = Input::get('estado');
 
-} 
+
+        $usuarios = Proyecto::where('proy_nombre', 'LIKE', "%$querynombre%")
+            ->where('proy_id_estado_proyecto', '=', $queryestado)
+            ->groupBy('proy_id_proyecto')
+            ->get();
+
+        return $usuarios;
+    }
+
+
+}

@@ -244,6 +244,7 @@ class SolicitudController extends BaseController {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->where(DB::raw('YEAR(soab_fec_registro)'), '=',  DB::raw('YEAR(CURDATE())'))
+            ->where('soab_id_estado_solicitud','=',1)
             ->get();
 
         return View::make('gestionarsolicitudderecursos.modificarsolicitud')->with('solicitudes', $solicitudes);

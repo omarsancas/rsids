@@ -405,6 +405,15 @@ Route::post('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
     'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesProyectos'
 ]);
 
+Route::get('consultarrecursosdisponibles/consumorecursosmiztli',[
+    'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztli'
+]);
+
+Route::post('consultarrecursosdisponibles/consumorecursosmiztli',[
+    'as' => 'mostrarconsumorecursosmiztliporperiodo',
+    'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztliPorPeriodo'
+]);
+
 
 /* Gestionar proyectos */
 
@@ -424,5 +433,83 @@ Route::get('/consultarproyectoespecifico/{id}', [
     'uses' => 'GestionarProyectosController@consultarProyectoEspecifico'
 ]);
 
+
+Route::get('gestionarproyectos/modificarproyectosvista',[
+    'uses' => 'GestionarProyectosController@mostrarModificarProyectos'
+]);
+
+
+Route::post('gestionarproyectos/modificarproyectosvista',[
+    'as' => 'modificarproyecto',
+    'uses' => 'GestionarProyectosController@modificarProyectos'
+]);
+
+
+Route::get('/modificarproyectoespecifico/{id}', [
+    'as' => 'modificarproyectoespecifico',
+    'uses' => 'GestionarProyectosController@modificarProyectoEspecifico'
+]);
+
+Route::post('gestionarproyectos/modificarproyectoespecifico',[
+    'as' => 'modificarguardarproyectoespecifico',
+    'uses' => 'GestionarProyectosController@modificarGuardarProyectoEspecifico'
+]);
+
+
+Route::get('gestionarproyectos/cambiarestadoproyectovista',[
+    'uses' => 'GestionarProyectosController@mostrarCambiarEstadoProyectos'
+]);
+
+
+Route::post('gestionarproyectos/cambiarestadoproyectovista',[
+    'as' => 'cambiarestadoproyecto',
+    'uses' => 'GestionarProyectosController@cambiarEstadoProyectos'
+]);
+
+
+Route::get('/cambiarestadoproyectoespecifico/{id}', [
+    'as' => 'cambiarestadoproyectoespecifico',
+    'uses' => 'GestionarProyectosController@cambiarEstadoProyectoEspecifico'
+]);
+
+Route::post('gestionarproyectos/cambiarestadoproyectoespecifico',[
+    'as' => 'guardarcambioestadoproyectoespecifico',
+    'uses' => 'GestionarProyectosController@guardarCambiarEstadoProyectoEspecifico'
+]);
+
+Route::get('gestionarproyectos/buscarusuariosvista',[
+    'uses' => 'GestionarProyectosController@mostrarBuscarUsuarios'
+]);
+
+
+Route::post('gestionarproyectos/buscarusuariosvista',[
+    'as' => 'buscarusuarios',
+    'uses' => 'GestionarProyectosController@buscarUsuarios'
+]);
+
+/*
+ * Gestionar cuentas titulares
+ * */
+
+Route::get('gestionarproyectos/modificarcuentatitularvista',[
+    'uses' => 'GestionarCuentasTitularesController@mostrarModificarCuentaTitular'
+]);
+
+
+Route::post('gestionarproyectos/modificarcuentatitularvista',[
+    'as' =>'modificarcuentatitular',
+    'uses' => 'GestionarCuentasTitularesController@modificarCuentaTitular'
+]);
+
+Route::get('/modificarcuentatitularespecifica/{id}/{id_usuario}', [
+    'as' => 'modificarcuentatitularespecifica',
+    'uses' => 'GestionarCuentasTitularesController@modificarCuentaTitularEspecifica'
+]);
+
+
+Route::post('gestionarproyectos/modificarguardarcuentatitular',[
+    'as' =>'modificarguardarcuentatitular',
+    'uses' => 'GestionarCuentasTitularesController@modificarGuardarCuentaTitularEspecifica'
+]);
 
 
