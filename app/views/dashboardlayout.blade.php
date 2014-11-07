@@ -196,6 +196,14 @@
                         recursos</a>
 
                 </li>
+
+                <li>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificarrechazo') }}">Notificar rechazo  de
+                        recursos</a>
+
+                </li>
+
+
             </ul>
         </li>
 
@@ -302,7 +310,7 @@
 
                 </li>
                 <li>
-                    <a href="{{ URL::to('consultarrecursosdisponibles/consumorecursosmiztli') }}">Consultar cuentas titulares</a>
+                    <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}">Consultar cuentas titulares</a>
 
                 </li>
             </ul>

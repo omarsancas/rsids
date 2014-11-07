@@ -499,9 +499,22 @@ class SolicitudController extends BaseController {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 2)
+            ->where('soab_proy_notificado','=',0)
             ->get();
 
         return View::make('gestionarsolicitudderecursos.notificaraprobacion')->with('solicitudes', $solicitudes);
+    }
+
+    public function mostrarNotificacionRechazoSolicitudes()
+    {
+
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
+            ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 3)
+            ->where('soab_proy_notificado','=',0)
+            ->get();
+
+        return View::make('gestionarsolicitudderecursos.notificarrechazo')->with('solicitudes', $solicitudes);
     }
 
 
@@ -520,13 +533,17 @@ class SolicitudController extends BaseController {
             ->first();
 
         $correelectronico = $solicitudes->MECO_CORREO;
+        $ruta_archivo = $solicitudes->SOAB_RUTA_ARCHIVOS;
 
+        $esnotificado = SolicitudAbstracta::find($id);
+        $esnotificado->soab_proy_notificado = 1;
+        $esnotificado->save();
 
         $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
 
 
-        $outputName = str_random(10); // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
-        $pdfPath = public_path() . '/' . $outputName . '.pdf';
+         // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
+        $pdfPath = $ruta_archivo . '/' . 'CartadeAprobacion'. $solicitudes->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
 
         $data = ['msg' => 'hola'];
@@ -535,6 +552,33 @@ class SolicitudController extends BaseController {
             $message->from('moroccosc@gmail.com', 'Laravel');
             $message->to($correelectronico);
             $message->attach($pdfPath);
+        });
+    }
+
+
+
+    public function notificarRechazo($id)
+    {
+        $solicitudes = DB::table('solicitud_abstracta')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+        $correelectronico = $solicitudes->MECO_CORREO;
+        $desc_rechazo = $solicitudes->SOAB_DESC_RECHAZO;
+
+        $esnotificado = SolicitudAbstracta::find($id);
+        $esnotificado->soab_proy_notificado = 1;
+        $esnotificado->save();
+
+
+        $data = $desc_rechazo;
+        Mail::send('emails.welcome', $data, function ($message) use ($correelectronico)
+        {
+            $message->from('moroccosc@gmail.com', 'Laravel')->subject('Notificacion de rechazo de solicitud de recursos');
+            $message->to($correelectronico);
         });
     }
 

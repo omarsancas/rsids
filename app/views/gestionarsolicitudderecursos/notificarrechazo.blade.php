@@ -16,7 +16,7 @@
                         <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Notificar Aprobacion de recursos
+                        <i class="fa fa-table"></i> Notificar Rechazo de recursos
                     </li>
                 </ol>
             </div>
@@ -26,14 +26,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(array('route' => array('notificar' ), 'id' => 'idForm')) }}
+                {{ Form::open(array('route' => array('rechazar' ), 'id' => 'idForm')) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Notificar aprobación de recursos</h2>
+                <h2>Notificar rechazo de recursos</h2>
 
 
-
+                @if(empty($solicitudes))
+                <h2>No hay solicitudes </h2>
+                @else
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -57,7 +59,7 @@
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('SolicitudController@notificarAprobacion', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Notificar aprobación de recursos</a>
+                                <a href="{{ action('SolicitudController@notificarRechazo', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Notificarrechazo de recursos</a>
 
 
                             </td>
@@ -68,6 +70,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                @endif
                 {{ Form::close() }}
             </div>
 

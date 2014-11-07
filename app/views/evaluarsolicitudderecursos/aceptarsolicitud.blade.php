@@ -16,13 +16,17 @@
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)
-<div class="alert">
-    <p style="color:red;">
-        {{ implode('', $errors->all('
-    <li>:message</li>
-    ')) }}
-    </p>
-</div>
+
+
+<ul class="list-group">
+
+    {{ implode('', $errors->all('<li class="list-group-item list-group-item-danger">:message</li>')) }}
+
+</ul>
+
+
+
+
 @endif
 
 <fieldset>
@@ -420,7 +424,7 @@
     <div class="form-group">
 
         <label for="nombre">Login cuenta titular para {{$solicitudabstracta->SOAB_NOMBRES }} {{$solicitudabstracta->SOAB_AP_PATERNO }}</label>
-        {{ Form::text('cuentatitular', '', ['class' => 'form-control'])}}
+        {{ Form::text('usua_id_usuario', '', ['class' => 'form-control'])}}
     </div>
 
     @foreach($numerocuentascol as $cuentacol)

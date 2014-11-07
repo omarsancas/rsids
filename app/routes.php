@@ -248,6 +248,17 @@ Route::get('/notificar/{id}', array(
 ));
 
 
+Route::get('gestionarsolicitudderecursos/notificarrechazo', [
+    'uses' => 'SolicitudController@mostrarNotificacionRechazoSolicitudes'
+]);
+
+Route::get('/rechazar/{id}', array(
+    'as' => 'rechazar',
+    'uses' => 'SolicitudController@notificarRechazo'
+));
+
+
+
 
 /*
  *
@@ -487,6 +498,12 @@ Route::post('gestionarproyectos/buscarusuariosvista',[
     'uses' => 'GestionarProyectosController@buscarUsuarios'
 ]);
 
+
+Route::get('/mostrarusuarioconproyecto/{idproyecto}/{idusuario}', [
+    'as' => 'mostrarusuarioconproyecto',
+    'uses' => 'GestionarProyectosController@mostrarUsuarioConProyecto'
+]);
+
 /*
  * Gestionar cuentas titulares
  * */
@@ -511,5 +528,23 @@ Route::post('gestionarproyectos/modificarguardarcuentatitular',[
     'as' =>'modificarguardarcuentatitular',
     'uses' => 'GestionarCuentasTitularesController@modificarGuardarCuentaTitularEspecifica'
 ]);
+
+
+Route::get('gestionarproyectos/consultarcuentatitularvista',[
+    'uses' => 'GestionarCuentasTitularesController@mostrarConsultarCuentaTitular'
+]);
+
+
+Route::post('gestionarproyectos/consultarcuentatitularvista',[
+    'as' => 'consultarcuentatitular',
+    'uses' => 'GestionarCuentasTitularesController@consultarCuentaTitular'
+]);
+
+
+Route::get('/consultarcuentatitularespecifica/{idproyecto}', [
+    'as' => 'consultarcuentatitularespecifica',
+    'uses' => 'GestionarCuentasTitularesController@consultarCuentaTitualEspecifica'
+]);
+
 
 

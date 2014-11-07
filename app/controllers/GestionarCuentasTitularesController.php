@@ -131,4 +131,47 @@ class GestionarCuentasTitularesController extends BaseController {
     }
 
 
+
+    public function mostrarConsultarCuentaTitular()
+    {
+        return View::make('gestionarcuentastitulares/consultarcuentatitularvista');
+    }
+
+
+    public function consultarCuentaTitular()
+    {
+        $querynombre = Input::get('nombreusuario');
+
+        $usuarios = $this->obtenerCuentasTitulares($querynombre);
+
+        return View::make('gestionarcuentastitulares/consultarcuentatitular')->with('usuarios', $usuarios);
+    }
+
+    public function consultarCuentaTitualEspecifica($idproyecto)
+    {
+        $proyecto = DB::table('contabilidad')
+            ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
+            proy_hrs_aprobadas, usua_nom_completo ,CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
+            ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+            ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->where('proyecto.proy_id_proyecto', '=', $idproyecto)
+            ->groupBy('proyecto.proy_id_proyecto')
+            ->first();
+
+        $usuariosproyecto = DB::table('contabilidad')
+            ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre ,sum(contabilidad.cont_hrs_nodo) AS totalnodo,
+            proy_hrs_aprobadas,usua_nom_completo, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
+            ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+            ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->where('proyecto.proy_id_proyecto','=',$idproyecto )
+            ->groupBy('usuario.usua_id_usuario')
+            ->get();
+
+
+        return View::make('gestionarcuentastitulares/consultarcuentatitularespecifica')
+                   ->with('proyecto',$proyecto)->with('usuariosproyecto',$usuariosproyecto);
+
+
+    }
+
 }

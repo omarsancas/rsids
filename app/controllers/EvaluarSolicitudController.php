@@ -137,7 +137,46 @@ class EvaluarSolicitudController extends BaseController {
 
     public function actualizarAceptarSolicitud()
     {
+
         $id = Input::get('id');
+
+
+        $rules = array(
+            'usua_id_usuario'        => 'required|unique:Usuario',
+
+
+        );
+
+        //validacion para inputs dinámicamente
+        //foreach (Input::get('cuentacolaboradora') as $key => $val)(
+        //$rules["usua_id_usuario"] = array( "unique:Usuario")
+             //   );
+
+
+        $mensajes = array(
+            'required' => ' El campo :attribute es obligatorio',
+            'mimes'    => 'El archivo :attribute archivo debe de ser pdf',
+            'max'      => 'El archivo :attribute no debe de pasar los 8MB',
+            'horasCPU.max'=> 'Las horas cpu no deben sobrepasar las 5000000 de horas',
+            'numeric' => ' El campo :attribute solo debe contener números',
+
+        );
+
+        $validator = Validator::make(Input::all(), $rules, $mensajes);
+
+        if ($validator->fails())
+        {
+
+
+            $messages = $validator->messages();
+
+            // redirect our user back to the form with the errors from the validator
+            return Redirect::route('aceptar',$id)
+                ->withErrors($validator)->withInput(Input::except('curriculum', 'constancias', 'documentodescriptivo'));
+        } else
+        {
+
+
         $solicitudabstracta = SolicitudAbstracta::find($id);
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
@@ -277,33 +316,31 @@ class EvaluarSolicitudController extends BaseController {
         $esproyecto->proy_id_estado_proyecto = 1;
         $esproyecto->save();
 
-        $usuario = new Usuario;
-        $usuariotitular = Input::get('cuentatitular');
-        $usuario->usua_id_usuario = $usuariotitular;
-        $usuario->usua_id_tipo_usuario = 2;
-        $usuario->usua_pass_md5 = Hash::make($passwordtitular);
-        $usuario->usua_id_proyecto = $esproyecto->proy_id_proyecto;
-        $usuario->save();
-
-
-        $passwordvpn = $this->generarPassword();
         $idlog = Input::get('id');
         $solicitudabs = SolicitudAbstracta::find($idlog);
         $nombre = $solicitudabs->SOAB_NOMBRES;
         $appaterno = $solicitudabs->SOAB_AP_PATERNO;
         $apmaterno = $solicitudabs->SOAB_AP_MATERNO;
-
         $usua_nombre_concatenado = $nombre . ' '. $appaterno  .' '. $apmaterno;
+
+        $usuario = new Usuario;
+        $usuariotitular = Input::get('usua_id_usuario');
+        $usuario->usua_id_usuario = $usuariotitular;
+        $usuario->usua_id_tipo_usuario = 2;
+        $usuario->usua_pass_md5 = Hash::make($passwordtitular);
         $usuario->usua_nom_completo = $usua_nombre_concatenado;
+        $usuario->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
         $usuario->save();
 
+
+        $passwordvpn = $this->generarPassword();
         $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
         $nombre_login1 = $this->quitarAcentos($nombre_login1);
         $grupo = substr($usuariotitular, 0, 2);
 
 
         $vpn = new Vpn;
-        $cuentatitular = Input::get('cuentatitular');
+        $cuentatitular = Input::get('usua_id_usuario');
         $vpn->vplo_login = $cuentatitular;
         $vpn->vplo_password = $passwordvpn;
         $vpn->vplo_nombre = $nombre_login1;
@@ -312,7 +349,7 @@ class EvaluarSolicitudController extends BaseController {
 
         $passwordmaquinatitular = $this->generarPassword();
         $maquina = new Maquina();
-        $cuentatitular = Input::get('cuentatitular');
+        $cuentatitular = Input::get('usua_id_usuario');
         $maquina->malo_login = $cuentatitular;
         $maquina->malo_password = $passwordmaquinatitular;
         $maquina->malo_nombre = $nombre_login1;
@@ -346,7 +383,7 @@ class EvaluarSolicitudController extends BaseController {
                 $usuariocol = new Usuario();
                 $usuariocol->usua_id_usuario = $cuentacol;
                 $usuariocol->usua_id_tipo_usuario = 3;
-                $usuariocol->usua_id_proyecto = $esproyecto->proy_id_proyecto;
+                $usuariocol->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
                 $usuariocol->usua_pass_md5 = Hash::make($password);
                 $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();
@@ -379,6 +416,8 @@ class EvaluarSolicitudController extends BaseController {
         return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
         //$queries = DB::getQueryLog();
         //var_dump($queries);
+
+        }
     }
 
 
