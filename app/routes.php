@@ -87,42 +87,15 @@ Route::get('proyectos', ['as' => 'contabilidad', 'uses' => 'EvaluarSolicitudCont
 Route::get('/', function()
 {
 
-    //$solicitudabs = SolicitudAbstracta::find(11);
-    //$aplicacionesseleccionadas = $solicitudabs->aplicaciones()->orderBy('soap_id_aplicacion', 'ASC')->get()->toArray();
-    //$aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
-    //$dependencia = DB::table('solicitud_abstracta')
-        //->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        //->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', 12)
-        //->first();
-
-   // dd($aplicacionesseleccionadas);
-
-    /*if($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 0)
-    {
-    foreach($aplicacionesseleccionadas as  $aplicacion)
-    {
-        if($aplicacion == 8)
-        {
-            foreach($aplicacionesseleccionadas as $aplicaciones2)
-            {
-                if($aplicaciones2 == 14)
-                {
-                    return 'Son las dos apps';
-
-                }
-            }
-
-            return 'solo es ocho';
-        }elseif($aplicacion == 14)
-        {
-            return 'solo es 14 ';
-        }
-    }*/
 
 
-    //}
 
+  $usuario = Usuario::find('vicval');
 
+  $usuario->password = \Illuminate\Support\Facades\Hash::make('123');
+
+  $usuario->save();
+    /*
     Excel::create('Filename', function($excel) {
 
         $excel->sheet('Sheetname', function($sheet) {
@@ -131,31 +104,13 @@ Route::get('/', function()
         });
     })->download('txt');
 
-
-
-
-
-    /*
-    $numerocuentascol = DB::table('solicitud_cta_colaboradora')
-        ->select(DB::raw('COUNT(*) as cuentascolaboradoras'))
-        ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', 18)
-        ->get();
     */
-    /*//$total = DB::table('usuario_x_proyecto')->sum('uspr_num_hrscpu');
-    $links = DB::table('usuario_x_proyecto')
-        ->select(DB::raw('sum(usuario_x_proyecto.uspr_num_jobs) AS totaljobs, proy_id_proyecto ,sum(usuario_x_proyecto.uspr_num_hrscpu) AS totalcpu'))
-        //->sum('uspr_num_hrscpu')
-        //->select(DB::raw('sum(\'usuario_x_proyecto.uspr_num_jobs\')'))
-        ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
-        //->sum('usuario_x_proyecto.uspr_num_jobs')
 
-        ->groupBy('proy_id_proyecto')
-        ->whereBetween(DB::raw('MONTH(uspr_fecha)'),array( 10, 11))
-        //->where(DB::raw('MONTH(uspr_fecha)'), '=', 10)
-        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
-        ->get(
 
-        );*/
+
+
+
+
 
     $queries = DB::getQueryLog();
     //var_dump($numerocuentascol);
@@ -163,8 +118,10 @@ Route::get('/', function()
 });
 
 /*
- * Gestionar solicitud de recursos
- */
+ * Generar solicitud de recursos
+ * */
+
+
 Route::get('solicitud',[
     'as' => 'solicitud',
     'uses' => 'SolicitudController@mostrarSolicitud'
@@ -174,6 +131,17 @@ Route::post('solicitud', [
     'as' => 'registrar',
     'uses' => 'SolicitudController@generarSolicitud'
 ]);
+
+
+/* Rutas para Usuario Admin*/
+
+
+Route::group(array('before' => 'auth|role:1'), function ()
+{
+/*
+ * Gestionar solicitud de recursos
+ */
+
 
 Route::get('gestionarsolicitudderecursos/eliminarsolicitud', [
     'as' => 'delete',
@@ -546,5 +514,30 @@ Route::get('/consultarcuentatitularespecifica/{idproyecto}', [
     'uses' => 'GestionarCuentasTitularesController@consultarCuentaTitualEspecifica'
 ]);
 
+});
 
 
+
+/*
+ * Rutas para usuario cuenta titular
+ */
+Route::group(array('before' => 'auth|role:2'), function ()
+{
+
+    Route::get('cuentatitular/consultarrecursosdisponibles', [
+        'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesUsuarioTitular'
+    ]);
+
+});
+
+
+
+
+/*
+ * Sesiones para login
+ * */
+
+Route::get('login', 'SesionesController@create');
+Route::post('login', 'SesionesController@store');
+Route::get('logout', 'SesionesController@destroy');
+Route::resource('sesiones', 'SesionesController');

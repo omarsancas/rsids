@@ -30,11 +30,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad mensual para proyectos</h2>
-
-                <h3>Elige el mes y el año que deseas consultar</h3>
-
-
+                <h2>Consultar recursos disponibles</h2>
 
                 <div class="form-group">
                     {{ Form::label('mes', 'Recursos disponibles para proyectos')}}

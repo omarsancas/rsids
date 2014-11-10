@@ -32,7 +32,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad mensual para proyectos</h2>
+                <h2>Consultar recursos disponibles</h2>
 
 
                 @if (empty($recursosdisponiblesproyectos))

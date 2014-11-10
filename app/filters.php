@@ -48,6 +48,15 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('role',function($route,$request,$role)
+{
+
+    if(Auth::guest() or !Auth::user()->esUsuario($role))
+    {
+        App::abort(403,'No estas autorizado');
+    }
+});
+
 
 Route::filter('auth.basic', function()
 {
