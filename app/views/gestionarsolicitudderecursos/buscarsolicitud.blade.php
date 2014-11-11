@@ -12,11 +12,9 @@
                     Gestionar Solicitud de recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar Solicitudes
+                        <i class="fa fa-table"></i> Consultar Solicitud
                     </li>
                 </ol>
             </div>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar Solicitud de recursos</h2>
+                <h2>Consultar Solicitud</h2>
 
 
                 <div class="form-group">

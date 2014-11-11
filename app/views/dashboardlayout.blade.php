@@ -169,19 +169,25 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
+
+        <li>
+            <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
+
+        </li>
+
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
                 Gestionar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
                 <li>
-                    <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}">Consultar solicitudes</a>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}">Consultar solicitud</a>
 
                 </li>
                 <li>
-                    <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitudes</a>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}">Modificar Solicitud</a>
                 </li>
                 <li>
-                    <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitudes</a>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/eliminarsolicitud') }}">Eliminar Solicitud</a>
 
                 </li>
 
@@ -206,6 +212,44 @@
 
             </ul>
         </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar proyectos <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo4" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}">Consultar un proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/modificarproyectosvista') }}">Modificar un proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/cambiarestadoproyectovista') }}">Cambiar estado a un
+                        proyecto</a>
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/buscarusuariosvista') }}">Buscar Usuarios</a>
+                </li>
+
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar cuentas titulares <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo6" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/modificarcuentatitularvista') }}">Modificar cuentas titulares</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}">Consultar cuentas titulares</a>
+
+                </li>
+            </ul>
+        </li>
+
 
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i>
@@ -261,27 +305,6 @@
             </ul>
         </li>
 
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-arrows-v"></i>
-                Gestionar proyectos <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo4" class="collapse">
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}">Consultar un proyecto</a>
-                </li>
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/modificarproyectosvista') }}">Modificar un proyecto</a>
-                </li>
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/cambiarestadoproyectovista') }}">Cambiar estado a un
-                        proyecto</a>
-                </li>
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/buscarusuariosvista') }}">Buscar Usuarios</a>
-                </li>
-
-
-            </ul>
-        </li>
 
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-arrows-v"></i>
@@ -301,26 +324,10 @@
         </li>
 
 
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-arrows-v"></i>
-                Gestionar cuentas titulares <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo6" class="collapse">
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/modificarcuentatitularvista') }}">Modificar cuentas titulares</a>
-
-                </li>
-                <li>
-                    <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}">Consultar cuentas titulares</a>
-
-                </li>
-            </ul>
-        </li>
 
 
-        <li>
-            <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Evaluar solicitud de recursos</a>
 
-        </li>
+
     </ul>
 </div>
 <!-- /.navbar-collapse -->

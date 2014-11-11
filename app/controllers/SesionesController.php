@@ -41,6 +41,7 @@ class SesionesController extends Controller {
 
         $attempt= Auth::attempt([
             'USUA_ID_USUARIO' => $input['usuario'],
+            'USUA_ID_USUARIO' => $input['usuario'],
             'password' => $input['password']
 
         ]);
@@ -51,7 +52,7 @@ class SesionesController extends Controller {
 
          if (Auth::user()->esAdmin())
             {
-                return Redirect::intended('gestionarsolicitudderecursos/consultarsolicitud');
+                return View::make('bienvenidaadmin');
             }
             elseif(Auth::user()->esUsuarioCuentaTitular())
             {
@@ -62,7 +63,8 @@ class SesionesController extends Controller {
 
         }else{
 
-            App::abort(403,'No estas autorizado');
+            Session::flash('message', '¡El Usuario o la contraseña no son correctas!');
+            return Redirect::route('login');
         }
 
 

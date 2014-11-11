@@ -13,11 +13,9 @@
                     Gestionar Solicitud de recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar Solicitudes
+                        <i class="fa fa-table"></i> Consultar Solicitud
                     </li>
                 </ol>
             </div>
@@ -31,7 +29,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar Solicitud de recursos</h2>
+                <h2>Consultar Solicitud</h2>
 
                 @if (empty($solicitudes))
                 <h2>No se encontró ninguna solicitud con los parametros elegidos</h2>
@@ -43,8 +41,8 @@
                         <tr>
 
                             <th>Número de la solicitud</th>
-                            <th>Nombre Completo del proyecto</th>
-                            <th>Nombre del titular del proyecto</th>
+                            <th>Nombre del proyecto</th>
+                            <th>Nombre Completo del titular del proyecto</th>
                             <th>Tipo de solicitud</th>
                             <th>Accion</th>
 
@@ -58,7 +56,7 @@
 
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
-                            <td> {{$solicitud->SOAB_NOMBRES}}</td>
+                            <td> {{$solicitud->SOAB_NOMBRES}} {{$solicitud->SOAB_AP_PATERNO}} {{$solicitud->SOAB_AP_MATERNO}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
                                 <a href="{{ action('SolicitudController@consultarSolicitudVista', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success btn-lg">Consultar Solicitud</a>

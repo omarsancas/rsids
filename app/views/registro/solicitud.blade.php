@@ -15,7 +15,7 @@
 
 <h1></h1>
 
-<h1>Solicitud de recursos </h1>
+<h1> Generar solicitud de recursos </h1>
 
 {{ Form::open (['route' => 'registrar', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form', 'files' =>true]) }}
 
@@ -38,13 +38,13 @@
     <legend>Datos generales del titular</legend>
 
     <div class="form-group">
-        {{ Form::label('nombre', 'Nombre')}}
+        {{ Form::label('nombre', 'Nombre(s)(*)')}}
         {{ Form::text('nombre', Input::old('nombre') , ['class' => 'form-control'])}}
         @if ($errors->has('nombre')) <li class="list-group-item list-group-item-danger">{{ $errors->first('nombre') }}</li> @endif
     </div>
 
     <div class="form-group">
-        {{ Form::label('apellidoPaterno', 'Apellido Paterno')}}
+        {{ Form::label('apellidoPaterno', 'Apellido Paterno(*)')}}
         {{ Form::text('apellidoPaterno', '', ['class' => 'form-control'])}}
     </div>
 
@@ -81,7 +81,7 @@
 
 
     <div class="form-group">
-        {{ Form::label('telefono', 'Teléfono')}}
+        {{ Form::label('telefono', 'Teléfono(*)')}}
         {{ Form::text('telefono', '', ['class' => 'form-control'])}}
     </div>
 
@@ -98,7 +98,7 @@
 
 
     <div class="form-group">
-        {{ Form::label('email', 'Email')}}
+        {{ Form::label('email', 'Email(*)')}}
         {{ Form::email('email', '', ['class' => 'form-control'])}}
     </div>
 
@@ -106,7 +106,7 @@
     <div class="form-group">
 
 
-        {{ Form::label('dependencias', 'Dependencias')}}
+        {{ Form::label('dependencias', 'Dependencia')}}
         {{ Form::select('dependencias',$dependencias_catalogo,null, array('class'=>'form-control','style'=>'' ))}}
 
 
@@ -115,12 +115,12 @@
 </fieldset>
 
 <fieldset>
-    <legend>Documento requeridos</legend>
+    <legend>Documentos requeridos</legend>
     <div class="well">ATENCIÓN: Le recordamos que la documentación debe ser enviada en formato .pdf y el tamaño del
         archivo no debe sobrepasar los 8 MB
     </div>
     <div class="form-group">
-        {{ Form::label('curriculum', 'Curriculum con produccion académica')}}
+        {{ Form::label('curriculum', 'Curriculum con produccion académica(*)')}}
 
         {{Form::file('curriculum');}}
         @if ($errors->has('curriculum')) <p class="help-block">{{ $errors->first('curriculum') }}</p> @endif
@@ -128,14 +128,14 @@
 
 
     <div class="form-group">
-        {{ Form::label('docdesc', 'Documento descriptivo del trabajo a realizar')}}
+        {{ Form::label('docdesc', 'Documento descriptivo del trabajo a realizar(*)')}}
 
         {{Form::file('documentodescriptivo');}}
         {{ $errors->first('documentodescriptivo','<span class="error">:message</span>') }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas)')}}
+        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas)(*)')}}
 
         {{Form::file('constancias');}}
         {{ $errors->first('constancias','<p class="help-block">:message</p>') }}
@@ -148,18 +148,18 @@
     <legend><h3>Recursos solicitados</h3></legend>
     <div class="row">
 
-        <div class="col-xs-3">
-            {{ Form::label('horasCPU', 'Horas en CPU')}}
+        <div class="col-xs-4">
+            {{ Form::label('horasCPU', 'Horas CPU(*)')}}
             {{ Form::text('horasCPU', '', ['class' => 'form-control' , 'data-placement'=>'top' , 'title' =>'Las horas CPU'])}}
         </div>
 
 
-        <div class="col-xs-3">
-            {{ Form::label('disco', 'Disco en GB')}}
+        <div class="col-xs-4">
+            {{ Form::label('disco', 'Disco en GB(*)')}}
             {{ Form::text('disco', '', ['class' => 'form-control' , 'data-placement'=>'top' , 'title' =>'Disco en GB'])}}
         </div>
-        <div class="col-xs-3">
-            {{ Form::label('memoria', 'Memoria en GB')}}
+        <div class="col-xs-4">
+            {{ Form::label('memoria', 'Memoria RAM en GB(*)')}}
             {{ Form::text('memoria', '', ['class' => 'form-control', 'data-placement'=>'top' , 'title' =>'Memoria en Gb'])}}
         </div>
     </div>
@@ -170,32 +170,27 @@
     <legend>Información Académica</legend>
 
     <div class="form-group">
-        {{ Form::label('nombreproyecto', 'Nombre del proyecto')}}
+        {{ Form::label('nombreproyecto', 'Nombre del proyecto(*)')}}
         {{ Form::text('nombreproyecto', '', ['class' => 'form-control'])}}
     </div>
 
 
-
+    <div class="form-group">
+        {{ Form::label('campo de trabajo', 'Campo Trabajo')}}
+        {{ Form::select('campos',$campos,null, array('class'=>'form-control','style'=>'' ))}}
+    </div>
 
 
     <div class="form-group">
-        {{ Form::label('lineaespecialización', 'Linea de especialización')}}
+        {{ Form::label('lineaespecialización', 'Linea de especialización(*)')}}
         {{ Form::text('lineaesp', '', ['class' => 'form-control'])}}
     </div>
 
     <div class="form-group">
-        {{ Form::label('modelocomputacional', 'Modelo Computacional')}}
+        {{ Form::label('modelocomputacional', 'Modelo Computacional(*)')}}
         {{ Form::text('modelocomp', '', ['class' => 'form-control'])}}
     </div>
 
-    <div class="form-group">
-
-
-        {{ Form::label('campo de trabajo', 'Campo Trabajo')}}
-        {{ Form::select('campos',$campos,null, array('class'=>'form-control','style'=>'' ))}}
-
-
-    </div>
 
     <div class="form-group">
         {{ Form::label('otrocampo', 'Otro Campo')}}
@@ -293,8 +288,6 @@
 
 
 <div class="form-group">
-
-
     <div hidden>
         <fieldset class="clonable">
             <legend>Detalles de la cuenta</legend>
@@ -337,7 +330,7 @@
                 </div>
 
                 <div class="regrow">
-                    <label class="inside">Extension</label>
+                    <label class="inside">Extensión</label>
                     <input type="text" class="form-control clone" name="meco[0][meco_extension]" maxlength="30"/>
                 </div>
 
@@ -347,12 +340,12 @@
                 </div>
 
                 <div class="regrow">
-                    <label class="inside">Correo electrónico</label>
+                    <label class="inside">Email</label>
                     <input type="text" class="form-control clone" name="meco[0][meco_correo]" maxlength="30"/>
                 </div>
 
 
-                {{ Form::label('dependencias', 'Dependencias')}}
+                {{ Form::label('dependencias', 'Dependencia')}}
                 {{ Form::select('solcol[0][soco_id_dependencia]', $dependencias_catalogo, null,array('class'=>'form-control','style'=>'' ) )}}
 
                 {{ Form::label('grado', 'Último grado obtenido')}}

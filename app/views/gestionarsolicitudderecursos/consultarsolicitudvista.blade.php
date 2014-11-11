@@ -100,7 +100,7 @@
     <div class="form-group">
 
 
-        {{ Form::label('dependencias', 'Dependencias')}}
+        {{ Form::label('dependencias', 'Dependencia')}}
         {{ Form::select('dependencias',$dependencias_catalogo,$solicitudabstracta->SOAB_ID_DEPENDENCIA,
         array('class'=>'form-control','style'=>'' ,'disabled' => 'disabled'))}}
 
@@ -141,7 +141,7 @@
     <div class="row">
 
         <div class="col-xs-3">
-            {{ Form::label('horasCPU', 'Horas en CPU')}}
+            {{ Form::label('horasCPU', 'Horas  CPU')}}
             {{ Form::text('horasCPU', $solicitudabstracta->SOAB_HRS_CPU, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
 
@@ -151,7 +151,7 @@
             {{ Form::text('disco', $solicitudabstracta->SOAB_ESP_HD, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
         <div class="col-xs-3">
-            {{ Form::label('memoria', 'Memoria en GB')}}
+            {{ Form::label('memoria', 'Memoria RAM en GB')}}
             {{ Form::text('memoria', $solicitudabstracta->SOAB_MEM_RAM, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
     </div>
@@ -167,7 +167,14 @@
     </div>
 
 
+    <div class="form-group">
 
+
+        {{ Form::label('campo de trabajo', 'Campo Trabajo')}}
+        {{ Form::select('campos',$campotrabajo,$solicitudabstracta->SOAB_ID_CAMPO_TRABAJO, array('class'=>'form-control','style'=>'','disabled' => 'disabled' ))}}
+
+
+    </div>
 
     <div class="form-group">
         {{ Form::label('lineaespecialización', 'Linea de especialización')}}
@@ -179,14 +186,7 @@
         {{ Form::text('modelocomp', $solicitudabstracta->SOAB_MOD_COMPUTACIONAL, ['class' => 'form-control','disabled' => 'disabled'])}}
     </div>
 
-    <div class="form-group">
 
-
-        {{ Form::label('campo de trabajo', 'Campo Trabajo')}}
-        {{ Form::select('campos',$campotrabajo,$solicitudabstracta->SOAB_ID_CAMPO_TRABAJO, array('class'=>'form-control','style'=>'','disabled' => 'disabled' ))}}
-
-
-    </div>
 
     <div class="form-group">
         {{ Form::label('otrocampo', 'Otro Campo')}}
@@ -219,7 +219,6 @@
         <input type="text" class="form-control clone" value="{{$otraaps->OTAP_OPCION}}" name="otraapp[{{$otraaps->OTAP_ID_OTRA_APP}}][otap_opcion]" disabled="disabled"/>
 
     </div>
-
 
     @endforeach
 
@@ -349,7 +348,7 @@
 
         <div class="form-group">
 
-            {{ Form::label('solcol[][meco_correo]', 'Correo Electrónico')}}
+            {{ Form::label('solcol[][meco_correo]', 'Email')}}
             <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]"
                    type="text" value="{{$value->MECO_CORREO}}"
                    id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]"disabled="disabled">
@@ -385,6 +384,13 @@
 
 
     @endforeach
+
+    @if(!empty($solicitudabstracta->SOAB_DESC_RECHAZO))
+    <div class="form-group">
+        {{ Form::label('', ' Comentario de denegación de recursos')}}
+        {{ Form::textarea('descrechazo', $solicitudabstracta->SOAB_DESC_RECHAZO, ['class' => 'form-control', 'disabled' => 'disabled'])}}
+    </div>
+    @endif
 
     @endif
 

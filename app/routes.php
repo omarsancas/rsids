@@ -537,7 +537,10 @@ Route::group(array('before' => 'auth|role:2'), function ()
  * Sesiones para login
  * */
 
-Route::get('login', 'SesionesController@create');
+Route::get('login', [
+    'as' => 'login',
+    'uses' => 'SesionesController@create'
+]);
 Route::post('login', 'SesionesController@store');
 Route::get('logout', 'SesionesController@destroy');
 Route::resource('sesiones', 'SesionesController');
