@@ -10,32 +10,73 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+Route::get('pruebamuchos', function()
+{
+
+/*
+    $esproyecto = new Proyecto;
+    $esproyecto->proy_id_solicitud_abstracta = 5;
+    $esproyecto->proy_id_tipo_proyecto = 1;
+    $esproyecto->proy_hrs_aprobadas = '10000';
+    $esproyecto->proy_nombre = 'machine learning';
+    $esproyecto->proy_id_compuesto = 'SC-14-16';
+    $esproyecto->proy_id_estado_proyecto = 1;
+    $esproyecto->save();
+
+*/
+
+    $proyecto = Proyecto::find(3);
+
+
+
+    $usuario = new Usuario;
+    $usuario->usua_id_usuario = 'sauco';
+    $usuario->usua_id_tipo_usuario = 3;
+    $usuario->usua_id_estado_usuario = 1;
+    $usuario->password = Hash::make('123');
+    $usuario->usua_nom_completo = 'Saul Cordero';
+    $usuario->save();
+
+
+
+    $usuarioid = $usuario->usua_id_usuario;
+
+
+
+    //$usuario = Usuario::find('vicval');
+    //$usuario->proyectos()->detach(2);
+
+    $proyecto->usuarios()->attach($usuarioid);
+
+
+    return 'pruebamuchosamuchos';
+
+
+
+
+
+
+});
+
 Route::get('prueba', function()
 {
-    $cuentasvpn = DB::table('solicitud_abstracta')
-        ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))
+    $reportesproyectodatos = DB::table('contabilidad')
+        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto,depe_nombre,soab_nombres,soab_ap_paterno, soab_ap_materno,
+             proy_nombre, proy_hrs_aprobadas, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
+            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
+        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
+        ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+        ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+        ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
         ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-        ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
-        ->join('vpn_login', 'usuario.usua_id_usuario', '=', 'vpn_login.vplo_login')
-        ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', 7)
-        ->get();
+        ->where('proyecto.proy_id_proyecto','=', 3)
+        ->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
+        ->where(DB::raw('YEAR(cont_fecha)'), '=', 2014)
+        ->groupBy('proyecto.proy_id_proyecto')
+        ->first();
 
-    $cuentasmaquina = DB::table('solicitud_abstracta')
-        ->select(DB::raw('malo_login, malo_password,malo_nombre'))
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-        ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
-        ->join('maquina_login', 'usuario.usua_id_usuario', '=', 'maquina_login.malo_login')
-        ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', 7)
-        ->get();
-
-   return View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->with('cuentasvpn',$cuentasvpn);
-    //$html = View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->render();
-    //return PDF::load(utf8_decode($html), 'UTF-8', 'A4', 'portrait')->show();
-
-    //return PDF::loadView('evaluarsolicitudderecursos.cartademaquinavpn',['cuentasmaquina' => $cuentasmaquina])->setPaper('a4')->setOrientation('landscape')->setOption('margin-bottom', 0)->stream('myfile.pdf');
-    //return PDF::loadFile('http://www.github.com')->stream('github.pdf');
+    var_dump($reportesproyectodatos);
 
 
 });

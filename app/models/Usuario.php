@@ -55,6 +55,13 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
     }
 
 
+    public function proyectos()
+    {
+
+        return $this->belongsToMany('Proyecto', 'usuario_x_proyecto', 'uspr_id_usuario', 'uspr_id_proyecto');
+    }
+
+
 }
 
 

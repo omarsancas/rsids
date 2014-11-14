@@ -15,4 +15,11 @@ class Proyecto extends Eloquent {
     protected $primaryKey = 'PROY_ID_PROYECTO';
     public $timestamps = false;
 
+
+    public function usuarios()
+    {
+        return $this->belongsToMany('Usuario', 'usuario_x_proyecto','uspr_id_proyecto','uspr_id_usuario');
+    }
+
+
 }
