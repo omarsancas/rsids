@@ -125,6 +125,7 @@ return array(
 		'Raahul\LarryFour\LarryFourServiceProvider',
         'Thujohn\Pdf\PdfServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Barryvdh\Snappy\ServiceProvider'
 
 	),
 
@@ -193,7 +194,9 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'PDF'             => 'Thujohn\Pdf\PdfFacade',
-        'Excel'           => 'Maatwebsite\Excel\Facades\Excel'
+        'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
+        //'PDF' => 'Barryvdh\Snappy\Facades\SnappyPdf',
+        //'Image' => 'Barryvdh\Snappy\Facades\SnappyImage'
 
 	),
 

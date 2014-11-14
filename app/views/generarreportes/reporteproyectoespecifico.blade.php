@@ -38,14 +38,28 @@
                             <h3>Saldo de horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h3>
 
                             <h3>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h3>
+                            @if ($reportesproyectodatos->porcentajeproyecto < 50)
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
+                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
                                     <span class="sr-only">40% Complete (success)</span>
                                 </div>
 
                             </div>
-                        </div>
+                            @elseif ($reportesproyectodatos->porcentajeproyecto >= 50 && $reportesproyectodatos->porcentajeproyecto < 80)
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
 
+                            </div>
+                            @else ($reportesproyectodatos->porcentajeproyecto > 80)
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+
+                            </div>
+                            @endif
                         <h2>Uso de recursos del proyecto por usuario</h2>
 
                         <div class="table-responsive">

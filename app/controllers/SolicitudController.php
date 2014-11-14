@@ -468,7 +468,7 @@ class SolicitudController extends BaseController {
 
         $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
 
-        return PDF::load($html, 'A4', 'portrait')->show();
+        return PDF::load($html, 'letter', 'portrait')->show();
     }
 
 
@@ -541,10 +541,11 @@ class SolicitudController extends BaseController {
 
         $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
 
-
+        $pdf = new \Thujohn\Pdf\Pdf();
+        $content = $pdf->load($html, 'A4', 'portrait')->output();
          // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
         $pdfPath = $ruta_archivo . '/' . 'CartadeAprobacion'. $solicitudes->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
-        File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
+        File::put($pdfPath, $content);
 
         $data = ['msg' => 'hola'];
         Mail::send('emails.welcome', $data, function ($message) use ($pdfPath, $correelectronico)
@@ -553,6 +554,39 @@ class SolicitudController extends BaseController {
             $message->to($correelectronico);
             $message->attach($pdfPath);
         });
+
+        $cuentasvpn = DB::table('solicitud_abstracta')
+            ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+            ->join('vpn_login', 'usuario.usua_id_usuario', '=', 'vpn_login.vplo_login')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', $id)
+            ->get();
+
+        $cuentasmaquina = DB::table('solicitud_abstracta')
+            ->select(DB::raw('malo_login, malo_password,malo_nombre'))
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+            ->join('maquina_login', 'usuario.usua_id_usuario', '=', 'maquina_login.malo_login')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', $id)
+            ->get();
+
+
+        $ruta_archivo = $esnotificado->SOAB_RUTA_ARCHIVOS;
+        $html = View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->with('cuentasvpn',$cuentasvpn)->render();
+
+        $pdf1 = new \Thujohn\Pdf\Pdf();
+        $content = $pdf1->load($html, 'A4', 'portrait')->output();
+        // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
+        $pdfPath = $ruta_archivo . '/' . 'CartaDeCuentas'. $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
+        File::put($pdfPath, $content);
+
+        Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+
+        return Redirect::to('gestionarsolicitudderecursos/notificaraprobacion');
+
     }
 
 

@@ -327,7 +327,7 @@ class EvaluarSolicitudController extends BaseController {
         $usuariotitular = Input::get('usua_id_usuario');
         $usuario->usua_id_usuario = $usuariotitular;
         $usuario->usua_id_tipo_usuario = 2;
-        $usuario->usua_pass_md5 = Hash::make($passwordtitular);
+        $usuario->password = Hash::make($passwordtitular);
         $usuario->usua_nom_completo = $usua_nombre_concatenado;
         $usuario->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
         $usuario->save();
@@ -384,7 +384,7 @@ class EvaluarSolicitudController extends BaseController {
                 $usuariocol->usua_id_usuario = $cuentacol;
                 $usuariocol->usua_id_tipo_usuario = 3;
                 $usuariocol->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
-                $usuariocol->usua_pass_md5 = Hash::make($password);
+                $usuariocol->password = Hash::make($password);
                 $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();
 
@@ -411,6 +411,8 @@ class EvaluarSolicitudController extends BaseController {
 
 
 
+
+
         Session::flash('message', '¡La solicitud se ha aceptado exitosamente!');
 
         return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
@@ -421,27 +423,6 @@ class EvaluarSolicitudController extends BaseController {
     }
 
 
-    public function prueba2()
-    {
-
-        $links = DB::table('contabilidad')
-            ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, proy_id_proyecto ,sum(contabilidad.cont_hrs_nodo) AS totalnodo'))
-            //->sum('uspr_num_hrscpu')
-            //->select(DB::raw('sum(\'usuario_x_proyecto.uspr_num_jobs\')'))
-            ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
-            //->sum('usuario_x_proyecto.uspr_num_jobs')
-
-            ->groupBy('proy_id_proyecto')
-
-            //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
-            ->get();
-
-         var_dump($links);
-
-
-
-            //\Illuminate\Support\Facades\View::make('proyectos')->with('proyectos', $links);
-    }
 
     /**
      * @return array

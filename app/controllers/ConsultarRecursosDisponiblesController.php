@@ -109,7 +109,7 @@ class ConsultarRecursosDisponiblesController extends BaseController {
 
 
         $usuario = Auth::user()->USUA_ID_USUARIO;
-        $reportesproyectos = DB::table('contabilidad')
+        $reportesproyectosdatos = DB::table('contabilidad')
             ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
             proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto,
             soab_nombres, soab_ap_paterno, soab_ap_materno, depe_nombre, proy_fec_term_recu'))
@@ -119,9 +119,9 @@ class ConsultarRecursosDisponiblesController extends BaseController {
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->where('usuario.usua_id_usuario', '=',$usuario )
             ->groupBy('proyecto.proy_id_proyecto')
-            ->get();
+            ->first();
 
-            return View::make('usuariocuentatitular\consultarrecursosdisponibles\consultarrecursosdisponiblesusuariotitular')->with('reportesproyectos',$reportesproyectos);
+            return View::make('usuariocuentatitular\consultarrecursosdisponibles\consultarrecursosdisponiblesusuariotitular')->with('reportesproyectodatos',$reportesproyectosdatos);
 
 
 

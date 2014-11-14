@@ -36,14 +36,9 @@ class SesionesController extends Controller {
     {
         //
         $input = Input::all();
-
-
-
         $attempt= Auth::attempt([
             'USUA_ID_USUARIO' => $input['usuario'],
-            'USUA_ID_USUARIO' => $input['usuario'],
             'password' => $input['password']
-
         ]);
 
 
@@ -56,12 +51,11 @@ class SesionesController extends Controller {
             }
             elseif(Auth::user()->esUsuarioCuentaTitular())
             {
-                return Redirect::intended('cuentatitular/consultarrecursosdisponibles');
+                return View::make('bienvenidausuariocuentatitular');
             }
 
-
-
-        }else{
+        }else
+        {
 
             Session::flash('message', '¡El Usuario o la contraseña no son correctas!');
             return Redirect::route('login');

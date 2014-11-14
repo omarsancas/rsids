@@ -149,7 +149,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Auth::user()->USUA_ID_USUARIO }}  <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
@@ -163,7 +163,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
+                        <a href="{{ URL::to('logout') }}"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                     </li>
                 </ul>
             </li>
@@ -210,7 +210,7 @@
 
 
                 <li>
-                    <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}">Consultar recursos
+                    <a href="{{ URL::to('cuentatitular/consultarrecursosdisponibles') }}">Consultar recursos
                         disponibles</a>
 
                 </li>

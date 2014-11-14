@@ -49,7 +49,7 @@
                             <th>Nombre del proyecto</th>
                             <th>Número de trabajos</th>
                             <th>Número de horas nodo</th>
-                            <th>Saldo de horas</th>
+                            <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
 
                             <th>Accion</th>
@@ -69,7 +69,7 @@
                             <td>  {{ $reportesproyecto->proy_hrs_aprobadas - $reportesproyecto->totalnodo}}</td>
                             @if ($reportesproyecto->porcentajeproyecto < 50)
                             <td>  <span class="label label-success">{{$reportesproyecto->porcentajeproyecto }}%</span></td>
-                            @elseif ($reportesproyecto->porcentajeproyecto >= 50)
+                            @elseif ($reportesproyecto->porcentajeproyecto >= 50 && $reportesproyecto->porcentajeproyecto < 80)
                             <td>  <span class="label label-warning">{{ $reportesproyecto->porcentajeproyecto  }}%</span></td>
                             @else ($reportesproyecto->porcentajeproyecto >= 80)
                             <td>  <span class="label label-danger">{{ $reportesproyecto->porcentajeproyecto  }}%</span></td>

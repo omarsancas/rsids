@@ -12,26 +12,32 @@
 */
 Route::get('prueba', function()
 {
-    $reportesproyectos = DB::table('contabilidad')
-        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
-            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
-        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
-        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-        ->where('proyecto.proy_id_estado_proyecto', '=', 1)
-        ->groupBy('proyecto.proy_id_proyecto')
+    $cuentasvpn = DB::table('solicitud_abstracta')
+        ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))
+        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+        ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+        ->join('vpn_login', 'usuario.usua_id_usuario', '=', 'vpn_login.vplo_login')
+        ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', 7)
         ->get();
 
-
-
-    $users = DB::table('usuario')
-        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-        ->where('usua_id_usuario', 'LIKE', '%vicval%')
-        ->where('usua_id_usuario', 'LIKE', '%vicval%')
-        ->orWhere('proy_nombre', 'LIKE', '%natural proc%')
-        //->orWhere('email', 'LIKE', '%foo%')
+    $cuentasmaquina = DB::table('solicitud_abstracta')
+        ->select(DB::raw('malo_login, malo_password,malo_nombre'))
+        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+        ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+        ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+        ->join('maquina_login', 'usuario.usua_id_usuario', '=', 'maquina_login.malo_login')
+        ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', 7)
         ->get();
 
-    var_dump($users);
+   return View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->with('cuentasvpn',$cuentasvpn);
+    //$html = View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->render();
+    //return PDF::load(utf8_decode($html), 'UTF-8', 'A4', 'portrait')->show();
+
+    //return PDF::loadView('evaluarsolicitudderecursos.cartademaquinavpn',['cuentasmaquina' => $cuentasmaquina])->setPaper('a4')->setOrientation('landscape')->setOption('margin-bottom', 0)->stream('myfile.pdf');
+    //return PDF::loadFile('http://www.github.com')->stream('github.pdf');
+
+
 });
 
 Route::get('download', function()
@@ -514,7 +520,7 @@ Route::get('/consultarcuentatitularespecifica/{idproyecto}', [
     'uses' => 'GestionarCuentasTitularesController@consultarCuentaTitualEspecifica'
 ]);
 
-});
+});//fin del fitro para rol de administrador
 
 
 
