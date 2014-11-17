@@ -136,7 +136,7 @@ Route::get('/', function()
 
 
 $solicitudabstracta = SolicitudAbstracta::find(7);
-$solicitudabstracta->soab_id_estado = 1;
+$solicitudabstracta->soab_id_estado_solicitud = 1;
 $solicitudabstracta->save();
 
 /*
