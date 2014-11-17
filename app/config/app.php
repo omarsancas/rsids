@@ -124,8 +124,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Raahul\LarryFour\LarryFourServiceProvider',
         'Thujohn\Pdf\PdfServiceProvider',
-        'Maatwebsite\Excel\ExcelServiceProvider',
-        'Barryvdh\Snappy\ServiceProvider'
+        'Maatwebsite\Excel\ExcelServiceProvider'
 
 	),
 
@@ -194,9 +193,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'PDF'             => 'Thujohn\Pdf\PdfFacade',
-        'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
-        //'PDF' => 'Barryvdh\Snappy\Facades\SnappyPdf',
-        //'Image' => 'Barryvdh\Snappy\Facades\SnappyImage'
+        'Excel'           => 'Maatwebsite\Excel\Facades\Excel'
 
 	),
 
