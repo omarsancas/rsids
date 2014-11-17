@@ -284,7 +284,7 @@ class EvaluarSolicitudController extends BaseController {
         {
             $solcol = Cuentacol::find($id);
             $solcol->update($solcolData);
-            $solcol->soco_id_estado_colaboradora = 2;
+            //$solcol->soco_id_estado_colaboradora = 2;
             $solcol->save();
         }
 
@@ -330,7 +330,6 @@ class EvaluarSolicitudController extends BaseController {
         $usuario->usua_id_tipo_usuario = 2;
         $usuario->password = Hash::make($passwordtitular);
         $usuario->usua_nom_completo = $usua_nombre_concatenado;
-        $usuario->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
         $usuario->save();
 
         $usuarioid = $usuario->usua_id_usuario;
@@ -387,7 +386,6 @@ class EvaluarSolicitudController extends BaseController {
                 $usuariocol = new Usuario();
                 $usuariocol->usua_id_usuario = $cuentacol;
                 $usuariocol->usua_id_tipo_usuario = 3;
-                $usuariocol->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
                 $usuariocol->password = Hash::make($password);
                 $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();

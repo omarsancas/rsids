@@ -16,7 +16,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait, RemindableTrait;
     
-    protected $fillable = array('usua_id_usuario,usua_pass_md5','usua_nom_completo');
+    protected $fillable = array('usua_id_usuario','usua_pass_md5','usua_nom_completo');
     protected $table = 'usuario';
     protected $primaryKey = 'USUA_ID_USUARIO';
     public $timestamps = false;
