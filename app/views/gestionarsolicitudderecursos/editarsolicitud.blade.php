@@ -394,7 +394,11 @@
 
     <div class="form-group">
         <p>
-            <input type="submit" value="Enviar" class="btn btn-success btn-lg">
+            <input type="submit" value="Guardar" class="btn btn-success btn-lg">
+        </p>
+
+        <p>
+        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}" class="btn btn-default">Cancelar</a>
         </p>
     </div>
     {{ Form::close() }}
