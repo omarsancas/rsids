@@ -201,8 +201,8 @@
                 </li>
 
                 <li>
-                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificarrechazo') }}">Notificar rechazo  de
-                        recursos</a>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificarrechazo') }}">Notificar Denegación  de
+                        Recursos</a>
 
                 </li>
 
