@@ -195,8 +195,8 @@
                 </li>
 
                 <li>
-                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar aprobacion de
-                        recursos</a>
+                    <a href="{{ URL::to('gestionarsolicitudderecursos/notificaraprobacion') }}">Notificar Aprobacion de
+                        Recursos</a>
 
                 </li>
 
