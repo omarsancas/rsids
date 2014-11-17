@@ -251,13 +251,13 @@
     </div>
     <label class="radio-inline control-label">
 
-        <input type="radio" name="progparalela" id="progparalela" value="0" checked>
+        <input type="radio" name="progparalela" id="progparalela" value="1" checked>
         Sí
     </label>
 
 
     <label class="radio-inline control-label">
-        <input type="radio" name="progparalela" id="progparalela" value="1">
+        <input type="radio" name="progparalela" id="progparalela" value="0">
         No
     </label>
 

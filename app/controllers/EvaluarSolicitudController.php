@@ -333,6 +333,9 @@ class EvaluarSolicitudController extends BaseController {
         $usuario->usua_id_proyecto = $esproyecto->PROY_ID_PROYECTO;
         $usuario->save();
 
+        $usuarioid = $usuario->usua_id_usuario;
+        $esproyecto->usuarios()->attach($usuarioid);
+
 
         $passwordvpn = $this->generarPassword();
         $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
@@ -388,6 +391,9 @@ class EvaluarSolicitudController extends BaseController {
                 $usuariocol->password = Hash::make($password);
                 $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();
+
+                $usuarioid = $usuariocol->usua_id_usuario;
+                $esproyecto->usuarios()->attach($usuarioid);
 
                 $nombre_login1 = $nombre . '_' . $appaterno . '_' . $apmaterno;
                 $nombre_login1 = $this->quitarAcentos($nombre_login1);
