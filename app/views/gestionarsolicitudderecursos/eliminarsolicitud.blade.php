@@ -48,7 +48,7 @@
                             <td class="col-lg-1" style="text-align: center;"> <input type="checkbox" name="check_box[]" data-id="check_box[]" value="{{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}" /></td>
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
-                            <td> {{$solicitud->SOAB_NOMBRES}}</td>
+                            <td> {{$solicitud->SOAB_NOMBRES}} {{$solicitud->SOAB_AP_PATERNO}} {{$solicitud->SOAB_AP_MATERNO}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
 
 

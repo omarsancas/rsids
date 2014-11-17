@@ -9,14 +9,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Gestionar Solicitud de Recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar carta de aceptación solicitud de recursos
+                        <i class="fa fa-table"></i> Generar Carta de Aceptación de Recursos
                     </li>
                 </ol>
             </div>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Generar carta de aceptación de recursos</h2>
+                <h2>Generar Carta de Aceptación de Recursos</h2>
 
 
 

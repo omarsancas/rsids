@@ -227,7 +227,7 @@ class SolicitudController extends BaseController {
     {
         $solicitudes = Input::get('check_box');
         SolicitudAbstracta::destroy($solicitudes);
-        Session::flash('message', '¡Las solicitudes se han borrado exitosamente!');
+        Session::flash('message', '¡Las solicitudes seleccionadas, se han borrado exitosamente!');
 
         return Redirect::to('gestionarsolicitudderecursos/eliminarsolicitud');
     }
