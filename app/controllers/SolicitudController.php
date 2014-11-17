@@ -510,6 +510,7 @@ class SolicitudController extends BaseController {
     {
 
         $solicitudes = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion','solicitud_abstracta.soab_id_medio_comunicacion','=','medio_comunicacion.meco_id_medio_comunicacion')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 3)
             ->where('soab_proy_notificado','=',0)
@@ -528,6 +529,7 @@ class SolicitudController extends BaseController {
     {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
             ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
@@ -612,12 +614,17 @@ class SolicitudController extends BaseController {
         $esnotificado->save();
 
 
-        $data = $desc_rechazo;
+        $data = ['msg' => $desc_rechazo];
         Mail::send('emails.welcome', $data, function ($message) use ($correelectronico)
         {
             $message->from('moroccosc@gmail.com', 'Laravel')->subject('Notificacion de rechazo de solicitud de recursos');
             $message->to($correelectronico);
         });
+
+
+        Session::flash('message', '¡La solicitud se ha notificado exitosamente!');
+
+        return Redirect::to('gestionarsolicitudderecursos/notificarrechazo');
     }
 
 

@@ -9,14 +9,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Gestionar Solicitud de Recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Notificar Rechazo de recursos
+                        <i class="fa fa-table"></i> Notificar Denegación de Recursos
                     </li>
                 </ol>
             </div>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Notificar rechazo de recursos</h2>
+                <h2>Notificar Denegación de Recursos</h2>
 
 
                 @if(empty($solicitudes))
@@ -44,6 +42,7 @@
                             <th>Número de la solicitud</th>
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
+                            <th>Email</th>
                             <th>Tipo de solicitud</th>
                             <th>Acción</th>
 
@@ -57,9 +56,10 @@
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
+                            <td> {{$solicitud->MECO_CORREO}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('SolicitudController@notificarRechazo', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Notificarrechazo de recursos</a>
+                                <a href="{{ action('SolicitudController@notificarRechazo', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Notificar Denegación de Recursos</a>
 
 
                             </td>

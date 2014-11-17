@@ -271,9 +271,14 @@ Route::get('gestionarsolicitudderecursos/notificarrechazo', [
     'uses' => 'SolicitudController@mostrarNotificacionRechazoSolicitudes'
 ]);
 
+Route::get('/notificarrechazar/{id}', array(
+        'as' => 'notificarrechazar',
+        'uses' => 'SolicitudController@notificarRechazo'
+));
+
 Route::get('/rechazar/{id}', array(
     'as' => 'rechazar',
-    'uses' => 'SolicitudController@notificarRechazo'
+    'uses' => 'EvaluarSolicitudController@rechazarSolicitud'
 ));
 
 
