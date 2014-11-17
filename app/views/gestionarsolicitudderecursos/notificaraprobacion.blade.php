@@ -31,7 +31,9 @@
                 <h2>Notificar Aprobación de Recursos</h2>
 
 
-
+                @if(empty($solicitudes))
+                <h2>No hay solicitudes </h2>
+                @else
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -68,6 +70,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
                 {{ Form::close() }}
             </div>
 
