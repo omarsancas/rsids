@@ -388,20 +388,20 @@
 
     <div class="form-group">
         <div hidden>
-            <fieldset class="clonable">
+            <fieldset>
                 <legend>Detalles de la cuenta</legend>
                 <div class="regrow">
                     <div class="regrow">
                         <label class="inside">Nombre(s):</label>
-                        <input type="text" class="form-control clone" name="solcol[0][soco_nombres]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="solcolnuev[0][soco_nombres]" maxlength="30"/>
                     </div>
                     <div class="regrow">
                         <label class="inside">Apellido Paterno:</label>
-                        <input type="text" class="form-control clone" name="solcol[0][soco_ap_paterno]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="solcolnuev[0][soco_ap_paterno]" maxlength="30"/>
                     </div>
                     <div class="regrow">
                         <label class="inside">Apellido materno</label>
-                        <input type="text" class="form-control clone" name="solcol[0][soco_ap_materno]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="solcolnuev[0][soco_ap_materno]" maxlength="30"/>
                     </div>
 
 
@@ -409,13 +409,13 @@
 
                     <label class="radio-inline control-label">
 
-                        <input type="radio" name="solcol[0][soco_sexo]" id="sexo" value="m" checked>
+                        <input type="radio" name="solcolnuev[0][soco_sexo]" id="sexo" value="m" checked>
                         Masculino
                     </label>
 
 
                     <label class="radio-inline control-label">
-                        <input type="radio" name="solcol[0][soco_sexo]" id="sexo" value="f">
+                        <input type="radio" name="solcolnuev[0][soco_sexo]" id="sexo" value="f">
                         Femenino
                     </label>
 
@@ -425,30 +425,30 @@
 
                     <div class="regrow">
                         <label class="inside">Teléfono</label>
-                        <input type="text" class="form-control clone" name="meco[0][meco_telefono1]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="meconuev[0][meco_telefono1]" maxlength="30"/>
                     </div>
 
                     <div class="regrow">
                         <label class="inside">Extensión</label>
-                        <input type="text" class="form-control clone" name="meco[0][meco_extension]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="meconuev[0][meco_extension]" maxlength="30"/>
                     </div>
 
                     <div class="regrow">
                         <label class="inside">Otro Teléfono</label>
-                        <input type="text" class="form-control clone" name="meco[0][meco_telefono2]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="meconuev[0][meco_telefono2]" maxlength="30"/>
                     </div>
 
                     <div class="regrow">
                         <label class="inside">Email</label>
-                        <input type="text" class="form-control clone" name="meco[0][meco_correo]" maxlength="30"/>
+                        <input type="text" class="form-control clone" name="meconuev[0][meco_correo]" maxlength="30"/>
                     </div>
 
 
                     {{ Form::label('dependencias', 'Dependencia')}}
-                    {{ Form::select('solcol[0][soco_id_dependencia]', $dependencias_catalogo, null,array('class'=>'form-control','style'=>'' ) )}}
+                    {{ Form::select('solcolnuev[0][soco_id_dependencia]', $dependencias_catalogo, null,array('class'=>'form-control','style'=>'' ) )}}
 
                     {{ Form::label('grado', 'Último grado obtenido')}}
-                    {{ Form::select('solcol[0][soco_id_grado]', $grado, null, array('class'=>'form-control','style'=>'' ))}}
+                    {{ Form::select('solcolnuev[0][soco_id_grado]', $grado, null, array('class'=>'form-control','style'=>'' ))}}
 
                 </div>
                 <a href="#" class="btn btn-danger btn-sm remove">Eliminar usuario</a>
