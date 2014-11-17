@@ -332,8 +332,8 @@ class EvaluarSolicitudController extends BaseController {
         $usuario->usua_nom_completo = $usua_nombre_concatenado;
         $usuario->save();
 
-        $usuarioid = $usuario->usua_id_usuario;
-        $esproyecto->usuarios()->attach($usuarioid);
+        //$usuarioid = $usuario->usua_id_usuario;
+        //$esproyecto->usuarios()->attach($usuarioid);
 
 
         $passwordvpn = $this->generarPassword();

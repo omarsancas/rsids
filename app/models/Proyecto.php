@@ -18,7 +18,7 @@ class Proyecto extends Eloquent {
 
     public function usuarios()
     {
-        return $this->belongsToMany('usuario', 'usuario_x_proyecto','uspr_id_proyecto','uspr_id_usuario');
+        return $this->belongsToMany('Usuario', 'usuario_x_proyecto','uspr_id_proyecto','uspr_id_usuario');
     }
 
 
