@@ -9,14 +9,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Gestionar Solicitud de Recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar Solicitudes
+                        <i class="fa fa-table"></i> Modificar Solicitud de Recursos
                     </li>
                 </ol>
             </div>
@@ -30,7 +27,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar Solicitud de recursos</h2>
+                <h2>Modificar Solicitud de Recursos</h2>
 
                 @if(empty($solicitudes))
                 <h2>No se encontró ninguna solicitud con los parametros elegidos</h2>
