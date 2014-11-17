@@ -135,14 +135,17 @@ Route::get('/', function()
 {
 
 
+$solicitudabstracta = SolicitudAbstracta::find(7);
+$solicitudabstracta->soab_proy_notificado = 0;
+$solicitudabstracta->save();
 
-
+/*
   $usuario = new Usuario;
   $usuario->usua_id_usuario = 'yoli';
   $usuario->password = Hash::make('123');
   $usuario->usua_id_estado_usuario = 1;
   $usuario->usua_id_tipo_usuario = 1;
-  $usuario->save();
+  $usuario->save();*/
     /*
     Excel::create('Filename', function($excel) {
 
