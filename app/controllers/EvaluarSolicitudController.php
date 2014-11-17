@@ -142,7 +142,7 @@ class EvaluarSolicitudController extends BaseController {
 
 
         $rules = array(
-            'usua_id_usuario'        => 'required|unique:Usuario',
+            'usua_id_usuario'        => 'required|unique:usuario',
 
 
         );
