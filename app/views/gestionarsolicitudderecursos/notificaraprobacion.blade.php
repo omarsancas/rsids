@@ -42,6 +42,7 @@
                             <th>Número de la solicitud</th>
                             <th>Nombre Completo del proyecto</th>
                             <th>Nombre del titular del proyecto</th>
+                            <th>Email</th>
                             <th>Tipo de solicitud</th>
                             <th>Acción</th>
 
@@ -55,6 +56,7 @@
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
                             <td> {{$solicitud->SOAB_NOMBRES}}</td>
+                            <td> {{$solicitud->MECO_CORREO}}</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
                                 <a href="{{ action('SolicitudController@notificarAprobacion', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Notificar aprobación de recursos</a>

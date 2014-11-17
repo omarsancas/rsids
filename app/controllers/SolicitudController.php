@@ -497,6 +497,7 @@ class SolicitudController extends BaseController {
     {
 
         $solicitudes = DB::table('solicitud_abstracta')
+            ->join('medio_comunicacion','solicitud_abstracta.soab_id_medio_comunicacion','=','medio_comunicacion.meco_id_medio_comunicacion')
             ->join('tipo_solicitud', 'solicitud_abstracta.soab_id_tipo_solicitud', '=', 'tipo_solicitud.tiso_id_tipo_solicitud')
             ->where('solicitud_abstracta.soab_id_estado_solicitud', '=', 2)
             ->where('soab_proy_notificado','=',0)
