@@ -284,6 +284,7 @@ class EvaluarSolicitudController extends BaseController {
         {
             $solcol = Cuentacol::find($id);
             $solcol->update($solcolData);
+            $solcol->soco_id_estado_colaboradora = 2;
             $solcol->save();
         }
 

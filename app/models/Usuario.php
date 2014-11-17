@@ -20,7 +20,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
     protected $table = 'usuario';
     protected $primaryKey = 'USUA_ID_USUARIO';
     public $timestamps = false;
-    protected $hidden = array('usua_pass_md5', 'remember_token');
+    protected $hidden = array('password', 'remember_token');
 
     public function esUsuario($tipo)
     {

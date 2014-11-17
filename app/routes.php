@@ -42,12 +42,12 @@ Route::get('pruebamuchos', function()
 
     $usuarioid = $usuario->usua_id_usuario;
 
-
+    $proyecto->usuarios()->attach($usuarioid);
 
     //$usuario = Usuario::find('vicval');
     //$usuario->proyectos()->detach(2);
 
-    $proyecto->usuarios()->attach($usuarioid);
+
 
 
     return 'pruebamuchosamuchos';
@@ -137,10 +137,11 @@ Route::get('/', function()
 
 
 
-  $usuario = Usuario::find('vicval');
-
-  $usuario->password = \Illuminate\Support\Facades\Hash::make('123');
-
+  $usuario = new Usuario;
+  $usuario->usua_id_usuario = 'yoli';
+  $usuario->password = Hash::make('123');
+  $usuario->usua_id_estado_usuario = 1;
+  $usuario->usua_id_tipo_usuario = 1;
   $usuario->save();
     /*
     Excel::create('Filename', function($excel) {
@@ -573,6 +574,11 @@ Route::group(array('before' => 'auth|role:2'), function ()
 
     Route::get('cuentatitular/consultarrecursosdisponibles', [
         'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesUsuarioTitular'
+    ]);
+
+
+    Route::get('cuentatitular/renovarsolicitudderecursos', [
+        'uses' => 'RenovarSolicitudDeRecursosController@renovarSolicitudDeRecursosVista'
     ]);
 
 });

@@ -10,12 +10,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar cuenta titular
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
                         <i class="fa fa-table"></i> Buscar Usuarios
                     </li>
@@ -58,7 +56,7 @@
                             <td> {{$usuario->TIUS_TIPO_NOMBRE}}</td>
                             <td> {{$usuario->PROY_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('GestionarCuentasTitularesController@consultarCuentaTitualEspecifica', $usuario->USUA_ID_PROYECTO ) }}"
+                                <a href="{{ action('GestionarCuentasTitularesController@consultarCuentaTitualEspecifica', $usuario->PROY_ID_PROYECTO ) }}"
                                    class="btn btn-info btn-md">Consultar</a>
                             </td>
 

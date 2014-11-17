@@ -195,7 +195,7 @@
                         Renovar solicitud de recursos <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo2" class="collapse">
                         <li>
-                            <a href="{{ URL::to('gestionardependencias/consultardependenciasvista') }}">Renovar
+                            <a href="{{ URL::to('cuentatitular/renovarsolicitudderecursos') }}">Renovar
                                 solicitud de recursos</a>
 
                         </li>

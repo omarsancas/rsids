@@ -26,7 +26,8 @@ class BaseController extends Controller {
     public function obtenerCuentasTitulares($querynombre)
     {
         $usuarios = DB::table('usuario')
-            ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
             ->join('tipo_usuario', 'usuario.usua_id_tipo_usuario', '=', 'tipo_usuario.tius_id_tipo_usuario')
             ->where('usua_nom_completo', 'LIKE', "%$querynombre%")
             ->where('usua_id_tipo_usuario', '=', 2)

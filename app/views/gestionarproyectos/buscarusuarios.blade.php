@@ -58,7 +58,7 @@
                             <td> {{$usuario->TIUS_TIPO_NOMBRE}}</td>
                             <td> {{$usuario->PROY_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('GestionarProyectosController@mostrarUsuarioConProyecto', array($usuario->USUA_ID_PROYECTO,$usuario->USUA_ID_USUARIO ,false)) }}"
+                                <a href="{{ action('GestionarProyectosController@mostrarUsuarioConProyecto', array($usuario->PROY_ID_PROYECTO,$usuario->USUA_ID_USUARIO ,false)) }}"
                                    class="btn btn-info btn-md">Consultar</a>
                             </td>
 
