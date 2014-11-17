@@ -388,7 +388,7 @@
 
     <div class="form-group">
         <div hidden>
-            <fieldset>
+            <fieldset class="clonable">
                 <legend>Detalles de la cuenta</legend>
                 <div class="regrow">
                     <div class="regrow">
