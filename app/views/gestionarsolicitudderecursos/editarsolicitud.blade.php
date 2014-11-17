@@ -348,7 +348,7 @@
 
         <div class="form-group">
 
-            {{ Form::label('solcol[][meco_correo]', 'Correo Electrónico')}}
+            {{ Form::label('solcol[][meco_correo]', 'Email')}}
             <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]"
                    type="text" value="{{$value->MECO_CORREO}}"
                    id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]">
@@ -357,7 +357,7 @@
 
         <div class="form-group">
 
-
+            {{ Form::label('dependencia', 'Dependencia')}}
             <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_dependencia]">
                 @foreach($dependencias_catalogo as $id => $valor)
 
@@ -368,7 +368,7 @@
 
             </select>
 
-
+            {{ Form::label('ultimo grado', 'Ultimo grado académico')}}
             <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_grado]">
                 @foreach($grado as $id => $valor)
 
