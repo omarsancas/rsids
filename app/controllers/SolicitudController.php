@@ -560,7 +560,8 @@ class SolicitudController extends BaseController {
             ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-            ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+            ->join('usuario_x_proyecto', 'proyecto.proy_id_proyecto', '=', 'usuario_x_proyecto.uspr_id_proyecto')
+            ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
             ->join('vpn_login', 'usuario.usua_id_usuario', '=', 'vpn_login.vplo_login')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', $id)
             ->get();
@@ -569,7 +570,9 @@ class SolicitudController extends BaseController {
             ->select(DB::raw('malo_login, malo_password,malo_nombre'))
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-            ->join('usuario', 'proyecto.proy_id_proyecto', '=', 'usuario.usua_id_proyecto')
+            ->join('usuario_x_proyecto', 'proyecto.proy_id_proyecto', '=', 'usuario_x_proyecto.uspr_id_proyecto')
+            ->join('usuario', 'usuario_x_proyecto.uspr_id_usuario', '=', 'usuario.usua_id_usuario')
+            ->join('vpn_login', 'usuario.usua_id_usuario', '=', 'vpn_login.vplo_login')
             ->join('maquina_login', 'usuario.usua_id_usuario', '=', 'maquina_login.malo_login')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta','=', $id)
             ->get();
@@ -584,7 +587,7 @@ class SolicitudController extends BaseController {
         $pdfPath = $ruta_archivo . '/' . 'CartaDeCuentas'. $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, $content);
 
-        Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+        Session::flash('message', '¡La solicitud se ha notificado exitosamente!');
 
         return Redirect::to('gestionarsolicitudderecursos/notificaraprobacion');
 
