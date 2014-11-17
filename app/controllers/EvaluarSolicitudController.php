@@ -328,12 +328,13 @@ class EvaluarSolicitudController extends BaseController {
         $usuariotitular = Input::get('usua_id_usuario');
         $usuario->usua_id_usuario = $usuariotitular;
         $usuario->usua_id_tipo_usuario = 2;
+        $usuario->usua_id_estado_usuario = 1;
         $usuario->password = Hash::make($passwordtitular);
         $usuario->usua_nom_completo = $usua_nombre_concatenado;
         $usuario->save();
 
-        //$usuarioid = $usuario->usua_id_usuario;
-        //$esproyecto->usuarios()->attach($usuarioid);
+        $usuarioid = $usuario->usua_id_usuario;
+        $esproyecto->usuarios()->attach($usuarioid);
 
 
         $passwordvpn = $this->generarPassword();
@@ -386,6 +387,7 @@ class EvaluarSolicitudController extends BaseController {
                 $usuariocol = new Usuario();
                 $usuariocol->usua_id_usuario = $cuentacol;
                 $usuariocol->usua_id_tipo_usuario = 3;
+                $usuariocol->usua_id_estado_usuario = 1;
                 $usuariocol->password = Hash::make($password);
                 $usuariocol->usua_nom_completo = $usua_nombre_concatenado;
                 $usuariocol->save();
