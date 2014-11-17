@@ -11,7 +11,7 @@
 
 <h1></h1>
 
-<h1>Aceptar Solicitud de recursos</h1>
+<h1>Aceptar Solicitud de Recursos</h1>
 {{ Form::open (['route' => 'aceptarsolicitud', 'method' => 'POST','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">

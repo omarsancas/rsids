@@ -13,14 +13,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Evaluar Solicitud de recursos
+                    Evaluar Solicitud de Recursos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Evaluar solicitud de recursos
+                        <i class="fa fa-table"></i> Evaluar Solicitud de Recursos
                     </li>
                 </ol>
             </div>
@@ -34,7 +32,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Evaluar Solicitud de recursos</h2>
+                <h2>Evaluar Solicitud de Recursos</h2>
 
 
 
@@ -58,7 +56,7 @@
 
                             <td class="visible-xs visible-lg"> {{$solicitud->SOAB_ID_SOLICITUD_ABSTRACTA}}</td>
                             <td> {{$solicitud->SOAB_NOMBRE_PROYECTO}}</td>
-                            <td> {{$solicitud->SOAB_NOMBRES}}</td>
+                            <td> {{$solicitud->SOAB_NOMBRES}} {{$solicitud->SOAB_AP_PATERNO}} {{$solicitud->SOAB_AP_MATERNO</td>
                             <td> {{$solicitud->TISO_NOMBRE}}</td>
                             <td>
                                 <a href="{{ action('EvaluarSolicitudController@aceptar', $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA) }}" class="btn btn-success">Aceptar</a>
