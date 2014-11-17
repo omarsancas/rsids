@@ -269,7 +269,7 @@
 
     @foreach($cuentascol as $key => $value)
 
-    <fieldset class="clonable">
+    <fieldset>
         <legend>Detalles de la cuenta colaboradora</legend>
         <div class="form-group">
             {{ Form::label('solcol[][soco_nombres]', 'Nombre')}}
