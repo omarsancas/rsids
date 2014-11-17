@@ -398,7 +398,7 @@
         </p>
 
         <p>
-        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}" class="btn btn-success btn-lg">Cancelar</a>
+        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}" class="btn btn-danger btn-lg">Cancelar</a>
         </p>
     </div>
     {{ Form::close() }}
