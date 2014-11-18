@@ -12,9 +12,7 @@
                     Gestionar Proyecto
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
                         <i class="fa fa-table"></i> Consultar Proyecto
                     </li>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar proyecto</h2>
+                <h2>Consultar Proyecto</h2>
 
 
                 <div class="form-group">

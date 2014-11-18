@@ -41,8 +41,7 @@
                     <h2>Número de trabajos: {{$reportesproyectodatos->totaljobs}}</h2>
                     <h2>Número total de horas : {{$reportesproyectodatos->totalnodo}}</h2>
                     <h2>Horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
-                    <h2>Saldo de horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
-
+                    <h2>Recursos restantes: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
                     <h2>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h2>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
