@@ -352,7 +352,7 @@
 
         <div class="form-group">
 
-            {{ Form::label('solcol[][meco_correo]', 'Email)}}
+            {{ Form::label('solcol[][meco_correo]', 'Emai'l)}}
             <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]"
                    type="text" value="{{$value->MECO_CORREO}}"
                    id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]">
