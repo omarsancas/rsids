@@ -28,6 +28,8 @@
         <p>
             <input type="submit" value="Aceptar" class="btn btn-success btn-lg">
         </p>
+
+        <a href="{{ URL::to('evaluarsolicitudderecursos/evaluarsolicitud') }}" class="btn btn-danger">Cancelar</a>
     </div>
     {{ Form::close() }}
 
