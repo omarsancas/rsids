@@ -357,7 +357,7 @@
 
         <div class="form-group">
 
-
+            {{ Form::label('dependencias', 'Dependencia')}}
             <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_dependencia]" disabled="disabled">
                 @foreach($dependencias_catalogo as $id => $valor)
 
@@ -368,7 +368,7 @@
 
             </select>
 
-
+            {{ Form::label('ultimo grado', 'Último grado académico')}}
             <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_grado]" disabled="disabled">
                 @foreach($grado as $id => $valor)
 
