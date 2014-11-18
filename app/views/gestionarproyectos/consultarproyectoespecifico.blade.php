@@ -32,7 +32,7 @@
                     <h2>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h2>
                     <h2>Estado del proyecto: {{$reportesproyectodatos->espr_tipo_estado}}</h2>
                     <h2>Fecha de inicio de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
-                    <h2>Fecha de termino de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
+                    <h2>Fecha de termino de recursos: {{$reportesproyectodatos->proy_fec_term_recu}}</h2>
                     <h2>Fecha de ultimo cambio de estado: {{$reportesproyectodatos->proy_fec_cambio_est}}</h2>
                     <h2>Fecha de termino de reanudación de estado: {{$reportesproyectodatos->proy_fec_reanud_est}}</h2>
                     <h2>Fecha de registro del proyecto: {{$reportesproyectodatos->proy_fecha_registro}}</h2>
