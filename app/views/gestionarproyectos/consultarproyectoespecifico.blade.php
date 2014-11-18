@@ -12,14 +12,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar Proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar un proyecto
+                        <i class="fa fa-table"></i> Consultar un Proyecto
                     </li>
                 </ol>
             </div>
@@ -30,18 +28,19 @@
             <div class="col-lg-10">
 
                 <div class="jumbotron">
-                    <h2>ID del proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h2>
+                    <h2>Número proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h2>
                     <h2>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h2>
                     <h2>Estado del proyecto: {{$reportesproyectodatos->espr_tipo_estado}}</h2>
                     <h2>Fecha de inicio de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
                     <h2>Fecha de termino de recursos: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
-                    <h2>Fecha de ultimo cambio de estado: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
-                    <h2>Fecha de registro del proyecto: {{$reportesproyectodatos->proy_fec_ini_recu}}</h2>
-                    <h2>Nombre de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h2>
+                    <h2>Fecha de ultimo cambio de estado: {{$reportesproyectodatos->proy_fec_cambio_est}</h2>
+                    <h2>Fecha de termino de reanudación de estado: {{$reportesproyectodatos->proy_fec_reanud_est}}</h2>
+                    <h2>Fecha de registro del proyecto: {{$reportesproyectodatos->proy_fecha_registro}}</h2>
+                    <h2>Nombre de usuario de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h2>
                     <h2>Número de trabajos: {{$reportesproyectodatos->totaljobs}}</h2>
-                    <h2>Número total de horas : {{$reportesproyectodatos->totalnodo}}</h2>
-                    <h2>Horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
-                    <h2>Recursos restantes: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
+                    <h2>Número de horas CPU utilizadas : {{$reportesproyectodatos->totalnodo}}</h2>
+                    <h2>Númoer total de horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
+                    <h2>Recursos restantes en horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
                     <h2>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h2>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $reportesproyectodatos->porcentajeproyecto }}%">
@@ -60,7 +59,7 @@
 
                             <th>Nombre de usuario</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número de horas CPU</th>
                             <th>Porcentaje de uso del mes</th>
 
 
@@ -92,6 +91,9 @@
                         </tbody>
                     </table>
                 </div>
+
+                <a href="{{ URL::to('gestionarproyectos/consultarproyectosvista') }}"
+                   class="btn btn-success btn-md">Regresar</a>
             </div>
 
 
