@@ -39,7 +39,7 @@
                     <h2>Nombre de usuario de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h2>
                     <h2>Número de trabajos: {{$reportesproyectodatos->totaljobs}}</h2>
                     <h2>Número de horas CPU utilizadas : {{$reportesproyectodatos->totalnodo}}</h2>
-                    <h2>Númoer total de horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
+                    <h2>Número total de horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h2>
                     <h2>Recursos restantes en horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h2>
                     <h2>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h2>
                     <div class="progress">
