@@ -45,7 +45,8 @@ class GestionarDependenciasController extends BaseController{
             $dependencia->depe_id_tipo_dependencia = Input::get('tipodependencia');
             $dependencia->save();
 
-            return Response::json('success', 200);
+            Session::flash('message', '¡Las depedencia se han registrado exitosamente!');
+            return Redirect::to('gestionardependencias/daraltadependecia');
         }
 
     }
@@ -63,7 +64,7 @@ class GestionarDependenciasController extends BaseController{
     {
         $dependencias = Input::get('check_box');
         Dependencia::destroy($dependencias);
-        Session::flash('message', '¡Las depedencias se han borrado exitosamente!');
+        Session::flash('message', '¡Las dependencias se han borrado exitosamente!');
         return Redirect::to('gestionardependencias/darbajadependencia');
     }
 
