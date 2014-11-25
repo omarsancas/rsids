@@ -29,7 +29,7 @@
                 @endif
                 <h2>Contabilidad Mensual Para Proyectos</h2>
 
-                <h3>Elige el mes y el año que desea consultar</h3>
+                <h3>Elija el mes y el año que desea consultar</h3>
 
 
 

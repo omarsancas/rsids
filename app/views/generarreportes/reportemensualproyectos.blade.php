@@ -37,7 +37,7 @@
                 @if (empty($reportesproyectos))
                 <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
                 @else
-
+                <a href="{{URL::to('generarreportes/contabilidadmensualproyectos')}}" class="btn btn-info btn-lg"> Regresar</a>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
