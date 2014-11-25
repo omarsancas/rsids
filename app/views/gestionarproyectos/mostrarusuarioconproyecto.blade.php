@@ -30,7 +30,7 @@
                 <div class="jumbotron">
                     <h2>Nombre del proyecto al que pertenece: {{$usuarioproyecto->proy_nombre}}</h2>
                     <h2>Nombre del propietario de la cuenta: {{$usuarioproyecto->usua_nom_completo}}</h2>
-                    <h2>Tipo de usuario: {{$usuarioproyecto->usua_nom_completo}}</h2>
+                    <h2>Tipo de usuario: {{$usuarioproyecto->}}</h2>
                     <h2>Número de trabajos ejecutados: {{$usuarioproyecto->totaljobs}}</h2>
                     <h2>Número total de horas CPU utilizadas: {{$usuarioproyecto->totalnodo}}</h2>
                     <h2>Porcentaje de uso: {{$usuarioproyecto->porcentajeproyecto}}%  </h2>
