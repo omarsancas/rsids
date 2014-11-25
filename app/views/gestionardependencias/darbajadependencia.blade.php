@@ -30,7 +30,7 @@
                 @endif
                 <h2>Dar de Bajar una Dependencia</h2>
 
-                <button id="btnDelete" class="btn btn-danger btn-lg">¡Eliminar!</button>
+                <button id="btnDelete" class="btn btn-danger btn-lg">Eliminar</button>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">

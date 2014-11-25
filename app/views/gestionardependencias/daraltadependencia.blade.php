@@ -33,14 +33,14 @@
 
 
                 <div class="form-group">
-                    {{ Form::label('nombre completo', 'Nombre completo de la dependencia')}}
+                    {{ Form::label('nombre completo', 'Nombre completo de la dependencia(*)')}}
                     {{ Form::text('nombredependencia', Input::old('nombredependencia') , ['class' => 'form-control'])}}
                     @if ($errors->has('nombredependencia')) <li class="list-group-item list-group-item-danger">{{ $errors->first('nombredependencia') }}</li> @endif
                 </div>
 
 
                 <div class="form-group">
-                    {{ Form::label('acrp', 'Acrónimo')}}
+                    {{ Form::label('acrp', 'Acrónimo(*)')}}
                     {{ Form::text('acronimo', Input::old('acronimo') , ['class' => 'form-control'])}}
                     @if ($errors->has('acronimo')) <li class="list-group-item list-group-item-danger">{{ $errors->first('acronimo') }}</li> @endif
                 </div>

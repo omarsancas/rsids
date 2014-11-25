@@ -45,7 +45,7 @@ class GestionarDependenciasController extends BaseController{
             $dependencia->depe_id_tipo_dependencia = Input::get('tipodependencia');
             $dependencia->save();
 
-            Session::flash('message', '¡Las depedencia se han registrado exitosamente!');
+            Session::flash('message', '¡La depedencia se han registrado exitosamente!');
             return Redirect::to('gestionardependencias/daraltadependecia');
         }
 

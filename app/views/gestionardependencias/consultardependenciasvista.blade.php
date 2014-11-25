@@ -42,7 +42,7 @@
                             <th>Nombre de la dependencia</th>
                             <th>Acronimo de la dependencia</th>
                             <th>Tipo de dependencia</th>
-                            <th>Accion</th>
+
 
 
                         </tr>
@@ -56,9 +56,7 @@
                             <td> {{$dependencia->DEPE_NOMBRE}}</td>
                             <td> {{$dependencia->TIDE_TIPO}}</td>
                             <td> {{$dependencia->DEPE_ACRONIMO}}</td>
-                            <td>
-                                <a href="{{ action('GestionarDependenciasController@consultarDependencia', $dependencia->DEPE_ID_DEPENDENCIA) }}" class="btn btn-default">Consultar Dependencia</a>
-                            </td>
+
 
 
                         </tr>
