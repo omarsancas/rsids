@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <p>
                         <input type="submit" value="Guardar" class="btn btn-success btn-lg">
-                        <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}">Regresar</a>
+                        <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}" class="btn btn-lg btn-danger">Cancelar</a>
                     </p>
                 </div>
 
