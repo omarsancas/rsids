@@ -29,13 +29,13 @@
 
                 <div class="jumbotron">
                     <h4>Nombre del proyecto: {{$proyecto->proy_nombre}}</h4>
-                    <h4>Nombre completo de la cuenta: {{$proyecto->usua_nom_completo}}</h4>
+                    <h4>Nombre del propietario de la cuenta titular: {{$proyecto->usua_nom_completo}}</h4>
                     @foreach($usuariosproyecto as $usuarioproyecto)
                     <h4>Nombre completo de la cuenta colaboradora: {{$usuarioproyecto->usua_nom_completo}}</h4>
                     @endforeach
                     <h4>Recursos asignados al proyecto: {{$proyecto->proy_hrs_aprobadas}}</h4>
                     <h4>Número de trabajos: {{$proyecto->totaljobs}}</h4>
-                    <h4>Número total de horas : {{$proyecto->totalnodo}}</h4>
+                    <h4>Número total de horas consumidas: {{$proyecto->totalnodo}}</h4>
                     <h4>Porcentaje de uso: {{$proyecto->porcentajeproyecto}}%  </h4>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $proyecto->porcentajeproyecto }}%">
@@ -44,6 +44,8 @@
 
                     </div>
                 </div>
+
+                <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}" class="btn btn-danger">Regresar</a>
 
 
             </div>
