@@ -12,9 +12,7 @@
                     Gestionar Proyecto
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
                         <i class="fa fa-table"></i> Modificar Proyecto
                     </li>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar proyecto</h2>
+                <h2>Modificar Proyecto</h2>
 
 
                 <div class="form-group">
@@ -43,7 +41,7 @@
                     {{ Form::label('edo', 'Estado del proyecto')}}
                     <select name="estado" id="estado" class="form-control" >
                         <option value="1" > Activo </option>
-                        <option value="2" > Inctivo</option>
+                        <option value="2" > Inactivo</option>
                         <option value="3" > Terminado</option>
                     </select>
                 </div>
