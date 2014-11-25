@@ -39,7 +39,8 @@
                         <thead>
                         <tr>
 
-                            <th>Login del usuario</th>
+                            <th>Usuario</th>
+                            <th>Nombre de usuario</th>
                             <th>Tipo de usuario</th>
                             <th>Nombre del proyecto</th>
                             <th>Accion</th>
@@ -53,6 +54,7 @@
                         <tr>
 
                             <td class="visible-xs visible-lg"> {{$usuario->USUA_ID_USUARIO}}</td>
+                            <td> {{$usuario->USUA_NOM_COMPLETO}}</td>
                             <td> {{$usuario->TIUS_TIPO_NOMBRE}}</td>
                             <td> {{$usuario->PROY_NOMBRE}}</td>
                             <td>
