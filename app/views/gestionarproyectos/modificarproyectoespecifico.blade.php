@@ -31,27 +31,27 @@
                 <div class="jumbotron">
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'Nombre completo del proyecto')}}
+                        {{ Form::label('nombre', 'Nombre completo del proyecto(*)')}}
                         {{ Form::text('nombreproyecto', $proyecto->PROY_NOMBRE , ['class' => 'form-control'])}}
 
                     </div>
 
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'Fecha de inicio de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de inicio de recursos(*)')}}
                         {{ Form::text('fechaini', $proyecto->PROY_FEC_INI_RECU , ['class' => 'form-control'])}}
 
                     </div>
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'Fecha de termino de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de termino de recursos(*)')}}
                         {{ Form::text('fechaterm', $proyecto->PROY_FEC_TERM_RECU , ['class' => 'form-control'])}}
 
                     </div>
 
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'Fecha de registro de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de registro de recursos(*)')}}
                         {{ Form::text('fechareg', $proyecto->PROY_FECHA_REGISTRO , ['class' => 'form-control'])}}
 
                     </div>
