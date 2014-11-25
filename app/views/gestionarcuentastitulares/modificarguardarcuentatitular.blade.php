@@ -159,11 +159,11 @@
                         </p>
                     </div>
 
-                    <div class="form-group">
+
                         <p>
-                            <a ></a>
+                            <a href="{{ URL::to('gestionarproyectos/modificarcuentatitularvista') }}" class="btn btn-danger">Cancelar</a>
                         </p>
-                    </div>
+
                 </fieldset>
                 {{ Form::close() }}
             </div>
