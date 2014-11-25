@@ -12,14 +12,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar Proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar un proyecto
+                        <i class="fa fa-table"></i> Consultar Proyecto
                     </li>
                 </ol>
             </div>
@@ -41,6 +39,8 @@
                         </div>
 
                     </div>
+
+                    <a href="{{URL::to('gestionarproyectos/buscarusuariosvista') }} " class="btn btn-lg btn-info"> Regresar</a>
                 </div>
 
                
