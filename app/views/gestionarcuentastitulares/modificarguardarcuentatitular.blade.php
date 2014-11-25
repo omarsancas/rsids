@@ -10,12 +10,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar Proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
                         <i class="fa fa-table"></i> Buscar Usuarios
                     </li>
@@ -158,6 +156,12 @@
                     <div class="form-group">
                         <p>
                             <input type="submit" value="Guardar" class="btn btn-success btn-lg">
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <a ></a>
                         </p>
                     </div>
                 </fieldset>

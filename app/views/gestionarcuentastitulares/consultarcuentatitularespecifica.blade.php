@@ -12,14 +12,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar cuenta titular
+                    Gestionar Cuenta Titular
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar cuentas titulares
+                        <i class="fa fa-table"></i> Consultar Cuentas Titulares
                     </li>
                 </ol>
             </div>

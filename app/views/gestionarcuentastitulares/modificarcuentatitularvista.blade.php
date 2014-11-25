@@ -46,6 +46,10 @@
                     </p>
                 </div>
 
+                <div class="form-group"
+
+                <a href="{{ URL::to('gestionarproyectos/modificarcuentatitularvista') }}" class="btn btn-danger">Cancelar</a>
+                </div>
                 {{ Form::close() }}
             </div>
 
