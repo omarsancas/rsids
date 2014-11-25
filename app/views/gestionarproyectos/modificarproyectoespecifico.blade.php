@@ -60,6 +60,8 @@
                         <p>
                             <input type="submit" value="Guardar" class="btn btn-success btn-lg">
                         </p>
+
+                        <a href="{{URL::to(') }" class="btn btn-lg btn-danger"> Cancelar</a>
                     </div>
                 </div>
 
