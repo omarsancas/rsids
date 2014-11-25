@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar cuenta titular
+                    Gestionar Cuentas Titulares
                 </h1>
                 <ol class="breadcrumb">
 
@@ -39,7 +39,7 @@
                         <thead>
                         <tr>
 
-                            <th>Login del usuario</th>
+                            <th>Usuario</th>
                             <th>Tipo de usuario</th>
                             <th>Nombre del proyecto</th>
                             <th>Accion</th>
