@@ -28,10 +28,11 @@
             <div class="col-lg-10">
 
                 <div class="jumbotron">
-                    <h2>Nombre del proyecto: {{$usuarioproyecto->proy_nombre}}</h2>
-                    <h2>Nombre de la cuenta: {{$usuarioproyecto->usua_nom_completo}}</h2>
-                    <h2>Número de trabajos: {{$usuarioproyecto->totaljobs}}</h2>
-                    <h2>Número total de horas : {{$usuarioproyecto->totalnodo}}</h2>
+                    <h2>Nombre del proyecto al que pertenece: {{$usuarioproyecto->proy_nombre}}</h2>
+                    <h2>Nombre del propietario de la cuenta: {{$usuarioproyecto->usua_nom_completo}}</h2>
+                    <h2>Tipo de usuario: {{$usuarioproyecto->usua_nom_completo}}</h2>
+                    <h2>Número de trabajos ejecutados: {{$usuarioproyecto->totaljobs}}</h2>
+                    <h2>Número total de horas CPU utilizadas: {{$usuarioproyecto->totalnodo}}</h2>
                     <h2>Porcentaje de uso: {{$usuarioproyecto->porcentajeproyecto}}%  </h2>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ $usuarioproyecto->porcentajeproyecto }}%">
