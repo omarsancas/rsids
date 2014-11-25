@@ -41,6 +41,7 @@
 
                             <th>Número de proyecto</th>
                             <th>Nombre del proyecto</th>
+                            <th>Nombre del titular del proyecto</th>
                             <th>Accion</th>
 
 
@@ -53,6 +54,7 @@
 
                             <td class="visible-xs visible-lg"> {{$proyecto->PROY_ID_PROYECTO}}</td>
                             <td> {{$proyecto->PROY_NOMBRE}}</td>
+                            <td> {{$proyecto->USUA_NOM_COMPLETO}}</td>
                             <td>
                                 <a href="{{ action('GestionarProyectosController@cambiarEstadoProyectoEspecifico', $proyecto->PROY_ID_PROYECTO ) }}"
                                    class="btn btn-info btn-md">Cambiar estado</a>
