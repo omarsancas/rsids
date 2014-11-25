@@ -13,11 +13,9 @@
                     Gestionar proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                            <i class="fa fa-table"></i> Cambiar estado de un proyecto
+                            <i class="fa fa-table"></i> Cambiar Estado De Un Proyecto
                     </li>
                 </ol>
             </div>
@@ -29,7 +27,7 @@
                 <!-- Revisar la ruta de actualizacion-->
                 {{ Form::open(array('route' => array('reportemensualespecifico' ), 'id' => 'idForm')) }}
 
-                <h2>Cambiar estado de un proyecto</h2>
+                <h2>Cambiar Estado De Un Proyecto</h2>
 
 
                 @if (empty($proyectos))

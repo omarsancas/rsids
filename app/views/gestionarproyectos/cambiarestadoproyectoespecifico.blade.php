@@ -15,11 +15,9 @@
                     Gestionar proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar un proyecto
+                        <i class="fa fa-table"></i> Cambiar Estado De Un Proyecto
                     </li>
                 </ol>
             </div>

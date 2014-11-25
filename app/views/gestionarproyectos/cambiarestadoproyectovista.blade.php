@@ -12,11 +12,9 @@
                     Gestionar Proyecto
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Cambiar estado de un proyecto
+                        <i class="fa fa-table"></i> Cambiar Estado De Un Proyecto
                     </li>
                 </ol>
             </div>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Cambiar estado de un proyecto</h2>
+                <h2>Cambiar Estado De Un PSroyecto</h2>
 
 
                 <div class="form-group">
