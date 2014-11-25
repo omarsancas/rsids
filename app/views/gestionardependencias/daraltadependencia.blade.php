@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Gestionar Dependencias
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Dar de alta una dependencia
+                        <i class="fa fa-table"></i> Dar De Alta una Dependencia
                     </li>
                 </ol>
             </div>
@@ -31,7 +29,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Dar de alta una dependencia</h2>
+                <h2>Dar De Alta una Dependencia</h2>
 
 
                 <div class="form-group">

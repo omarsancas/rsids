@@ -258,23 +258,27 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i>
                 Gestionar dependencias <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo2" class="collapse">
+
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/daraltadependecia') }}">Dar de alta una dependencia</a>
+
+                </li>
+
+                <li>
+                    <a href="{{ URL::to('gestionardependencias/darbajadependencia') }}">Dar baja una dependencia</a>
+
+                </li>
                 <li>
                     <a href="{{ URL::to('gestionardependencias/consultardependenciasvista') }}">Consultar
                         dependencias</a>
 
                 </li>
-                <li>
-                    <a href="{{ URL::to('gestionardependencias/daraltadependecia') }}">Dar de alta dependencia</a>
 
-                </li>
                 <li>
                     <a href="{{ URL::to('gestionardependencias/modificardependenciasvista') }}">Modificar
-                        dependencias</a>
+                        una dependencia</a>
                 </li>
-                <li>
-                    <a href="{{ URL::to('gestionardependencias/darbajadependencia') }}">Dar baja una dependencia</a>
 
-                </li>
 
 
             </ul>
