@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Solicitud de recursos
+                    Gestionar Dependencias
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar Solicitudes
+                        <i class="fa fa-table"></i> Modificar Depedencia
                     </li>
                 </ol>
             </div>
@@ -31,7 +29,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Modificar Solicitud de recursos</h2>
+                <h2>Modificar Dependencia</h2>
 
 
 
@@ -56,8 +54,8 @@
 
                             <td> {{$dependencia->DEPE_ID_DEPENDENCIA}}</td>
                             <td> {{$dependencia->DEPE_NOMBRE}}</td>
-                            <td> {{$dependencia->TIDE_TIPO}}</td>
-                            <td> {{$dependencia->DEPE_ACRONIMO}}</td>
+                            <td>  {{$dependencia->DEPE_ACRONIMO}}</td>
+                            <td>{{$dependencia->TIDE_TIPO}} </td>
                             <td>
                                 <a href="{{ action('GestionarDependenciasController@modificarDependencia', $dependencia->DEPE_ID_DEPENDENCIA) }}" class="btn btn-default">Modificar Dependencia</a>
                             </td>
