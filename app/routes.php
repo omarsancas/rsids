@@ -589,6 +589,11 @@ Route::group(array('before' => 'auth|role:2'), function ()
         'uses' => 'RenovarSolicitudDeRecursosController@renovarSolicitudDeRecursosVista'
     ]);
 
+    Route::post('cuentatitular/renovarsolicitudderecursos', [
+        'as' => 'renovarsolicitud',
+        'uses' => 'RenovarSolicitudDeRecursosController@renovarSolicitudDeRecursos'
+    ]);
+
 });
 
 

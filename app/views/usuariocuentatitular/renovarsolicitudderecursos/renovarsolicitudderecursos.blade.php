@@ -17,7 +17,7 @@
 <h1>Todavia no puede renovar sus recursos hasta la fecha {{ $datosrenovacion->PROY_FEC_TERM_RECU }}</h1>
 
 @else
-{{ Form::open (['route' => 'update', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
+{{ Form::open (['route' => 'renovarsolicitud', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $datosrenovacion->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)
@@ -286,9 +286,8 @@
 
         <div class="form-group">
             <label for="nombre"> Estado de la cuenta</label>
-                <select class="form-control" name="cuentascol[{{$value->USUA_ID_USUARIO}}][usua_id_estado_usuario]">
+                <select class="form-control" name="cuentascol[{{$value->USUA_ID_USUARIO}}]">
                     @foreach($estadousuario as $id => $valor)
-
                     <option value="{{$id}}"
                     {{ ($value->USUA_ID_ESTADO_USUARIO == $id) ? 'selected="selected"' : false }} > {{$valor }}</option>
 
@@ -394,6 +393,13 @@
 
     </div>
 
+
+
+    <div class="form-group">
+        {{ Form::label('curriculum', 'Artículo Indizado')}}
+        {{Form::file('articuloin');}}
+
+    </div>
 
 
 

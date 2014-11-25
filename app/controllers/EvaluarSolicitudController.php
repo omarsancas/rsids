@@ -96,6 +96,8 @@ class EvaluarSolicitudController extends BaseController {
 
     public function rechazarSolicitud()
     {
+
+
         $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
         $solicitudabstracta->soab_id_estado_solicitud = 3;
@@ -216,58 +218,7 @@ class EvaluarSolicitudController extends BaseController {
         $solicitudabstracta->aplicaciones()->sync($aplicaciones);
 
 
-        if (Input::hasFile('curriculum'))
-        {
-            $archivo = $solicitudabstracta->SOAB_CURRICULUM;
-            File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
-            /** @var $filename1 TYPE_NAME */
-            $filename1 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
-            $upload_success1 = Input::file('curriculum')->move($destinationPath, $filename1);
-
-
-            if ($upload_success1)
-            {
-                $solicitudabstracta->soab_curriculum = $destinationPath .'/'. $filename1;
-                $solicitudabstracta->save();
-            }
-        }
-
-
-        if (Input::hasFile('docdesc'))
-        {
-            $archivo = $solicitudabstracta->SOAB_DESC_PROYECTO;
-            File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
-            /** @var $filename1 TYPE_NAME */
-            $filename2 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
-            $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $filename2);
-
-
-
-            if ($upload_success2)
-            {
-                $solicitudabstracta->soab_desc_proyecto = $destinationPath .'/'. $filename2;
-                $solicitudabstracta->save();
-            }
-        }
-
-
-        if (Input::hasFile('constancias'))
-        {
-            $archivo = $solicitudabstracta->SOAB_CON_ADSCRIPCION;
-            File::delete($archivo);
-            $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
-            /** @var $filename1 TYPE_NAME */
-            $filename3 = $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
-            $upload_success3 = Input::file('constancias')->move($destinationPath, $filename3);
-
-            if ($upload_success3)
-            {
-                $solicitudabstracta->soab_con_adscripcion = $destinationPath .'/'. $filename3;
-                $solicitudabstracta->save();
-            }
-        }
+        $this->guardarArchivos($solicitudabstracta);
 
 
 
