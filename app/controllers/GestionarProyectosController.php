@@ -202,6 +202,8 @@ class GestionarProyectosController extends BaseController {
 
 
         $usuarios = Proyecto::where('proy_nombre', 'LIKE', "%$querynombre%")
+            ->join('usuario_x_proyecto','uspr_id_proyecto','=','proy_id_proyecto')
+            ->join('usuario','usua_id_usuario','=','uspr_id_usuario')
             ->where('proy_id_estado_proyecto', '=', $queryestado)
             ->groupBy('proy_id_proyecto')
             ->get();
