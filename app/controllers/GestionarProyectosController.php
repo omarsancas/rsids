@@ -124,7 +124,7 @@ class GestionarProyectosController extends BaseController {
         $proyecto = Proyecto::find($id);
         $proyecto->proy_id_estado_proyecto = Input::get('estadoproyecto');
         $proyecto->save();
-        Session::flash('message', '¡El proyecto se ha modificado exitosamente!');
+        Session::flash('message', '¡El estado del proyecto se ha cambiado exitosamente!');
 
         return Redirect::to('gestionarproyectos/cambiarestadoproyectovista');
     }

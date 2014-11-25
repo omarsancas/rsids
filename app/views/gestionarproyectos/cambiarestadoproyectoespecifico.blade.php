@@ -47,6 +47,8 @@
                         <p>
                             <input type="submit" value="Guardar" class="btn btn-success btn-lg">
                         </p>
+
+                        <a href="{{URL::to('gestionarproyectos/cambiarestadoproyectovista')}}" class="btn btn-lg btn-danger"> Cancelar</a>
                     </div>
                 </div>
 

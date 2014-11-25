@@ -28,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Cambiar Estado De Un PSroyecto</h2>
+                <h2>Cambiar Estado De Un Proyecto</h2>
 
 
                 <div class="form-group">
