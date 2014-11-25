@@ -12,14 +12,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar Proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar un proyecto
+                        <i class="fa fa-table"></i> Modificar Proyecto
                     </li>
                 </ol>
             </div>
@@ -40,20 +38,20 @@
 
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'fecha de inicio de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de inicio de recursos')}}
                         {{ Form::text('fechaini', $proyecto->PROY_FEC_INI_RECU , ['class' => 'form-control'])}}
 
                     </div>
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'fecha de termino de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de termino de recursos')}}
                         {{ Form::text('fechaterm', $proyecto->PROY_FEC_TERM_RECU , ['class' => 'form-control'])}}
 
                     </div>
 
 
                     <div class="form-group">
-                        {{ Form::label('nombre', 'fecha de registro de recursos')}}
+                        {{ Form::label('nombre', 'Fecha de registro de recursos')}}
                         {{ Form::text('fechareg', $proyecto->PROY_FECHA_REGISTRO , ['class' => 'form-control'])}}
 
                     </div>

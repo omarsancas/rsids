@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar proyectos
+                    Gestionar Proyectos
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar un proyecto
+                        <i class="fa fa-table"></i> Modificar Proyecto
                     </li>
                 </ol>
             </div>
@@ -29,7 +27,7 @@
                 <!-- Revisar la ruta de actualizacion-->
                 {{ Form::open(array('route' => array('modificarproyectoespecifico' ), 'id' => 'idForm')) }}
 
-                <h2>Consultar un proyecto</h2>
+                <h2>Modificar Proyecto</h2>
 
 
                 @if (empty($proyectos))
