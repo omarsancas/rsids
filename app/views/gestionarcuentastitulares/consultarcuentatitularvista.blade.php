@@ -29,7 +29,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar cuenta titular</h2>
+                <h2>Consultar Cuenta Titular</h2>
 
 
                 <div class="form-group">
