@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Modificar Depedencia
+                        <i class="fa fa-table"></i> Modificar Dependencia
                     </li>
                 </ol>
             </div>
