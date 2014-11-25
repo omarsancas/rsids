@@ -9,14 +9,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar reportes
+                    Generar Reportes
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar reportes
+                        <i class="fa fa-table"></i> Generar Reportes
                     </li>
                 </ol>
             </div>
@@ -30,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad por periodo para dependencias</h2>
+                <h2>Contabilidad Por Periodo Para Dependencias</h2>
 
                 <h3>Elige el mes y el año que deseas consultar</h3>
 

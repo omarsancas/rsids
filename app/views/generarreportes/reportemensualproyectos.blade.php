@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar reportes
+                    Generar Reportes
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> contabilidad mensual para proyectos
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
                     </li>
                 </ol>
             </div>
@@ -33,7 +31,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad mensual para proyectos</h2>
+                <h2>Contabilidad Mensual Para Proyectos</h2>
 
 
                 @if (empty($reportesproyectos))
@@ -51,8 +49,7 @@
                             <th>Número de horas nodo</th>
                             <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
-
-                            <th>Accion</th>
+                            <th>AcciÓn</th>
 
 
                         </tr>

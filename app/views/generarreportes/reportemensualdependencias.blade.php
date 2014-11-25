@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar reportes
+                    Generar Reportes
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> contabilidad mensual para proyectos
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
                     </li>
                 </ol>
             </div>
@@ -33,7 +31,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h3>Contabilidad mensual para proyectos del mes {{$mes }} del año {{$anio}}</h3>
+                <h3>Contabilidad Mensual Para Proyectos Del Mes {{$mes }} del año {{$anio}}</h3>
 
                 @if (empty($reportesdependencias))
                 <h2>No se encontró ningun proyecto con los parametros elegidos</h2>

@@ -9,14 +9,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                   Generar reportes
+                   Generar Reportes
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar reportes
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
                     </li>
                 </ol>
             </div>
@@ -30,9 +27,9 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad mensual para proyectos</h2>
+                <h2>Contabilidad Mensual Para Proyectos</h2>
 
-                <h3>Elige el mes y el año que deseas consultar</h3>
+                <h3>Elige el mes y el año que desea consultar</h3>
 
 
 

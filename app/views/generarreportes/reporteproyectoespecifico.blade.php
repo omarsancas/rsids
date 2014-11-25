@@ -15,11 +15,9 @@
                             Generar reporte mensual del mes {{$mes }} del {{ $anio}}
                         </h1>
                         <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
+
                             <li class="active">
-                                <i class="fa fa-table"></i> Generar reporte mensual por proyecto
+                                <i class="fa fa-table"></i> Generar Reporte Mensual Por Proyecto
                             </li>
                         </ol>
                     </div>
@@ -101,6 +99,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+                            <a href="{{URL::to('generarreportes/contabilidadmensualproyectos')}}" class="btn btn-info btn-lg"> Regresar</a>
                     </div>
 
 
