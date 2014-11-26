@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar reportes
+                    Generar Reportes
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> contabilidad mensual para proyectos
+                        <i class="fa fa-table"></i> Contabilidad Por Periodo Para Proyectos
                     </li>
                 </ol>
             </div>
@@ -47,11 +45,10 @@
                             <th>Número de proyecto</th>
                             <th>Nombre del proyecto</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número de horas CPU utilizadas</th>
                             <th>Saldo de horas</th>
                             <th>Porcentaje de uso</th>
-
-                            <th>Accion</th>
+                            <th>Acción</th>
 
 
                         </tr>
