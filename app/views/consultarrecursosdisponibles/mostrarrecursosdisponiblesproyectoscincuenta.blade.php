@@ -36,6 +36,7 @@
                 <h2>No se encontraron coincidencias con los parámetros elegidos</h2>
                 <a href="{{URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
                 @else
+                <a href="{{URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
