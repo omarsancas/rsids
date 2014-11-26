@@ -37,6 +37,7 @@
                 <h2>No se encontraton coincidencias con los parámetros elegidos</h2>
                 <a href="{{URL::to('generarreportes/contabilidadporperiodoproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
                 @else
+                <a href="{{URL::to('generarreportes/contabilidadporperiodoproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
@@ -86,6 +87,8 @@
 
                         </tbody>
                     </table>
+                    
+
                 </div>
                 @endif
                 {{ Form::close() }}

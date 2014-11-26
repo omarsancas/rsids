@@ -38,7 +38,7 @@
                 <a href="{{URL::to('generarreportes/contabilidadporperiododependencias')}}" class="btn btn-lg btn-info">Regresar</a>
 
                 @else
-
+                <a href="{{URL::to('generarreportes/contabilidadporperiododependencias')}}" class="btn btn-lg btn-info">Regresar</a>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
