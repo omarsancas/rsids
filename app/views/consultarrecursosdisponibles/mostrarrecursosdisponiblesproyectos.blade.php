@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Consultar recursos disponibles
+                    Consultar Recursos Disponibles
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar recursos disponibles
+                        <i class="fa fa-table"></i> Consultar Recursos Disponibles
                     </li>
                 </ol>
             </div>
@@ -32,11 +30,12 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar recursos disponibles</h2>
+                <h2>Consultar Recursos Disponibles</h2>
 
 
                 @if (empty($recursosdisponiblesproyectos))
-                <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
+                <h2>No se encontraron coincidencias con los parámetros elegidos</h2>
+                <a href="{{URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
                 @else
 
                 <div class="table-responsive">
@@ -49,7 +48,7 @@
                             <th>Nombre completo del usuario cuenta titular</th>
                             <th>Dependencia</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número total de horas CPU utilizadas</th>
                             <th>Recursos aprobados</th>
                             <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>

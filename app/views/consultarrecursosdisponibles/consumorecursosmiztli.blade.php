@@ -10,14 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Consultar recursos disponibles
+                    Consultar Recursos Disponibles
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar recursos disponibles
+                        <i class="fa fa-table"></i> Consultar Recursos Disponibles
                     </li>
                 </ol>
             </div>
@@ -32,7 +30,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consumo de recursos de miztli </h2>
+                <h2>Consumo De Recursos Miztli </h2>
 
                 <div class="row">
                     <div class="form-group row col-md-2">
@@ -123,7 +121,10 @@
                 </div>
 
                 @if (empty($reportesproyectos))
-                <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
+
+
+                <h2>No se encontraron coincidencias con los parámetros elegidos</h2>
+
                 @else
 
                 <div class="table-responsive">
@@ -136,11 +137,11 @@
                             <th>Nombre completo del usuario cuenta titular</th>
                             <th>Dependencia</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número total de horas CPU utilizadas</th>
                             <th>Recursos aprobados</th>
                             <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
-                            <th>Fecha de termino</th>
+                            <th>Fecha de término</th>
 
 
                         </tr>

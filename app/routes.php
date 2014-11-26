@@ -61,22 +61,19 @@ Route::get('pruebamuchos', function()
 
 Route::get('prueba', function()
 {
-    $reportesproyectodatos = DB::table('contabilidad')
-        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto,depe_nombre,soab_nombres,soab_ap_paterno, soab_ap_materno,
-             proy_nombre, proy_hrs_aprobadas, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
-            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto'))
+    $reportesproyectos = DB::table('contabilidad')
+        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
+            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto,
+            soab_nombres, soab_ap_paterno, soab_ap_materno, depe_nombre, proy_fec_term_recu'))
         ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
         ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
         ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
         ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
         ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->where('proyecto.proy_id_proyecto','=', 3)
-        ->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
-        ->where(DB::raw('YEAR(cont_fecha)'), '=', 2014)
+        ->where('proyecto.proy_id_estado_proyecto', '=', 1)
         ->groupBy('proyecto.proy_id_proyecto')
-        ->first();
-
-    var_dump($reportesproyectodatos);
+        ->get();
+    var_dump($reportesproyectos);
 
 
 });

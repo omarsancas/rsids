@@ -9,14 +9,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Consultar recursos disponibles
+                    Consultar Recursos Disponibles
                 </h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                    </li>
                     <li class="active">
-                        <i class="fa fa-table"></i> Consultar recursos disponibles
+                        <i class="fa fa-table"></i> Consultar Recursos Disponibles
                     </li>
                 </ol>
             </div>
@@ -30,7 +27,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Consultar recursos disponibles</h2>
+                <h2>Consultar Recursos Disponibles</h2>
 
                 <div class="form-group">
                     {{ Form::label('mes', 'Recursos disponibles para proyectos')}}
