@@ -34,7 +34,8 @@
                 <h2>Contabilidad por periodo para proyectos del mes {{ $mes }} del año {{ $anio }} al mes {{ $mes2 }}  del año {{ $anio2}}</h2>
 
                 @if (empty($reportesproyectos))
-                <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
+                <h2>No se encontraton coincidencias con los parámetros elegidos</h2>
+                <a href="{{URL::to('generarreportes/contabilidadporperiodoproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
                 @else
 
                 <div class="table-responsive">
@@ -46,7 +47,7 @@
                             <th>Nombre del proyecto</th>
                             <th>Número de trabajos</th>
                             <th>Número de horas CPU utilizadas</th>
-                            <th>Saldo de horas</th>
+                            <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
                             <th>Acción</th>
 

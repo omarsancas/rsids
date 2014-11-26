@@ -27,12 +27,12 @@
             <div class="col-lg-10">
 
                 <div class="jumbotron">
-                    <h3>ID del proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h3>
+                    <h3>Número de proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h3>
                     <h3>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h3>
                     <h3>Dependencia: {{$reportesproyectodatos->depe_nombre}}</h3>
                     <h3>Nombre de la cuenta titular: {{$reportesproyectodatos->soab_nombres}} {{ $reportesproyectodatos->soab_ap_paterno}} {{ $reportesproyectodatos->soab_ap_materno}}</h3>
                     <h3>Horas aprobadas: {{$reportesproyectodatos->proy_hrs_aprobadas}}  </h3>
-                    <h3>Saldo de horas: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h3>
+                    <h3>Recursos restantes: {{$reportesproyectodatos->proy_hrs_aprobadas - $reportesproyectodatos->totalnodo}}  </h3>
 
                     <h3>Porcentaje de uso: {{$reportesproyectodatos->porcentajeproyecto}}%  </h3>
                     @if ($reportesproyectodatos->porcentajeproyecto < 50)
@@ -69,7 +69,7 @@
 
                             <th>Nombre de usuario</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número de horas CPU utilizadas</th>
                             <th>Porcentaje de uso del mes</th>
 
 

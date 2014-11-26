@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Dependencias
                     </li>
                 </ol>
             </div>
@@ -31,11 +31,15 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h3>Contabilidad Mensual Para Proyectos Del Mes {{$mes }} del año {{$anio}}</h3>
+                <h3>Contabilidad Mensual Para Dependencias Del Mes {{$mes }} del año {{$anio}}</h3>
 
                 @if (empty($reportesdependencias))
-                <h2>No se encontró ningun proyecto con los parametros elegidos</h2>
+                <h2>No se encontraron coincidencias con los parámetros elegidos</h2>
+                <a href="{{URL::to('generarreportes/contabilidadmensualdependencias')}}" class="btn btn-lg btn-info">Regresar</a>
+
+
                 @else
+                <a href="{{URL::to('generarreportes/contabilidadmensualdependencias')}}" class="btn btn-lg btn-info">Regresar</a>
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
@@ -46,7 +50,7 @@
                             <th>Nombre de la dependencia</th>
                             <th>Acrónimo de la dependencia</th>
                             <th>Número de trabajos totales de la dependencia</th>
-                            <th>Número de horas nodo totales de la dependencia</th>
+                            <th>Número total de horas CPU la dependencia</th>
 
 
 

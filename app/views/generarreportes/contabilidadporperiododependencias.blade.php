@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar Reportes
+                        <i class="fa fa-table"></i>Contabilidad Por Periodo Para Dependencias
                     </li>
                 </ol>
             </div>
@@ -30,7 +30,7 @@
                 @endif
                 <h2>Contabilidad Por Periodo Para Dependencias</h2>
 
-                <h3>Elige el mes y el año que deseas consultar</h3>
+                <h3>Elija el periodo que desea consultar</h3>
 
 
 

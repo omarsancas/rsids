@@ -36,6 +36,8 @@
 
                 @if (empty($reportesproyectos))
                 <h2>No se encontraron coincidencias con los parámetros elegidos</h2>
+                <a href="{{URL::to('generarreportes/contabilidadmensualproyectos')}}" class="btn btn-info btn-lg"> Regresar</a>
+
                 @else
                 <a href="{{URL::to('generarreportes/contabilidadmensualproyectos')}}" class="btn btn-info btn-lg"> Regresar</a>
                 <div class="table-responsive">

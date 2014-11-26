@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Generar Reportes
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
                     </li>
                 </ol>
             </div>
