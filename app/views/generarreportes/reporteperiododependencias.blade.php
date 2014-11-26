@@ -48,7 +48,7 @@
                             <th>Nombre de la dependencia</th>
                             <th>Acrónimo de la dependencia</th>
                             <th>Número de trabajos totales de la dependencia</th>
-                            <th>Número de horas nodo totales de la dependencia</th>
+                            <th>Número total de horas CPU utilizadas de la dependencia</th>
 
 
 
