@@ -51,7 +51,7 @@
                             <th>Número total de horas CPU utilizadas</th>
                             <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
-                            <th>AcciÓn</th>
+                            <th>Acción</th>
 
 
                         </tr>
