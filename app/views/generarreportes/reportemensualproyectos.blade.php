@@ -48,7 +48,7 @@
                             <th>Número de proyecto</th>
                             <th>Nombre del proyecto</th>
                             <th>Número de trabajos</th>
-                            <th>Número de horas nodo</th>
+                            <th>Número total de horas CPU utilizadas</th>
                             <th>Recursos restantes</th>
                             <th>Porcentaje de uso</th>
                             <th>AcciÓn</th>
