@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Contabilidad Mensual Para Proyectos
+                        <i class="fa fa-table"></i> Contabilidad Por Periodo Para Proyectos
                     </li>
                 </ol>
             </div>
@@ -28,7 +28,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Contabilidad Mensual Para Proyectos</h2>
+                <h2>Contabilidad Por Periodo Para Proyectos</h2>
 
                 <h3>Elija el periodo que desea consultar</h3>
 

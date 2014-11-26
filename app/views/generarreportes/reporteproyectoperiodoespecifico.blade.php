@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Generar Reporte mensual del mes {{$mes }} del {{ $anio}}
+                    Generar Reporte Por periodo
                 </h1>
                 <ol class="breadcrumb">
                     <li class="active">
@@ -100,6 +100,7 @@
 
                         </tbody>
                     </table>
+                    <a href="{{URL::to('generarreportes/contabilidadporperiodoproyectos')}}" class="btn btn-lg btn-info">Regresar</a>
                 </div>
             </div>
 
