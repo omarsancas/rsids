@@ -128,7 +128,7 @@ class ConsultarRecursosDisponiblesController extends BaseController {
             ->groupBy('proyecto.proy_id_proyecto')
             ->first();
 
-            return View::make('usuariocuentatitular\consultarrecursosdisponibles\consultarrecursosdisponiblesusuariotitular')->with('reportesproyectodatos',$reportesproyectosdatos);
+            return View::make('hello')->with('reportesproyectodatos',$reportesproyectosdatos);
 
 
 
