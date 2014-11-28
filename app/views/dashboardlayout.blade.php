@@ -253,6 +253,21 @@
             </ul>
         </li>
 
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-fw fa-arrows-v"></i>
+                Gestionar cuentas colaboradoras<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo7" class="collapse">
+                <li>
+                    <a href="{{ URL::to('gestionarcuentascolaboradoras/agregarcuentascolaboradoras') }}">Agregar cuentas colaboradora</a>
+
+                </li>
+                <li>
+                    <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}">Consultar cuentas titulares</a>
+
+                </li>
+            </ul>
+        </li>
+
 
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i>

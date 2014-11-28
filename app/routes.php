@@ -567,6 +567,17 @@ Route::get('/consultarcuentatitularespecifica/{idproyecto}', [
     'uses' => 'GestionarCuentasTitularesController@consultarCuentaTitualEspecifica'
 ]);
 
+/*Gestionar cuentas colaboradoras*/
+
+Route::get('gestionarcuentascolaboradoras/agregarcuentascolaboradoras', [
+    'uses' => 'GestionarCuentasColaboradorasController@mostrarAgregarCuentaColaboradora'
+]);
+
+Route::post('gestionarcuentascolaboradoras/agregarcuentascolaboradoras', [
+    'as' => 'agregarcuentacolaboradora',
+    'uses' => 'GestionarCuentasColaboradorasController@agregarCuentaColaboradora'
+]);
+
 });//fin del fitro para rol de administrador
 
 
