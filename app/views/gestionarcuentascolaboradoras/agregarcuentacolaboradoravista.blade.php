@@ -56,7 +56,7 @@
                             <td> {{$proyecto->PROY_NOMBRE}}</td>
                             <td> {{$proyecto->USUA_NOM_COMPLETO}}</td>
                             <td>
-                                <a href="{{ action('GestionarCuentasColaboradorasController@agregarCuentaColaboradoraProyecto', $proyecto->PROY_ID_PROYECTO ) }}"
+                                <a href="{{ action('GestionarCuentasColaboradorasController@agregarCuentaColaboradoraProyectoVista', $proyecto->PROY_ID_PROYECTO ) }}"
                                    class="btn btn-info btn-md">Agregar cuenta colaboradora</a>
                             </td>
 

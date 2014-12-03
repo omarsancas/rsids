@@ -24,32 +24,39 @@
         <div class="row">
             <div class="col-md-4">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(['route' => 'cambiarestadoproyecto', 'method' => 'POST','class' => 'form-horizontal',
+                {{ Form::open(['route' => 'agregarcuentaaproyecto', 'method' => 'POST','class' => 'form-horizontal',
                 'role' => 'form']) }}
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
+
                 <h2>Agregar Cuenta Colaboradora</h2>
 
+                <input type="hidden" name="idproyecto" value="{{ $proyecto->PROY_ID_PROYECTO }}">
+                <input type="hidden" name="idsolicitud" value="{{ $solicitud->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 
                 <div class="form-group">
                     {{ Form::label('nom', 'Nombre(s)')}}
-                    {{ Form::text('q', null , ['class' => 'form-control'])}}
+                    {{ Form::text('nombre', null , ['class' => 'form-control'])}}
+                    @if ($errors->has('nombre')) <p class="help-block">{{ $errors->first('nombre') }}</p> @endif
                 </div>
 
                 <div class="form-group">
                     {{ Form::label('apellidopat','Apellido Paterno')}}
                     {{ Form::text('apellidopaterno',null,['class' => 'form-control'])}}
+                    @if ($errors->has('apellidopaterno')) <p class="help-block">{{ $errors->first('apellidopaterno') }}</p> @endif
                 </div>
 
                 <div class="form-group">
                     {{ Form::label('apellidomat','Apellido Materno')}}
                     {{ Form::text('apelidomaterno',null,['class'=>'form-control'])}}
+
                 </div>
 
                 <div class="form-group">
                     {{ Form::label('telefono','Teléfono')}}
                     {{ Form::text('telefono',null,['class'=>'form-control'])}}
+                    @if ($errors->has('telefono')) <p class="help-block">{{ $errors->first('telefono') }}</p> @endif
                 </div>
 
                 <div class="form-group">
@@ -59,12 +66,12 @@
 
                 <div class="form-group">
                     {{ Form::label('otrotelefono','Otro Teléfono')}}
-                    {{ Form::text('otro telefono', null ,['class'=>'form-control'])}}
+                    {{ Form::text('otrotelefono', null ,['class'=>'form-control'])}}
                 </div>
 
                 <div class="form-group">
                     {{ Form::label('email','Email')}}
-                    {{ Form::text('email',,['class'=>'form-control'])}}
+                    {{ Form::text('email',null,['class'=>'form-control'])}}
                 </div>
 
 
@@ -89,9 +96,19 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('dependencias', 'Dependencia')}}
-                    {{ Form::select('dependencias',$dependencias_catalogo,null, array('class'=>'form-control','style'=>'' ))}}
+                    {{ Form::label('dependencia', 'Dependencia')}}
+                    {{ Form::select('dependencia',$dependencias_catalogo,null, array('class'=>'form-control','style'=>'' ))}}
+                </div>
 
+                <div class="form-group">
+                    {{ Form::label('login', 'login')}}
+                    {{ Form::text('usua_id_usuario',null,['class'=>'form-control'])}}
+                    @if ($errors->has('usua_id_usuario')) <p class="help-block">{{ $errors->first('usua_id_usuario') }}</p> @endif
+                </div>
+
+                <div class="form-group">
+                    {{ Form::label('nombre', 'Nombre Proyecto')}}
+                    {{ Form::text('login',$proyecto->PROY_NOMBRE,['class'=>'form-control','disabled' => 'disabled'])}}
                 </div>
 
 

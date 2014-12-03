@@ -578,6 +578,44 @@ Route::post('gestionarcuentascolaboradoras/agregarcuentascolaboradoras', [
     'uses' => 'GestionarCuentasColaboradorasController@agregarCuentaColaboradora'
 ]);
 
+Route::get('/agregarcuentascolaboradoras/{idproyecto}', [
+        'as' => 'agregar',
+        'uses' => 'GestionarCuentasColaboradorasController@agregarCuentaColaboradoraProyectoVista'
+]);
+
+Route::post('agregarcuentascolaboradoras',[
+    'as' => 'agregarcuentaaproyecto',
+    'uses' => 'GestionarCuentasColaboradorasController@agregarCuentaColaboradoraProyecto'
+]);
+
+Route::get('gestionarcuentascolaboradoras/modificarcuentacolaboradoravista',[
+
+    'uses' => 'GestionarCuentasColaboradorasController@mostrarModificarCuentaColaboradora'
+]);
+
+Route::post('gestionarcuentascolaboradoras/modificarcuentacolaboradoravista',[
+
+    'as' => 'modificarcuentacolaboradoravista',
+    'uses' => 'GestionarCuentasColaboradorasController@buscarCuentaColaboradora'
+]);
+
+Route::get('gestionarcuentascolaboradoras/consultarcuentacolaboradoravista',[
+
+    'uses' => 'GestionarCuentasColaboradorasController@mostrarConsultarCuentaColaboradora'
+]);
+
+Route::post('gestionarcuentascolaboradoras/consultarcuentacolaboradoravista',[
+        'as' => 'consultarcuentacolaboradoravista',
+        'uses' => 'GestionarCuentasColaboradorasController@buscarCuentaColaboradoraParaConsulta'
+]);
+
+Route::get('/consultarcuentacolaboradora/{idusuario}',[
+    'as' => 'consultarcuentacolaboradora',
+    'uses' => 'GestionarCuentasColaboradorasController@consultarCuentaColaboradora'
+]);
+
+
+
 });//fin del fitro para rol de administrador
 
 
@@ -613,8 +651,8 @@ Route::group(array('before' => 'auth|role:2'), function ()
 
 Route::get('login', [
     'as' => 'login',
-    'uses' => 'SesionesController@create'
+    'uses' => 'SesionesController@mostrarIngresarAlSistema'
 ]);
 Route::post('login', 'SesionesController@store');
-Route::get('logout', 'SesionesController@destroy');
+Route::get('logout', 'SesionesController@destruirSesion');
 Route::resource('sesiones', 'SesionesController');

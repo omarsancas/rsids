@@ -262,7 +262,12 @@
 
                 </li>
                 <li>
-                    <a href="{{ URL::to('gestionarproyectos/consultarcuentatitularvista') }}">Consultar cuentas titulares</a>
+                    <a href="{{ URL::to('gestionarcuentascolaboradoras/modificarcuentacolaboradoravista') }}">Modificar cuentas colaboradora</a>
+
+                </li>
+
+                <li>
+                    <a href="{{ URL::to('gestionarcuentascolaboradoras/consultarcuentacolaboradoravista') }}">Consultar cuentas colaboradora</a>
 
                 </li>
             </ul>

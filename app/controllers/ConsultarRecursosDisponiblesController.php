@@ -110,7 +110,6 @@ class ConsultarRecursosDisponiblesController extends BaseController {
 
     public function mostrarRecursosDisponiblesUsuarioTitular(){
 
-
         $usuario = Auth::user()->USUA_ID_USUARIO;
         $proyectoid = Usuario::find($usuario)->proyectos()->first();
         $proyectoid = $proyectoid->PROY_ID_PROYECTO;

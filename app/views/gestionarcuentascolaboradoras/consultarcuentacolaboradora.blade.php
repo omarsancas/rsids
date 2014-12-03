@@ -10,11 +10,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Cuentas Titulares
+                    Gestionar Cuentas Colaboradoras
                 </h1>
                 <ol class="breadcrumb">
+
                     <li class="active">
-                        <i class="fa fa-table"></i> Buscar Usuarios
+                        <i class="fa fa-table"></i> Consultar Cuenta Colaboradora
                     </li>
                 </ol>
             </div>
@@ -24,13 +25,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(array('route' => array('reportemensualespecifico' ), 'id' => 'idForm')) }}
-
-                <h2>Buscar Usuarios</h2>
 
 
-                @if (empty($usuarios))
-                <h2>No se encontró ningun usuario con los parametros elegidos</h2>
+                <h2>Consultar Cuenta Colaboradora</h2>
+
+
+                @if (empty($proyectos))
+                <h2>No se encontraron coincidencias con el parámetros elegido</h2>
                 @else
 
                 <div class="table-responsive">
@@ -38,25 +39,25 @@
                         <thead>
                         <tr>
 
-                            <th>Usuario</th>
-                            <th>Tipo de usuario</th>
+                            <th>Número de proyecto</th>
                             <th>Nombre del proyecto</th>
-                            <th>Acción</th>
+                            <th>Nombre del completo del Usuario cuenta colaboradora</th>
+                            <th>Accion</th>
 
 
                         </tr>
                         </thead>
                         <tbody>
 
-                        @foreach ($usuarios as $usuario)
+                        @foreach ($proyectos as $proyecto)
                         <tr>
 
-                            <td class="visible-xs visible-lg"> {{$usuario->USUA_ID_USUARIO}}</td>
-                            <td> {{$usuario->TIUS_TIPO_NOMBRE}}</td>
-                            <td> {{$usuario->PROY_NOMBRE}}</td>
+                            <td class="visible-xs visible-lg"> {{$proyecto->PROY_ID_PROYECTO}}</td>
+                            <td> {{$proyecto->PROY_NOMBRE}}</td>
+                            <td> {{$proyecto->USUA_NOM_COMPLETO}}</td>
                             <td>
-                                <a href="{{ action('GestionarCuentasTitularesController@modificarCuentaTitularEspecifica', array($usuario->PROY_ID_PROYECTO ,$usuario->USUA_ID_USUARIO,false)) }}"
-                                   class="btn btn-info btn-md">Modificar</a>
+                                <a href="{{ action('GestionarCuentasColaboradorasController@consultarCuentaColaboradora', $proyecto->USUA_ID_USUARIO ) }}"
+                                   class="btn btn-info btn-md">Consultar cuenta colaboradora</a>
                             </td>
 
 
@@ -68,17 +69,16 @@
                     </table>
                 </div>
                 @endif
-                {{ Form::close() }}
-            </div>
 
+
+
+            </div>
+            <!-- /.row -->
 
         </div>
-        <!-- /.row -->
+        <!-- /.container-fluid -->
 
     </div>
-    <!-- /.container-fluid -->
+    <!-- /#page-wrapper -->
 
-</div>
-<!-- /#page-wrapper -->
-
-@endsection
+    @endsection

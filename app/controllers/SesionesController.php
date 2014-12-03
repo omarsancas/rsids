@@ -20,7 +20,7 @@ class SesionesController extends Controller {
      *
      * @return Response
      */
-    public function create()
+    public function mostrarIngresarAlSistema()
     {
         //
         return View::make('login ');
@@ -78,7 +78,7 @@ class SesionesController extends Controller {
      *
      * @return Response
      */
-    public function destroy()
+    public function destruirSesion()
     {
 
         Auth::logout();

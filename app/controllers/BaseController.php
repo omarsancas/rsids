@@ -1,6 +1,8 @@
 <?php
+use \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 
 class BaseController extends Controller {
+
 
     /**
      * @param $nombre_login1
@@ -92,6 +94,23 @@ class BaseController extends Controller {
                 $solicitudabstracta->save();
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function generarPassword()
+    {
+        $generator = new \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator();
+        $generator->setOptions(\Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator::OPTION_UPPER_CASE
+            | \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator::OPTION_LOWER_CASE
+            | \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator::OPTION_NUMBERS
+            | \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator::OPTION_SYMBOLS
+            | \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
+        $generator->setLength(12);
+        $password = $generator->generatePassword();
+
+        return $password;
     }
 
 

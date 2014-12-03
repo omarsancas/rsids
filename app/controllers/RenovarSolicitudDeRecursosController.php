@@ -93,6 +93,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $solicitudabstracta->soab_duracion = Input::get('duracion');
         $solicitudabstracta->soab_nombre_proyecto = Input::get('nombreproyecto');
         $solicitudabstracta->SOAB_ID_DEPENDENCIA = Input::get('dependencias');
+        $solicitudabstracta->soab_id_campo_trabajo = Input::get('campos');
         $solicitudabstracta->soab_id_grado = Input::get('grado');
         $solicitudabstracta->soab_hrs_cpu = Input::get('horasCPU');
         $solicitudabstracta->soab_esp_hd = Input::get('disco');
@@ -165,18 +166,15 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $solicitudabstracta->soab_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
         $solicitudabstracta->save();
 
+    }
 
+    public function ampliacionDeRecursosVista()
+    {
+        return View::make('');
+    }
 
-
-
-
-
-
-
-
-
-
-
+    public function ampliarRecursos()
+    {
 
     }
 

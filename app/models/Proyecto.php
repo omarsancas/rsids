@@ -21,5 +21,10 @@ class Proyecto extends Eloquent {
         return $this->belongsToMany('Usuario', 'usuario_x_proyecto','uspr_id_proyecto','uspr_id_usuario');
     }
 
+    public function solicitud()
+    {
+        return $this->hasOne('SolicitudAbstracta','SOAB_ID_SOLICITUD_ABSTRACTA','PROY_ID_PROYECTO');
+    }
+
 
 }

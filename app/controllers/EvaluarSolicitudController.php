@@ -6,7 +6,6 @@
  * Time: 11:13 AM
  */
 use League\Csv\Reader;
-use \Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 
 class EvaluarSolicitudController extends BaseController {
 
@@ -380,24 +379,6 @@ class EvaluarSolicitudController extends BaseController {
         }
     }
 
-
-
-    /**
-     * @return array
-     */
-    public function generarPassword()
-    {
-        $generator = new ComputerPasswordGenerator();
-        $generator->setOptions(ComputerPasswordGenerator::OPTION_UPPER_CASE
-            | ComputerPasswordGenerator::OPTION_LOWER_CASE
-            | ComputerPasswordGenerator::OPTION_NUMBERS
-            | ComputerPasswordGenerator::OPTION_SYMBOLS
-            | ComputerPasswordGenerator::OPTION_AVOID_SIMILAR);
-        $generator->setLength(12);
-        $password = $generator->generatePassword();
-
-        return $password;
-    }
 
     /**
      * @param $dependencia
