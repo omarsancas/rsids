@@ -20,6 +20,15 @@ class GenerarSolicitudesParaSoporteTecnicoController extends BaseController {
         $asunto = Input::get('asunto');
         $contenido = Input::get('contenido');
 
+        $data = ['nombre' => $nombre, 'correelectronico' => $correoelectronico, 'asunto' => $asunto, 'contenido' => $contenido];
+        Mail::send('emails.welcome', $data, function ($message) use ($correoelectronico)
+        {
+            $message->from('moroccosc@gmail.com', 'Laravel')->subject('Notificacion de rechazo de solicitud de recursos');
+            $message->to('super@unam.mx');
+        });
+
+
+
     }
 
 } 

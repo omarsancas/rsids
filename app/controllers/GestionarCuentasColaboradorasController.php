@@ -189,7 +189,7 @@ class GestionarCuentasColaboradorasController extends BaseController {
     }
 
 
-    
+
     /**
      * @return mixed
      */

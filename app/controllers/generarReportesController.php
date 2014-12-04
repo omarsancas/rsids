@@ -22,6 +22,7 @@ class GenerarReportesController extends BaseController
     public function generarReporteMensualProyecto()
     {
         $mes =  Input::get('mes');
+        $anio = Input::get();
         $anio = Input::get('anio');
         $reportesproyectos = DB::table('contabilidad')
             ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
