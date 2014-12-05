@@ -1,18 +1,30 @@
 <?php
 /**
- * Created by PhpStorm.
+ *
  * User: Omar
  * Date: 27/11/14
  * Time: 06:18 PM
+ * Clase que implementa todos los métodos del caso de uso Gestionar cuentas colaboradoras
  */
 
 class GestionarCuentasColaboradorasController extends BaseController {
-
+    /**
+     *Regresa la vista principal para agregar una cuenta colaboradora
+     * return @mixed
+     */
     public function mostrarAgregarCuentaColaboradora()
     {
         return View::make('gestionarcuentascolaboradoras/agregarcuentacolaboradora');
     }
 
+    /**
+    * Obtiene las cuentas colaboradoras por medio de una búsqueda
+    *
+    * Input:
+    * $query @string parametro de búsqueda
+    * Output:
+    * $proyectos @object regresa todos los proyectos encontrados
+    */
     public function agregarCuentaColaboradora()
     {
         $query = Input::get('q');
@@ -29,6 +41,13 @@ class GestionarCuentasColaboradorasController extends BaseController {
 
     }
 
+    /**
+    *
+    *Parámetros:
+    *Input:
+    *Output:
+    *
+    */
     public function agregarCuentaColaboradoraProyectoVista($idproyecto)
     {
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');

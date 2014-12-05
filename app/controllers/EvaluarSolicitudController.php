@@ -1,13 +1,29 @@
 <?php
 /**
- * Created by PhpStorm.
+ *
  * User: Omar
  * Date: 15/10/14
  * Time: 11:13 AM
+ * Clase que implementa todos los métodos del caso de uso evaluar solicitud
  */
 use League\Csv\Reader;
 
+
+
 class EvaluarSolicitudController extends BaseController {
+
+    /**
+    *Obtiene todas las solicitudes pendientes de evaluacion del periodo
+    *
+    *
+    *Output:
+    * $solicitudes @object es un objeto que contiene un conjunto de solicitudes pendientes
+    * Ejemplo:
+    * $this->listarSolicitudes()
+    * $solicitudes->NOMBRE_PROYECTO
+    * #=>Machine Learnng
+    * return  @mixed
+    */
 
     public function listarSolicitudes()
     {
@@ -21,7 +37,24 @@ class EvaluarSolicitudController extends BaseController {
         return View::make('evaluarsolicitudderecursos/evaluarsolicitud')->with('solicitudes', $solicitudes);
     }
 
-
+    /**
+     * Muestra los datos de la solicitud que se va a aceptar
+     * Parametros:
+     * @param de $id
+     * @return
+     * @internal param \de $id la solicitud a la que se va a asignar el proyecto
+     *
+     *Output: $solicitudabstracta @object es un conjunto de todos los datos de una solicitud abstracta
+     *        $this->data @object son todas las aplicaciones seleccionadas por el usuario
+     *        $dependencias_catalogo, $grado, $campotrabajo, $tipoproyecto, $anio @object: Estas variables son los catalogos de sus tablas respectivas
+     *        $cuentascol @object es un objecto que contiene un conjunto de solicitudes de cuentas colaboradoras asociadas a la solicitud abstracta
+     *        $mediocomunicacion_solabs @object es un objeto que contiene los datos del medio de comunicación de la solicitud abstracta
+     *Ejemplo:
+     *
+     * $this->aceptar()
+     *
+     * return @mixed
+     */
     public function aceptar($id)
     {
 
@@ -31,9 +64,9 @@ class EvaluarSolicitudController extends BaseController {
 
 
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
-        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
-        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
-        $tipoproyecto = TipoProyecto::lists('tipr_nombre_tipo_proyecto','tipr_id_tipo_proyecto');
+        $grado_catalogo = Grado::lists('grad_nombre', 'grad_id_grado');
+        $campotrabajo_catalogo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+        $tipoproyecto_catalogo = TipoProyecto::lists('tipr_nombre_tipo_proyecto','tipr_id_tipo_proyecto');
         $anio = Anio::lists('ANIO_ID','ANIO');
         $this->data['solicitud'] = $solicitudabstracta;
         $this->data['aplicaciones'] = Aplicacion::all();
@@ -43,7 +76,7 @@ class EvaluarSolicitudController extends BaseController {
         $cuentascol = $solicitudabstracta->cuentascol;
 
 
-        $meco = DB::table('solicitud_abstracta')
+        $mediocomunicacion_solabs = DB::table('solicitud_abstracta')
             ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
@@ -71,20 +104,30 @@ class EvaluarSolicitudController extends BaseController {
         return View::make('evaluarsolicitudderecursos.aceptarsolicitud', $this->data)
             ->with('cuentascol', $solicitud)
             ->with('solicitudabstracta', $solicitudabstracta)
-            ->with('grado', $grado)
+            ->with('grado', $grado_catalogo)
             ->with('numerocuentascol', $cuentascol)
             ->with('dependencias_catalogo', $dependencias_catalogo)
             ->with('otrocampo', $otrocampo)
             ->with('otraapp', $otraapp)
-            ->with('campotrabajo', $campotrabajo)
-            ->with('meco', $meco)
-            ->with('tipoproyecto',$tipoproyecto)
+            ->with('campotrabajo', $campotrabajo_catalogo)
+            ->with('meco', $mediocomunicacion_solabs)
+            ->with('tipoproyecto',$tipoproyecto_catalogo )
             ->with('anio',$anio);
 
 
     }
 
-
+    /**
+     * Muestra la vista para cambiar de estatus a rechazada
+     * Parámetros:
+     * $id
+     * @param de $id
+     * @return
+     * @internal param \de $id la solicitud
+     * Output:
+     * $solicitudabstracta @object: es un conjunto de todos los datos de una solicitud abstracta
+     *
+     */
     public function rechazar($id)
     {
         $solicitudabstracta = SolicitudAbstracta::find($id);
@@ -92,6 +135,18 @@ class EvaluarSolicitudController extends BaseController {
         return View::make('evaluarsolicitudderecursos.rechazarsolicitud')
             ->with('solicitudabstracta', $solicitudabstracta);
     }
+
+    /**
+    * Cambia de estatus la solicitud a rechazada y agrega un comentario de rechazo en la solicitud abstracta
+    *
+    * Input:
+    * $id @integer id del proyecto
+    * Output:
+    * @mixed
+    *
+    *
+    *  return @mixed
+    */
 
     public function rechazarSolicitud()
     {
@@ -108,8 +163,16 @@ class EvaluarSolicitudController extends BaseController {
         return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
     }
 
+    /**
+    * Asigna los datos del archivo .csv a la tabla de contabilidad
+    *
+    * Input:
+     * $moved @string la ruta del archivo de contabilidad
+    * Output:
+    *
+    */
 
-    public function prueba()
+    public function asignarContabilidadPorUsuario()
     {
         $moved = public_path() . '/uploads/contabilidad1.txt';
 
@@ -135,7 +198,13 @@ class EvaluarSolicitudController extends BaseController {
 
     }
 
-
+    /**
+     *Cambia la solicitud de estatus a aceptada, asigna los recursos, crea los logins y passwords de cuentas
+     * Titulares y colaboradoras, crea un proyecto y lo asigna a la solicitud.
+     *Parametros:
+     * $id @param id  la solicitud a la que se va a asignar el proyecto
+     *
+     */
     public function actualizarAceptarSolicitud()
     {
 
@@ -381,6 +450,7 @@ class EvaluarSolicitudController extends BaseController {
 
 
     /**
+     * Obtiene el grupo secundario para asignarlo a la tabla de Maquina Y VPN
      * @param $dependencia
      * @param $aplicacionesseleccionadas
      * @param $vpn

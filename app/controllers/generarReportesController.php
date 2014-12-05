@@ -1,28 +1,47 @@
 <?php
 /**
- * Created by PhpStorm.
+ *
  * User: Omar
  * Date: 3/11/14
  * Time: 07:35 PM
+ * Clase que implementa todos los métodos del caso de uso generar reportes
  */
+
+
 
 class GenerarReportesController extends BaseController
 {
-
+    /**
+    *Regresa la vista principal para de generar reportes
+    * return @mixed
+    */
     public function mostrarGenerarReporteMensualProyecto()
     {
         return View::make('generarreportes/contabilidadmensualproyectos');
     }
-
+    /**
+     *Regresa la vista principal para de generar reportes por periodo
+     *
+     * return @mixed
+     */
     public function mostrarGenerarReportePeriodoProyecto()
     {
         return View::make('generarreportes/contabilidadporperiodoproyectos');
     }
-
+    /**
+    *Obtiene la contabilidad de los recursos utilizados en un periodo mensual determinado
+    *
+    *Input:
+     * $mes @integer: número del mes
+     * $anio @integer: año
+    * Output:
+    * $reportesproyectos @object contiene un conjunto de proyectos y los datos de la contabilidad como numero de jobs y numero de horas CPU
+    * $totalproyectos @object contiene cálculo total de los recursos utilizados por los proyectos activos
+    *
+    */
     public function generarReporteMensualProyecto()
     {
         $mes =  Input::get('mes');
-        $anio = Input::get();
         $anio = Input::get('anio');
         $reportesproyectos = DB::table('contabilidad')
             ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
@@ -49,6 +68,19 @@ class GenerarReportesController extends BaseController
                    ->with('totalproyectos',$totalproyectos);
     }
 
+    /**
+     *Muestra una vista con el desglose de la contabilidad de un proyecto específico
+     * Parámetros:
+     * @param $id
+     * @param $mes
+     * @param $anio
+     * @return
+     * @internal param $ @int
+     *
+     *Output:
+     * $reportesproyectodatos @object contiene los datos de los recursos de un proyecto en específico
+     * $reportesproyectos @object contiene los datos de los recursos del uso de todas las cuentas relacionadas a un proyecto
+     */
     public function mostrarReporteProyectoEspecifico($id,$mes,$anio)
     {
 
@@ -90,7 +122,16 @@ class GenerarReportesController extends BaseController
     }
 
 
-
+    /**
+    * Obtiene la contabilidad de los recursos utilizados en un periodo mensual determinado
+    *
+    *Input:
+    * $mes @integer es el mes
+    * $anio @integer es el año
+    * Output:
+    * $reportesproyectodatos @object conjunto de proyectos que contienen los datos de un periodo de tiempo especifico
+    * $reportesproyectos @object contiene cálculo total de los recursos utilizados por los proyectos activos
+    */
     public function generarReportePeriodoProyecto()
     {
         $mes =  Input::get('mes');
@@ -126,7 +167,21 @@ class GenerarReportesController extends BaseController
             ->with('totalproyectos',$totalproyectos);
     }
 
-
+    /**
+     *Muestra una vista con el desglose de la contabilidad de un proyecto específico
+     * Parámetros:
+     * @param $id
+     * @param $mes
+     * @param $anio
+     * @param $mes2
+     * @param $anio2
+     * @return mixed
+    @internal param $ @int
+     *
+     *Output:
+     * $reportesproyectodatos @object contiene los datos de los recursos de un proyecto en específico
+     * $reportesproyectos @object contiene los datos de los recursos del uso de todas las cuentas relacionadas a un proyecto
+     */
     public function mostrarReportePorPeriodoProyectoEspecifico($id,$mes,$anio,$mes2,$anio2)
     {
         $reportesproyectodatos = DB::table('contabilidad')
@@ -164,17 +219,33 @@ class GenerarReportesController extends BaseController
             ->with('anio',$anio);
 
     }
-
+    /**
+     * Regresa la vista principal para de generar reportes mensuales por dependencia
+     * return @mixed
+     */
     public function mostrarGenerarReporteMensualDependencia()
     {
         return View::make('generarreportes/contabilidadmensualdependencias');
     }
-
+    /**
+     * Regresa la vista principal para de generar reportes por periodo de tiempo por dependencia
+     * return @mixed
+     */
     public function mostrarGenerarReportePeriodoDependencia()
     {
         return View::make('generarreportes/contabilidadporperiododependencias');
     }
-
+    /**
+    * Obtiene el total de recursos utilizados mensualmente por dependencia
+    *
+    *Input:
+    * $mes @int es el mes
+    * $anio @int es el anio
+    *
+    * Output:
+    * $reportesdependencias @object contiene la contabilidad total de cada dependencia
+    *
+    */
     public function generarReporteMensualDependencia()
     {
         $mes =  Input::get('mes');
@@ -200,7 +271,19 @@ class GenerarReportesController extends BaseController
                    ->with('anio',$anio);
     }
 
-
+    /**
+     * Obtiene el total de recursos utilizados en un periodo de tiempo por dependencia
+     *
+     *Input:
+     * $mes @int mes inicial
+     * $anio @int año inicial
+     * $mes2 @int
+     * $anio2 @int
+     *
+     * Output:
+     * $reportesdependencias @object contiene la contabilidad total de cada dependencia en un periodo de tiempo determinado
+     *
+     */
     public function generarReportePeriodoDependencia()
     {
         $mes =  Input::get('mes');
