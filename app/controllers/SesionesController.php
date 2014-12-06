@@ -4,19 +4,9 @@ use Illuminate\Routing\Controller;
 
 class SesionesController extends Controller {
 
+
     /**
-     * Display a listing of the resource.
-     * GET /sessions
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        return View::make('sessions.index');
-    }
-    /**
-     * Show the form for creating a new resource.
-     * GET /sessions/create
+     * Muestra el formulario para ingresar al sistema
      *
      * @return Response
      */
@@ -34,41 +24,60 @@ class SesionesController extends Controller {
      */
     public function store()
     {
-        //
-        $input = Input::all();
-        $attempt= Auth::attempt([
-            'USUA_ID_USUARIO' => $input['usuario'],
-            'password' => $input['password']
-        ]);
+        $rules = array(
+            'usuario'        => 'required',
+            'password'      => 'required'
+        );
 
+        $mensajes = array(
+            'required' => ' El campo :attribute es obligatorio',
+        );
 
+        $validator = Validator::make(Input::all(), $rules, $mensajes);
 
-        if ($attempt) {
-
-         if (Auth::user()->esAdmin())
-            {
-                return View::make('bienvenidaadmin');
-            }
-            elseif(Auth::user()->esUsuarioCuentaTitular())
-            {
-                return View::make('bienvenidausuariocuentatitular');
-            }
-
-        }else
+        if ($validator->fails())
         {
 
-            Session::flash('message', '¡El Usuario o la contraseña no son correctas!');
-            return Redirect::route('login');
+
+            $mensajes = $validator->messages();
+
+            // redirect our user back to the form with the errors from the validator
+            return Redirect::route('login')
+                ->withErrors($validator);
+        } else
+        {
+
+
+            $input = Input::all();
+            $attempt= Auth::attempt([
+                'USUA_ID_USUARIO' => $input['usuario'],
+                'password' => $input['password']
+            ]);
+
+
+
+            if ($attempt) {
+
+             if (Auth::user()->esAdmin())
+                {
+                    return View::make('bienvenidaadmin');
+                }
+                elseif(Auth::user()->esUsuarioCuentaTitular())
+                {
+                    return View::make('bienvenidausuariocuentatitular');
+                }
+
+            }else
+            {
+
+                Session::flash('message', '¡El Usuario o la contraseña no son correctas!');
+                return Redirect::route('login');
+            }
+
         }
 
 
     }
-
-
-
-
-
-
 
 
     /**

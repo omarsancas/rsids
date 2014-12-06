@@ -151,6 +151,29 @@ class EvaluarSolicitudController extends BaseController {
     public function rechazarSolicitud()
     {
 
+        $id = Input::get('id');
+        $rules = array(
+            'descrechazo' => 'required',
+        );
+
+        $mensajes = array(
+            'required' => ' El campo descripción de rechazo es obligatorio',
+       );
+
+        $validator = Validator::make(Input::all(), $rules, $mensajes);
+
+        if ($validator->fails())
+        {
+
+
+            $messages = $validator->messages();
+
+            // redirect our user back to the form with the errors from the validator
+            return Redirect::route('rechazar',$id)
+                ->withErrors($validator);
+        } else
+        {
+
 
         $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
@@ -161,6 +184,7 @@ class EvaluarSolicitudController extends BaseController {
         Session::flash('message', '¡La solicitud se ha rechazado exitosamente!');
 
         return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
+        }
     }
 
     /**
@@ -229,6 +253,7 @@ class EvaluarSolicitudController extends BaseController {
             'max'      => 'El archivo :attribute no debe de pasar los 8MB',
             'horasCPU.max'=> 'Las horas cpu no deben sobrepasar las 5000000 de horas',
             'numeric' => ' El campo :attribute solo debe contener números',
+            'unique' => 'El login ingresado del usuario ya existe en el sistema'
 
         );
 

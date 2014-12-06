@@ -67,7 +67,7 @@ class GestionarCuentasColaboradorasController extends BaseController {
     {
         $idproyecto = Input::get('idproyecto');
         $rules = array(
-            'nombre'               => 'required',
+            'nombre'               => 'required|min:3',
             'apellidopaterno'      => 'required',
             'telefono'             => 'required|numeric',
 
