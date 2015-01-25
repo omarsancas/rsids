@@ -127,7 +127,8 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
         $datoscuentacol = Input::get('solcol');
         $datosMecoCuentasCol = Input::get('meco');
-
+        /*
+        if(is_array($datoscuentacol)){
         $cuentacol = array_slice($datoscuentacol, 1);
         $mecocuentascol = array_slice($datosMecoCuentasCol, 1);
 
@@ -143,6 +144,9 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             $solcol->save();
         }
 
+        }
+
+        */
 
         foreach (Input::get('cuentascol', array()) as $id => $estadousuario)
         {
