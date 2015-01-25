@@ -615,6 +615,13 @@ Route::get('/consultarcuentacolaboradora/{idusuario}',[
 ]);
 
 
+Route::get('asignarcontabilidad', [
+
+    'as' => 'asignarcontabilidad',
+    'uses' => 'EvaluarSolicitudController@asignarContabilidadPorUsuario'
+]);
+
+
 
 });//fin del fitro para rol de administrador
 
@@ -638,6 +645,17 @@ Route::group(array('before' => 'auth|role:2'), function ()
     Route::post('cuentatitular/renovarsolicitudderecursos', [
         'as' => 'renovarsolicitud',
         'uses' => 'RenovarSolicitudDeRecursosController@renovarSolicitudDeRecursos'
+    ]);
+
+    Route::get('cuentatitular/generarsolicituddesoportetecnico',[
+        'uses' => 'GenerarSolicitudesParaSoporteTecnicoController@mostrarSolicitud'
+    ]);
+
+
+    Route::post('cuentatitular/generarsolicituddesoportetecnico',[
+
+        'as' => 'enviarsolicitud',
+        'uses' => 'GenerarSolicitudesParaSoporteTecnicoController@enviarSolicitud'
     ]);
 
 });

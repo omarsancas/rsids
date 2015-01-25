@@ -80,7 +80,6 @@ class RenovarSolicitudDeRecursosController extends BaseController {
        $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
 
-
         $solicitudabstracta->soab_nombres = Input::get('nombre');
         $solicitudabstracta->soab_ap_paterno = Input::get('apellidoPaterno');
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
@@ -152,19 +151,82 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             $usuario->save();
         }
 
-        $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHVIVOS;
-        $archivoarticuloin= $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'ArticuloIndizado' . '.' . Input::file('articuloin')->getClientOriginalExtension();
-        $upload_success = Input::file('articuloin')->move($destinationPath, $archivoarticuloin);
 
-        if($upload_success){
-            $solicitudrenovacion = new SolicitudRenovacion;
-            $solicitudrenovacion->sore_argumentacion = $destinationPath .'/'. $archivoarticuloin;
-            $solicitudrenovacion->save();
-        }
+        $solicitudrenovacion = new SolicitudRenovacion;
+        $solicitudrenovacion->sore_argumentacion = Input::get('argumentacion');
+        $solicitudrenovacion->save();
+
 
 
         $solicitudabstracta->soab_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
         $solicitudabstracta->save();
+
+
+        $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
+
+
+
+        if(Input::hasFile('archivos')){
+
+            $file = Input::file('archivos'); // your file upload input field in the form should be named 'file'
+            //$uploadsuccess = true;
+
+
+            /*
+            // Declare the rules for the form validation.
+            $rules = array('archivos'  => 'mimes:pdf');
+            $data = array('archivos' => Input::file('archivos'));
+
+
+            // Validate the inputs.
+            $validation = Validator::make($data, $rules)-;
+
+
+
+            if ($validation->fails())
+            {
+                return Response::json('error', 400);
+            }
+
+            */
+
+
+
+            if(is_array($file))
+            {
+                foreach(array_slice($file, 1) as $part) {
+                    $filename = $part->getClientOriginalName();
+                    $part->move($destinationPath, $filename);
+
+                    $archivos_renovacion = new ArchivoRenovacion;
+                    $archivos_renovacion->arre_ruta_archivo = $destinationPath . '/' . $filename;
+                    $archivos_renovacion->arre_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
+                    $archivos_renovacion->save();
+
+
+                }
+
+            }
+            else //single file
+            {
+                $filename = $file->getClientOriginalName();
+                $uploadsuccess = Input::file('archivos')->move($destinationPath, $filename);
+
+                if( $uploadsuccess ) {
+                    return Response::json('success', 200);
+                } else {
+                    return Response::json('error', 400);
+                }
+            }
+
+
+
+        } else {
+
+            return Response::json('error', 400);
+        }
+
+
 
     }
 

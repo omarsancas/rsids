@@ -103,14 +103,8 @@
     </div>
 
 
-    <div class="form-group">
 
 
-        {{ Form::label('dependencias', 'Dependencia')}}
-        {{ Form::select('dependencias',$dependencias_catalogo,null, array('class'=>'form-control','style'=>'' ))}}
-
-
-    </div>
 
 </fieldset>
 

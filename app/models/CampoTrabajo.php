@@ -13,4 +13,6 @@ class CampoTrabajo extends Eloquent{
     protected $primaryKey = 'catr_id_campo_trabajo';
     public $timestamps = false;
 
-} 
+
+
+}

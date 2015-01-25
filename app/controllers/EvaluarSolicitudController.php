@@ -188,6 +188,20 @@ class EvaluarSolicitudController extends BaseController {
     }
 
     /**
+     * Muestra la vista para subir archivo de colas
+     *
+     *
+     *
+     * Output: Vista para subir archivo de contabilidad
+     *
+     */
+
+    public function mostrarSubirContabilidad(){
+
+        return View::make('');
+    }
+
+    /**
     * Asigna los datos del archivo .csv a la tabla de contabilidad
     *
     * Input:
@@ -198,29 +212,38 @@ class EvaluarSolicitudController extends BaseController {
 
     public function asignarContabilidadPorUsuario()
     {
-        $moved = public_path() . '/uploads/contabilidad1.txt';
+        $destinationpath = public_path() . '/uploads/';
+        $archivocontabilidad = 'contabilidad' . time() . '.' . 'txt';
+        $upload_success = Input::file('contabilidad')->move($destinationpath, $archivocontabilidad);
 
+        $moved = $destinationpath . $archivocontabilidad;
+
+
+        if($upload_success){
+
+            $csv = new Reader($moved);
+            $csv->setOffset(0); //because we don't want to insert the header
+            $nbInsert = $csv->each(function ($row) use (&$sth)
+            {
+                DB::table('contabilidad')->insert(
+                    array(
+
+                        'cont_id_usuario' => (isset($row[0]) ? $row[0] : ''),
+                        'cont_num_jobs'   => (isset($row[1]) ? $row[1] : ''),
+                        'cont_hrs_nodo' => (isset($row[2]) ? $row[2] : '')
+                    ));
+
+                return true;
+            });
+
+            return Response::json('success', 200);
+
+        }
         //DB::table('wc_program_1')->truncate();
 
-        $csv = new Reader($moved);
-        $csv->setOffset(0); //because we don't want to insert the header
-        $nbInsert = $csv->each(function ($row) use (&$sth)
-        {
-            DB::table('contabilidad')->insert(
-                array(
-
-                    'cont_id_usuario' => (isset($row[0]) ? $row[0] : ''),
-                    'cont_num_jobs'   => (isset($row[1]) ? $row[1] : ''),
-                    'cont_hrs_nodo' => (isset($row[2]) ? $row[2] : '')
-                ));
-
-            return true;
-        });
-
-        return Response::json('success', 200);
-
-
     }
+
+
 
     /**
      *Cambia la solicitud de estatus a aceptada, asigna los recursos, crea los logins y passwords de cuentas

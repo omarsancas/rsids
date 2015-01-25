@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+
 <div class="container">
 
 <div class="panel panel-default">
@@ -17,7 +18,9 @@
 <h1>Todavia no puede renovar sus recursos hasta la fecha {{ $datosrenovacion->PROY_FEC_TERM_RECU }}</h1>
 
 @else
-{{ Form::open (['route' => 'renovarsolicitud', 'method' => 'UPDATE','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
+{{ Form::open (['route' => 'renovarsolicitud', 'method' => 'UPDATE','class' => 'form-horizontal' , 'role' =>'form', 'files' =>true]) }}
+
+
 <input type="hidden" name="id" value="{{ $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $datosrenovacion->MECO_ID_MEDIO_COMUNICACION }}">
 @if ($errors)
@@ -386,20 +389,46 @@
             <legend>¿Deseas agregar cuentas colaboradoras?</legend>
             <div id="formbuttons" class="regrow">
                 <a href="#" class="btn btn-primary" id="clonetrigger">Agregar Cuentas colaboradora</a>
-
             </div>
         </fieldset>
-
-
     </div>
-
 
 
     <div class="form-group">
-        {{ Form::label('curriculum', 'Artículo Indizado')}}
-        {{Form::file('articuloin');}}
+        <div hidden>
+            <fieldset class="clonablefile">
+                <legend>Detalles del archivo</legend>
+                <div class="regrow">
+                    <div class="regrow">
+                        {{ Form::label('curriculum', 'Archivo')}}
+                        {{Form::file('archivos[]');}}
+                    </div>
+                    {{ Form::label('dependencias', 'Tipo de archivo')}}
+                    {{ Form::select('solcol[0][soco_id_dependencia]', $dependencias_catalogo, null,array('class'=>'form-control','style'=>'' ) )}}
+                </div>
+                <a href="#" class="btn btn-danger btn-sm remove">Eliminar archivo</a>
 
+                <div class="row spacer">
+                    <div class="span4">.</div>
+                    <div class="span4">.</div>
+                    <div class="span4">.</div>
+                </div>
+            </fieldset>
+        </div>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <fieldset>
+            <legend>Reporte de renovación</legend>
+            <div id="formbuttonsfile" class="regrow">
+                <a href="#" class="btn btn-primary" id="clonetriggerfile">Agregar archivo</a>
+            </div>
+        </fieldset>
     </div>
+
+
+
+</div>
 
 
 

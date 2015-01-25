@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Solicitud de recursos RSIDS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -45,9 +45,11 @@
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Usuario " name="usuario" type="text">
+                                @if ($errors->has('usuario')) <li class="list-group-item list-group-item-danger">{{ $errors->first('usuario') }}</li> @endif
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+                                @if ($errors->has('password')) <li class="list-group-item list-group-item-danger">{{ $errors->first('password') }}</li> @endif
                             </div>
 
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Ingresar al sistema">

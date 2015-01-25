@@ -9,10 +9,11 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title></title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset ('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
 
 
 
@@ -58,6 +59,10 @@
     <script src="{{asset ('js/jquery-1.4.2.js')}}"></script>
     <script src="{{asset ('js/jquery.cloneform.js')}}"></script>
     <script src="{{asset ('js/jquery.cloneform2.js')}}"></script>
+    <script src="{{asset ('js/jquery.clonablefile.js')}}"></script>
     <script src="{{asset ('bootstrap/js/bootstrap.min.js')}}"></script>
+
+
+
   </body>
 </html>

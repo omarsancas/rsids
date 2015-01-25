@@ -214,6 +214,11 @@
                         disponibles</a>
 
                 </li>
+
+                <li>
+                    <a href="{{ URL::to('cuentatitular/generarsolicituddesoportetecnico') }}">Generar solicitud de soporte técnico</a>
+
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

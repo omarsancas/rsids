@@ -18,6 +18,12 @@
 <fieldset>
     <legend>Descripcion de rechazo de solicitud de recursos</legend>
 
+    @if ($errors)
+    <ul class="list-group">
+        {{ implode('', $errors->all('<li class="list-group-item list-group-item-danger">:message</li>')) }}
+    </ul>
+    @endif
+
     <div class="form-group">
         <textarea class="form-control" name="descrechazo"  id="descrechazo" rows="3"></textarea>
     </div>
