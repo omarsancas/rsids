@@ -27,8 +27,11 @@
 
 
         .ft0{font: 15px 'Arial';margin-top: 0px;line-height: 10px;}
+        .ftB{font: 15px 'Arial';margin-top: 0px;line-height: 10px; color: white;}
+
         .ft1{font: bold 15px 'Arial';line-height: 21px;}
         .ft2{font: 16px 'Arial';line-height: 20px;}
+        .ftfirm{font: 16px 'Arial';line-height: 3px;}
         .ft3{font: 15px 'Consolas';line-height: 22px;}
         .ft4{font: 15px 'Arial';line-height: 21px;}
         .ft5{font: bold 15px 'Arial';line-height: 18px;}
@@ -81,44 +84,58 @@
     <P class="p2 ft0">Dirección General de Cómputo y de</P>
     <P class="p3 ft0">Tecnologías de Información y Comunicación</P>
     <P class="p4 ft0">Cuidad Universitaria, a 28 de mayo de 2014.</P>
-    <P class="p5 ft1">{{ $solicitudes->GRAD_NOMBRE }} {{$solicitudes->SOAB_NOMBRES . ' '.$solicitudes->SOAB_AP_PATERNO .' ' . $solicitudes->SOAB_AP_MATERNO }}</P>
+    <P class="p5 ft1">{{$titulo}}{{$solicitudes->SOAB_NOMBRES . ' '.$solicitudes->SOAB_AP_PATERNO .' ' . $solicitudes->SOAB_AP_MATERNO }}</P>
     <P class="p5 ft1">{{$solicitudes->DEPE_NOMBRE }}</P>
     <P class="p6 ft2">Por medio de la presente me permito comunicarle el resultado del dictamen que el Comité Académico de Supercómputo (CAS) otorgó a la solicitud de recursos que usted realizó en el marco de la Convocatoria para Asignación de Recursos de Supercómputo <NOBR>2014-1.</NOBR></P>
     <P class="p6 ft2">Cabe mencionar que el CAS tomó en cuenta los siguientes criterios para la evaluación de las solicitudes:</P>
     <P class="p6 ft2">1.- La fortaleza de la propuesta de trabajo a realizar, evaluada a través de la descripción cualitativa y cuantitativa del trabajo a realizar. También se tomaron en cuenta diversidad y originalidad de temas.</P>
     <P class="p6 ft2">2.- El grupo de trabajo, considerando la trayectoria avalada por los niveles de PRIDE y SNI, la formación de recursos humanos y el desarrollo de software.</P>
     <P class="p6 ft2">Se aplicó una reducción en la asignación de recursos a todos los proyectos aprobados (78), pues la cantidad total de recursos solicitados (más de 113 millones de <NOBR>horas-cpu)</NOBR> excedió en gran medida los recursos disponibles en el equipo de supercómputo de la UNAM (27.5 millones de <NOBR>horas-cpu</NOBR> para el periodo junio 2014 - enero 2015).</P>
-    <P class="p6 ft2">Su proyecto ha sido aprobado y registrado como un proyecto <SPAN class="ft3">&lt;TIPO&gt; </SPAN>con el código <NOBR><SPAN class="ft3">SC14-1-</SPAN></NOBR><SPAN class="ft3"> </SPAN><NOBR><SPAN class="ft3">&lt;PROYECTO&gt;-&lt;SOLICITUD&gt;</SPAN>.</NOBR> Los recursos asignados son <SPAN class="ft3">&lt;APROBADO&gt; </SPAN><NOBR>horas-cpu</NOBR> de la supercomputadora Miztli, los cuales estarán vigentes desde el 1o de junio de 2014 hasta el 31 de enero de 2015.</P>
+    <P class="p6 ft2">Su proyecto ha sido aprobado y registrado como un proyecto <SPAN class="ft3">Tipo {{ $solicitudes->PROY_ID_TIPO_PROYECTO}} </SPAN>con el código <NOBR><SPAN class="ft3">{{ $solicitudes->PROY_ID_COMPUESTO }}</SPAN></NOBR>.</NOBR> Los recursos asignados son <SPAN class="ft3"> {{ $solicitudes->PROY_HRS_APROBADAS}} </SPAN><NOBR>horas-cpu</NOBR> de la supercomputadora Miztli, los cuales estarán vigentes desde el 1o de junio de 2014 hasta el 31 de enero de 2015.</P>
     <P class="p6 ft2">Se espera que estos recursos sean utilizados por su grupo a un ritmo mensual de <SPAN class="ft3">&lt;MENSUAL&gt; </SPAN><NOBR>horas-cpu.</NOBR> Si tiene planeado utilizarlos de una forma distinta, debe ponerse en contacto con la Coordinación de Supercómputo para buscar la mejor manera de programar los sistemas de colas para tal efecto.</P>
+    <P class="p6 ftB">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</P>
+
     <P class="p10 ft0">Circuito Exterior, Ciudad Universitaria</P>
     <P class="p11 ft0">www.tic.unam.mx</P>
 </DIV>
 <DIV id="page_1">
     <DIV id="dimg1">
-        <IMG src="notificaciones2014-1_images/notificaciones2014-12x1.jpg" id="img1">
+        <IMG src="{{ base_path('public/img/unam.jpg')}}" id="img1">
+
     </DIV>
 
 
 
-        <P class="p70 ft0">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</P>
-        <P class="p1 ft0">SECRETARIA GENERAL</P>
-        <P class="p2 ft0">Dirección General de Cómputo y de</P>
-        <P class="p3 ft0">Tecnologías de Información y Comunicación</P>
-        <P class="p16 ft2">Al término de la vigencia de los recursos deberá informar a la Coordinación de Supercómputo sobre los avances de su proyecto, y la producción académica obtenida con el uso de los recursos asignados, en la que deberá haber un reconocimiento explícito por el uso de los recursos, utilizando para tal efecto el código de su proyecto.</P>
-        <P class="p17 ft0">Adicionalmente, anexo a este documento encontrará lo siguiente:</P>
-        <P class="p18 ft0">1.- El dictamen del CAS.</P>
-        <P class="p19 ft0">2.- La lista de cuentas asociadas a su proyecto.</P>
-        <P class="p20 ft2">3.- El documento “Términos y Condiciones del uso de servicios de supercómputo”, el cuál deberá devolvernos antes del 30 de junio de 2014, con el nombre y la firma de todos los participantes de su proyecto.</P>
-        <P class="p21 ft5">Atentamente</P>
-        <P class="p22 ft0">M. C. José Luis Gordillo Ruiz</P>
-        <P class="p23 ft0">Coordinador de Supercómputo</P>
-        <P class="p19 ft0">DGTIC UNAM</P>
-        <P class="p19 ft0">Tel. 56228529</P>
-        <P class="p23 ft0">Email: depto@super.unam.mx</P>
+    <P class="p0 ft0">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</P>
+    <P class="p1 ft0">SECRETARIA GENERAL</P>
+    <P class="p2 ft0">Dirección General de Cómputo y de</P>
+    <P class="p3 ft0">Tecnologías de Información y Comunicación</P>
+    <P class="p4 ftB">Cuidad Universitaria, a 28 de mayo de 2014.</P>
 
+    <P class="p6 ft2"> Al término de la vigencia de los recursos deberá informar a la Coordinación de Supercómputo
+        sobre los avances de su proyecto, y la producción académica obtenida con el uso de los
+        recursos asignados, en la que deberá haber un reconocimiento explícito por el uso de los
+        recursos, utilizando para tal efecto el código de su proyecto. <NOBR>2014-1.</NOBR></P>
+    <P class="p6 ft2">Adicionalmente, anexo a este documento encontrará lo siguiente:</P>
+    <P class="p6 ft2">1.- El dictamen del CAS..</P>
+    <P class="p6 ft2">2.- La lista de cuentas asociadas a su proyecto.</P>
 
-        <P class="p10 ft0">Circuito Exterior, Ciudad Universitaria</P>
-        <P class="p11 ft0">www.tic.unam.mx</P>
+    <P class="p6 ft2">3.- El documento “Términos y Condiciones del uso de servicios de supercómputo”, el cuál
+    deberá devolvernos antes del 30 de junio de 2014, con el nombre y la firma de todos los
+    participantes de su proyecto.</P>
+    <P class="p6 ftB">Se aplicó una reducción en la asignación de recursos a todos los proyectos aprobados (8), pues la</P>
+    <P class="p6 ft2">Atentamente</P>
+    <P class="p6 ftB">Se espera que estos recursos sean utilizados por su grupo a un ritmo mensual de <SPAN class="ft3">&lt;MENSUAL&gt; </SPAN><NOBR>horas-cpu.</NOBR> Si tiene planeado utilizarlos de una forma distinta, debe ponerse en contacto con la Coordinación de Supercómputo para buscar la mejor manera de programar los sistemas de colas para tal efecto.</P>
+    <P class="p6 ftB">Se espera que estos recursos sean utilizados por su grupo a un ritmo mensual de <SPAN class="ft3">&lt;MENSUAL&gt; </SPAN><NOBR>horas-cpu.</NOBR> Si tiene planeado utilizarlos de una forma distinta, debe ponerse en contacto con la Coordinación de Supercómputo para buscar la mejor manera de programar los sistemas de colas para tal efecto.</P>
+
+    <P class="p6 ftfirm">M.C. Jose Luis Gordillo Ruiz </P>
+    <P class="p6 ftfirm">Coordinador de supercómputo </P>
+    <P class="p6 ftfirm">DGTIC UNAM </P>
+    <P class="p6 ftfirm">Tel. 56228529 </P>
+    <P class="p6 ftfirm">depto@super.unam.mx </P>
+
+    <P class="p10 ft0">Circuito Exterior, Ciudad Universitaria</P>
+    <P class="p11 ft0">www.tic.unam.mx</P>
 
 </DIV>
 </BODY>

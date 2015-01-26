@@ -461,12 +461,43 @@ class SolicitudController extends BaseController {
     {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->join('proyecto','solicitud_abstracta.soab_id_solicitud_abstracta','=','proyecto.proy_id_solicitud_abstracta')
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
 
+        if($solicitudes->SOAB_SEXO == 'm')
+        {
+            if($solicitudes->SOAB_ID_GRADO == 1){
 
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
+                $titulo = 'Lic.';
+            }else if($solicitudes->SOAB_ID_GRADO == 2){
+
+                $titulo = 'Mtro.';
+
+            }else{
+
+                $titulo = 'Dr.';
+            }
+
+        }else{
+
+            if($solicitudes->SOAB_ID_GRADO == 1){
+
+                $titulo = 'Lic.';
+            }else if($solicitudes->SOAB_ID_GRADO == 2){
+
+                $titulo = 'Mtra.';
+
+            }else{
+
+                $titulo = 'Dra.';
+            }
+
+        }
+
+
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->with('titulo',$titulo)->render();
 
         return PDF::load($html, 'letter', 'portrait')->show();
     }
@@ -535,6 +566,36 @@ class SolicitudController extends BaseController {
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
 
+        if($solicitudes->SOAB_SEXO == 'm')
+        {
+            if($solicitudes->SOAB_ID_GRADO == 1){
+
+                $titulo = 'Lic.';
+            }else if($solicitudes->SOAB_ID_GRADO == 2){
+
+                $titulo = 'Mtro.';
+
+            }else{
+
+                $titulo = 'Dr.';
+            }
+
+        }else{
+
+            if($solicitudes->SOAB_ID_GRADO == 1){
+
+                $titulo = 'Lic.';
+            }else if($solicitudes->SOAB_ID_GRADO == 2){
+
+                $titulo = 'Mtra.';
+
+            }else{
+
+                $titulo = 'Dra.';
+            }
+
+        }
+
         $correelectronico = $solicitudes->MECO_CORREO;
         $ruta_archivo = $solicitudes->SOAB_RUTA_ARCHIVOS;
 
@@ -542,10 +603,10 @@ class SolicitudController extends BaseController {
         $esnotificado->soab_proy_notificado = 1;
         $esnotificado->save();
 
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->render();
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->with('titulo',$titulo)->render();
 
         $pdf = new \Thujohn\Pdf\Pdf();
-        $content = $pdf->load($html, 'A4', 'portrait')->output();
+        $content = $pdf->load($html, 'letter', 'portrait')->output();
          // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
         $pdfPath = $ruta_archivo . '/' . 'CartadeAprobacion'. $solicitudes->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, $content);
@@ -581,10 +642,10 @@ class SolicitudController extends BaseController {
 
 
         $ruta_archivo = $esnotificado->SOAB_RUTA_ARCHIVOS;
-        $html = View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->with('cuentasvpn',$cuentasvpn)->render();
+        $html = View::make('evaluarsolicitudderecursos.cartademaquinavpn')->with('cuentasmaquina', $cuentasmaquina)->with('cuentasvpn',$cuentasvpn)->with('solicitudes',$solicitudes)->with('titulo',$titulo)->render();
 
         $pdf1 = new \Thujohn\Pdf\Pdf();
-        $content = $pdf1->load($html, 'A4', 'portrait')->output();
+        $content = $pdf1->load($html, 'letter', 'portrait')->output();
         // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
         $pdfPath = $ruta_archivo . '/' . 'CartaDeCuentas'. $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, $content);

@@ -674,3 +674,34 @@ Route::get('login', [
 Route::post('login', 'SesionesController@store');
 Route::get('logout', 'SesionesController@destruirSesion');
 Route::resource('sesiones', 'SesionesController');
+
+/*
+ *
+ * Función para resetear los password anteriores
+ * y crear txt con cuentas
+ */
+Route::get('resetcontabilidad', function()
+{
+
+
+    Excel::create('Filename', function($excel) {
+
+        $excel->sheet('Sheetname', function($sheet) {
+            $model = Vpn::select('vplo_login', 'vplo_password','vplo_grupo_principal')->get();
+            $sheet->fromModel($model);
+        });
+    })->download('txt');
+
+    DB::update( DB::raw("update vpn_login set vplo_password = 'XXXXXXXXXXXX'") );
+   DB::update( DB::raw("update maquina_login set vplo_password = 'XXXXXXXXXXXX'") );
+
+
+    return 'Tablas actualizadas';
+
+
+
+
+
+
+});
+

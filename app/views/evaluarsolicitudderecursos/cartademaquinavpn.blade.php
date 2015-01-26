@@ -1,18 +1,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <HTML>
 <HEAD>
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <META http-equiv="X-UA-Compatible" content="IE=8">
     <TITLE>Created by BCL easyConverter SDK 3 (HTML Version)</TITLE>
     <STYLE type="text/css">
 
         body {margin-top: 0px;margin-left: 0px;}
 
-        #page_1 {position:relative; overflow: hidden;margin: 50px 0px 279px 112px;padding: 0px;border: none;width: 704px;}
 
 
 
-
+        table, th, td {
+            border: 1px solid black;
+        }
 
         .ft0{font: bold 16px 'Cambria';line-height: 19px;}
         .ft1{font: 16px 'Cambria';line-height: 38px;}
@@ -32,7 +33,7 @@
         .p1{text-align: left;padding-left: 8px;margin-top: 2px;margin-bottom: 0px;}
         .p2{text-align: left;padding-left: 8px;padding-right: 120px;margin-top: 0px;margin-bottom: 0px;}
         .p3{text-align: left;padding-left: 56px;padding-right: 120px;margin-top: 0px;margin-bottom: 0px;}
-        .p4{text-align: left;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+        .p4{text-align: center;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
         .p5{text-align: left;padding-left: 8px;margin-top: 55px;margin-bottom: 0px;}
         .p6{text-align: left;padding-left: 8px;margin-top: 1px;margin-bottom: 0px;}
 
@@ -92,19 +93,19 @@
 
 <div class=" #page_1">
 
-    <P class="p0 ft0">DR. NOMBRE</P>
-    <P class="p1 ft0">DEPENDENCIA</P>
+    <P class="p0 ft0"> {{$titulo}}{{$solicitudes->SOAB_NOMBRES . ' '.$solicitudes->SOAB_AP_PATERNO .' ' . $solicitudes->SOAB_AP_MATERNO }}</P>
+    <P class="p1 ft0">{{$solicitudes->DEPE_NOMBRE }}</P>
     <P class="p2 ft1">Por medio de la presente le hago llegar su clave para nuestro equipo de Supercómputo.</P>
     <P class="p3 ft2">Es importante, por seguridad del sistema, evitar el envío de contraseñas a través de correo electrónico.</P>
-    <TABLE cellpadding=0 cellspacing=0 class="t0">
+    <TABLE>
         <thead>
         <TR>
 
-            <TD rowspan=2 class="tr1 td1"><P class="p4 ft4">Login</P></TD>
+            <th  class="tr1 td1"><P class="p4 ft4">Login</P></th>
 
-            <TD rowspan=2 class="tr1 td3"><P class="p4 ft4">Nombre</P></TD>
+            <th class="tr1 td3"><P class="p4 ft4">Nombre</P></th>
 
-            <TD rowspan=2 class="tr1 td5"><P class="p4 ft4">Password</P></TD>
+            <th  class="tr1 td5"><P class="p4 ft4">Password</P></th>
 
         </TR>
         </thead>
@@ -112,11 +113,11 @@
         @foreach ($cuentasmaquina as $cuentamaquina)
         <TR>
 
-            <TD class="tr3 td12"><P class="p4 ft7">{{$cuentamaquina->malo_login }}</P></TD>
+            <TD ><P class="p4 ft7">{{$cuentamaquina->malo_login }}</P></TD>
 
-            <TD class="tr3 td14"><P class="p4 ft7">{{$cuentamaquina->malo_nombre }}</P></TD>
+            <TD ><P class="p4 ft7">{{$cuentamaquina->malo_nombre }}</P></TD>
 
-            <TD class="tr3 td16"><P class="p4 ft7">{{$cuentamaquina->malo_password }}</P></TD>
+            <TD ><P class="p4 ft7">{{$cuentamaquina->malo_password }}</P></TD>
 
         </TR>
 
@@ -124,38 +125,44 @@
         </tbody>
     </TABLE>
     <P class="p2 ft8">Debido a que nuestros equipos sólo admitenconexión desde nuestra VPN, le envío asimismo sus claves de acceso a la misma.</P>
-    <TABLE cellpadding=0 cellspacing=0 class="t1">
+    <TABLE>
         <thead>
         <TR>
 
-            <TD rowspan=2 class="tr5 td19"><P class="p4 ft4">Login</P></TD>
+            <th class="tr5 td19"><P class="p4 ft4">Login</P></th>
 
-            <TD rowspan=2 class="tr5 td19"><P class="p4 ft4">Nombre Completo</P></TD>
+            <th  class="tr5 td19"><P class="p4 ft4">Nombre Completo</P></th>
 
-            <TD rowspan=2 class="tr5 td19"><P class="p4 ft4">Password</P></TD>
+            <th class="tr5 td19"><P class="p4 ft4">Password</P></th>
 
         </TR>
         </thead>
-        <tbody>
         @foreach ($cuentasvpn as $cuentavpn)
+        <tbody>
+
         <TR>
 
-            <TD class="tr7 td30"><P class="p4 ft7">{{$cuentavpn->vplo_login }}</P></TD>
+            <TD ><P class="p4 ft7">{{$cuentavpn->vplo_login }}</P></TD>
 
-            <TD class="tr7 td30"><P class="p4 ft7">{{$cuentavpn->vplo_nombre }}</P></TD>
+            <TD ><P class="p4 ft7">{{$cuentavpn->vplo_nombre }}</P></TD>
 
-            <TD class="tr7 td34"><P class="p4 ft7">{{$cuentavpn->vplo_password }}</P></TD>
+            <TD><P class="p4 ft7">{{$cuentavpn->vplo_password }}</P></TD>
 
         </TR>
-       @endforeach
+
 
         </tbody>
+        @endforeach
 
     </TABLE>
     <P class="p2 ft11">Si requiere asesoría para la configuración de la VPN, favor de solicitarla a ayuda@super.unam.mx</P>
     <P class="p0 ft12">Atentamente</P>
     <P class="p5 ft0">M.C. José Luis Gordillo Ruiz</P>
     <P class="p6 ft0">Coordinador de Supercómputo, DGTIC, UNAM</P>
+
+
+
+
 </div>
 </BODY>
 </HTML>
