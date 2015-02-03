@@ -401,10 +401,20 @@
                 <div class="regrow">
                     <div class="regrow">
                         {{ Form::label('curriculum', 'Archivo')}}
-                        {{Form::file('archivos[]');}}
+                        {{Form::file('archivos[0]');}}
                     </div>
-                    {{ Form::label('dependencias', 'Tipo de archivo')}}
-                    {{ Form::select('solcol[0][soco_id_dependencia]', $dependencias_catalogo, null,array('class'=>'form-control','style'=>'' ) )}}
+                    <div class="regrow">
+                        {{ Form::label('mes', 'Tipo de archivo')}}
+                        <select name="tipoarchivo[0]" id="porcentaje" class="form-control" >
+                            <option value="Artículo en preparación" > Artículo en preparación </option>
+                            <option value="Artículo en arbitraje" > Artículo en arbitraje</option>
+                            <option value="Artículo en prensa" > Artículo en prensa </option>
+                            <option value="Artículo publicado y entregado" > Artículo publicado y entregado </option>
+                            <option value="Artículo en prensa" > Artículo en prensa </option>
+
+
+                        </select>
+                    </div>
                 </div>
                 <a href="#" class="btn btn-danger btn-sm remove">Eliminar archivo</a>
 

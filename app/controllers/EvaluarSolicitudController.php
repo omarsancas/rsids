@@ -198,7 +198,7 @@ class EvaluarSolicitudController extends BaseController {
 
     public function mostrarSubirContabilidad(){
 
-        return View::make('');
+        return View::make('subircontabilidad');
     }
 
     /**

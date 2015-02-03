@@ -127,10 +127,14 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
         $datoscuentacol = Input::get('solcol');
         $datosMecoCuentasCol = Input::get('meco');
-        /*
-        if(is_array($datoscuentacol)){
+
+
+
+
         $cuentacol = array_slice($datoscuentacol, 1);
         $mecocuentascol = array_slice($datosMecoCuentasCol, 1);
+
+        if(is_array($datoscuentacol)){
 
         foreach ((array_map(null, $cuentacol, $mecocuentascol)) as $solcolData)
         {
@@ -146,7 +150,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
         }
 
-        */
+
 
         foreach (Input::get('cuentascol', array()) as $id => $estadousuario)
         {
@@ -155,7 +159,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             $usuario->save();
         }
 
-
+        /*
         $solicitudrenovacion = new SolicitudRenovacion;
         $solicitudrenovacion->sore_argumentacion = Input::get('argumentacion');
         $solicitudrenovacion->save();
@@ -165,14 +169,15 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $solicitudabstracta->soab_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
         $solicitudabstracta->save();
 
-
+        */
         $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
 
 
 
         if(Input::hasFile('archivos')){
 
-            $file = Input::file('archivos'); // your file upload input field in the form should be named 'file'
+            $file = Input::file('archivos');
+            $tipoarchivo = Input::get('tipoarchivo');// your file upload input field in the form should be named 'file'
             //$uploadsuccess = true;
 
 
@@ -194,17 +199,22 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
             */
 
+            $filearr = array_slice($file, 1);
+            $tipoarchivoarr = array_slice($tipoarchivo,1);
 
-
-            if(is_array($file))
+            if(is_array($filearr))
             {
-                foreach(array_slice($file, 1) as $part) {
+                foreach(array_map(null, $filearr, $tipoarchivoarr) as $mapdata) {
+
+                    list($part,$parttipo) = $mapdata;
+
                     $filename = $part->getClientOriginalName();
                     $part->move($destinationPath, $filename);
 
                     $archivos_renovacion = new ArchivoRenovacion;
                     $archivos_renovacion->arre_ruta_archivo = $destinationPath . '/' . $filename;
-                    $archivos_renovacion->arre_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
+                    $archivos_renovacion->arre_id_solicitud_renovacion = 0;
+                    $archivos_renovacion->arre_tip_archivo = $parttipo;
                     $archivos_renovacion->save();
 
 

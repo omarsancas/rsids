@@ -351,6 +351,12 @@
         </li>
 
 
+        <li>
+            <a href="{{ URL::to('subircontabilidad') }}">Subir Archivo de contabilidad</a>
+
+        </li>
+
+
 
 
 

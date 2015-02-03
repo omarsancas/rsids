@@ -303,6 +303,17 @@ class SolicitudController extends BaseController {
             $otraapp,
             $otrocampo) = $this->obtenerListaSolicitudes($id);
 
+
+        $renovacion = DB::table('solicitud_abstracta')
+            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
+            ->join('archivos_renovacion','archivos_renovacion.arre_id_solicitud_renovacion','=','solicitud_renovacion.sore_id_solicitud_renovacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+
+        if (empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
+        {
         // Show form
         return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)
             ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
@@ -312,6 +323,19 @@ class SolicitudController extends BaseController {
             ->with('otraapp', $otraapp)
             ->with('campotrabajo', $campotrabajo)
             ->with('meco', $meco);
+        }else{
+
+            return View::make('gestionarsolicitudderecursos.consultarsolicitudrenovacionvista', $this->data)
+                ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+                ->with('grado', $grado)
+                ->with('dependencias_catalogo', $dependencias_catalogo)
+                ->with('otrocampo', $otrocampo)
+                ->with('otraapp', $otraapp)
+                ->with('campotrabajo', $campotrabajo)
+                ->with('meco', $meco)
+                ->with('renovacion',$renovacion);
+
+        }
 
     }
 
@@ -707,6 +731,29 @@ class SolicitudController extends BaseController {
 
     }
 
+    public function mostrarArchivoRenovacion($id)
+    {
+
+        $archivo = ArchivoRenovacion::find($id);
+        $rutaarchivo = $archivo->ARRE_RUTA_ARCHIVO;
+
+        return Response::download($rutaarchivo);
+
+    }
+
+
+    public function mostrarArchivos($id)
+    {
+
+        $solicitud = SolicitudAbstracta::find($id);
+        $rutaarchivo = $solicitud->SOAB_CURRICULUM;
+
+        return Response::download($rutaarchivo);
+
+        //return Redirect::to('');
+
+    }
+
 
     public function mostrarDocumentoDesc($id)
     {
@@ -776,8 +823,6 @@ class SolicitudController extends BaseController {
     {
         $solicitudabstracta = SolicitudAbstracta::find($id);
         /*Esta funcion de empty es para que cuando se implemente la solicitud de renovacion se pueda cambiar de vista*/
-        if (empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
-        {
 
             $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
             $grado = Grado::lists('grad_nombre', 'grad_id_grado');
@@ -812,7 +857,7 @@ class SolicitudController extends BaseController {
                 ->first();
 
             return array($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo);
-        }
+
 
 
     }
