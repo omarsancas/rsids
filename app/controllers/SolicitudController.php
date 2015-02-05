@@ -803,6 +803,32 @@ class SolicitudController extends BaseController {
 
     }
 
+    public function mostrarConvocatoria()
+    {
+        $convocatoria = Convocatoria::findOrFail(1);
+        return View::make('gestionarsolicitudderecursos.mostrarconvocatoria')->with('convocatoria',$convocatoria);
+    }
+
+    public function actualizarConvocatoria()
+    {
+        $convocatoria = Convocatoria::find(1);
+        $convocatoria->convo_anio_convo= Input::get('anioconvocatoria');
+        $convocatoria->convo_proy_aprobados =Input::get('numproyaprobados');
+        $convocatoria->convo_total_recursos_sol = Input::get('totalrecursosconvo');
+        $convocatoria->convo_total_hrs = Input::get('totalhorasconvo');
+        $convocatoria->convo_periodo = Input::get('periodoconvo');
+        $convocatoria->convo_periodo_comp = Input::get('periodocompconvo');
+        $convocatoria->convo_ritmo_mens = Input::get('ritmomens');
+        $convocatoria->convo_devolucion = Input::get('fechadevolucion');
+        $convocatoria->save();
+
+
+        Session::flash('message', '¡La convocatori se ha actualizado exitosamente!');
+
+        return Redirect::to('asignarconvocatoria')->with('convocatoria',$convocatoria);
+
+    }
+
     /**
      * @return mixed
      */

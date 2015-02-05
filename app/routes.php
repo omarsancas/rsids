@@ -629,6 +629,16 @@ Route::get('/consultarcuentacolaboradora/{idusuario}',[
     'uses' => 'GestionarCuentasColaboradorasController@consultarCuentaColaboradora'
 ]);
 
+Route::get('/asignarconvocatoria',[
+    'as' => 'asignarconvocatoria',
+    'uses' => 'SolicitudController@mostrarConvocatoria'
+]);
+
+Route::post('/actualizarconvocatoria',[
+        'as' => 'actualizarconvocatoria',
+        'uses' => 'SolicitudController@actualizarConvocatoria'
+]);
+
 
 Route::get('asignarcontabilidad', [
 
