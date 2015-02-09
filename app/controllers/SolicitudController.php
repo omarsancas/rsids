@@ -304,6 +304,8 @@ class SolicitudController extends BaseController {
             $otrocampo) = $this->obtenerListaSolicitudes($id);
 
 
+
+
         $renovacion = DB::table('solicitud_abstracta')
             ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
             ->join('archivos_renovacion','archivos_renovacion.arre_id_solicitud_renovacion','=','solicitud_renovacion.sore_id_solicitud_renovacion')
@@ -311,31 +313,82 @@ class SolicitudController extends BaseController {
             ->first();
 
 
+        $archivosrenovacion = DB::table('solicitud_abstracta')
+            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
+            ->join('archivos_renovacion','archivos_renovacion.arre_id_solicitud_renovacion','=','solicitud_renovacion.sore_id_solicitud_renovacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->get();
 
-        if (empty($solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION))
+
+        $datosrenovacion = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta' , '=', $id)
+            ->first();
+
+
+        $cuentascolnuevas = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->where('solicitud_cta_colaboradora.soco_id_estado_colaboradora', '=', 1)
+            ->get();
+
+
+
+
+        $idproyecto = $datosrenovacion->PROY_ID_PROYECTO;
+
+        $estadousuario = EstadoUsuario::lists('esus_estado_nombre','esus_id_estado_usuario');
+
+
+        $cuentascolaboradoras = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->where('usuario_x_proyecto.uspr_id_proyecto','=', $idproyecto)
+            ->where('usuario.usua_id_tipo_usuario','=',3)
+            ->get();
+
+        $flag = $solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION;
+
+
+        if ($flag === NULL)
         {
-        // Show form
-        return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)
-            ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
-            ->with('grado', $grado)
-            ->with('dependencias_catalogo', $dependencias_catalogo)
-            ->with('otrocampo', $otrocampo)
-            ->with('otraapp', $otraapp)
-            ->with('campotrabajo', $campotrabajo)
-            ->with('meco', $meco);
-        }else{
+            return View::make('gestionarsolicitudderecursos.consultarsolicitudvista', $this->data)
+                ->with('cuentascol', $solicitud)
+                ->with('solicitudabstracta', $solicitudabstracta)
+                ->with('grado', $grado)
+                ->with('dependencias_catalogo', $dependencias_catalogo)
+                ->with('otrocampo', $otrocampo)
+                ->with('otraapp', $otraapp)
+                ->with('campotrabajo', $campotrabajo)
+                ->with('meco', $meco);
 
+
+            // Show form
+
+        }else{
             return View::make('gestionarsolicitudderecursos.consultarsolicitudrenovacionvista', $this->data)
-                ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+                ->with('cuentascol', $solicitud)
+                ->with('solicitudabstracta', $solicitudabstracta)
                 ->with('grado', $grado)
                 ->with('dependencias_catalogo', $dependencias_catalogo)
                 ->with('otrocampo', $otrocampo)
                 ->with('otraapp', $otraapp)
                 ->with('campotrabajo', $campotrabajo)
                 ->with('meco', $meco)
-                ->with('renovacion',$renovacion);
+                ->with('renovacion',$renovacion)
+                ->with('archivosrenovacion',$archivosrenovacion)
+                ->with('cuentascolaboradoras',$cuentascolaboradoras)
+                ->with('estadousuario',$estadousuario)
+                ->with('cuentascolnuevas',$cuentascolnuevas);
 
         }
+
+
+
+
 
     }
 
@@ -483,9 +536,12 @@ class SolicitudController extends BaseController {
      */
     public function generarCartas($id)
     {
+        $convocatoria = Convocatoria::find(1);
+
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto','solicitud_abstracta.soab_id_solicitud_abstracta','=','proyecto.proy_id_solicitud_abstracta')
+            ->join('tipo_proyecto','proyecto.proy_id_tipo_proyecto', '=', 'tipo_proyecto.tipr_id_tipo_proyecto')
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
@@ -521,7 +577,11 @@ class SolicitudController extends BaseController {
         }
 
 
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->with('titulo',$titulo)->render();
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')
+                ->with('solicitudes', $solicitudes)
+                ->with('titulo',$titulo)
+                ->with('convocatoria',$convocatoria)
+                ->render();
 
         return PDF::load($html, 'letter', 'portrait')->show();
     }
@@ -823,7 +883,7 @@ class SolicitudController extends BaseController {
         $convocatoria->save();
 
 
-        Session::flash('message', '¡La convocatori se ha actualizado exitosamente!');
+        Session::flash('message', '¡La convocatoria se ha actualizado exitosamente!');
 
         return Redirect::to('asignarconvocatoria')->with('convocatoria',$convocatoria);
 

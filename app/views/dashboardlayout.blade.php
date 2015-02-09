@@ -356,6 +356,10 @@
 
         </li>
 
+        <li>
+            <a href="{{ URL::to('asignarconvocatoria') }}">Asignar Convocatoria</a>
+
+        </li>
 
 
 

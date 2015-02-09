@@ -640,7 +640,7 @@ Route::post('/actualizarconvocatoria',[
 ]);
 
 
-Route::get('asignarcontabilidad', [
+Route::get('/asignarcontabilidad', [
 
     'as' => 'asignarcontabilidad',
     'uses' => 'EvaluarSolicitudController@asignarContabilidadPorUsuario'
