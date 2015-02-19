@@ -83,7 +83,7 @@
     <P class="p1 ft0">SECRETARIA GENERAL</P>
     <P class="p2 ft0">Dirección General de Cómputo y de</P>
     <P class="p3 ft0">Tecnologías de Información y Comunicación</P>
-    <P class="p4 ft0">Cuidad Universitaria, a 28 de mayo de 2014.</P>
+    <P class="p4 ft0">Ciudad Universitaria, a {{$convocatoria->CONVO_FECHA}}.</P>
     <P class="p5 ft1">{{$titulo}}{{$solicitudes->SOAB_NOMBRES . ' '.$solicitudes->SOAB_AP_PATERNO .' ' . $solicitudes->SOAB_AP_MATERNO }}</P>
     <P class="p5 ft1">{{$solicitudes->DEPE_NOMBRE }}</P>
     <P class="p6 ft2">Por medio de la presente me permito comunicarle el resultado del dictamen que el Comité Académico de Supercómputo (CAS) otorgó a la solicitud de recursos que usted realizó en el marco de la Convocatoria para Asignación de Recursos de Supercómputo <NOBR>{{ $convocatoria->CONVO_ANIO_CONVO }}</NOBR></P>
@@ -110,7 +110,7 @@
     <P class="p1 ft0">SECRETARIA GENERAL</P>
     <P class="p2 ft0">Dirección General de Cómputo y de</P>
     <P class="p3 ft0">Tecnologías de Información y Comunicación</P>
-    <P class="p4 ftB">Cuidad Universitaria, a 28 de mayo de 2014.</P>
+    <P class="p4 ftB">Ciudad Universitaria, a {{$convocatoria->CONVO_FECHA}}.</P>
 
     <P class="p6 ft2"> Al término de la vigencia de los recursos deberá informar a la Coordinación de Supercómputo
         sobre los avances de su proyecto, y la producción académica obtenida con el uso de los

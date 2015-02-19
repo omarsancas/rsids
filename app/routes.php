@@ -11,157 +11,36 @@
 |
 */
 
-Route::get('pruebamuchos', function()
-{
 
-/*
-    $esproyecto = new Proyecto;
-    $esproyecto->proy_id_solicitud_abstracta = 5;
-    $esproyecto->proy_id_tipo_proyecto = 1;
-    $esproyecto->proy_hrs_aprobadas = '10000';
-    $esproyecto->proy_nombre = 'machine learning';
-    $esproyecto->proy_id_compuesto = 'SC-14-16';
-    $esproyecto->proy_id_estado_proyecto = 1;
-    $esproyecto->save();
-
-*/
-
-    $proyecto = Proyecto::find(3);
-
-
-
-    $usuario = new Usuario;
-    $usuario->usua_id_usuario = 'sauco';
-    $usuario->usua_id_tipo_usuario = 3;
-    $usuario->usua_id_estado_usuario = 1;
-    $usuario->password = Hash::make('123');
-    $usuario->usua_nom_completo = 'Saul Cordero';
-    $usuario->save();
-
-
-
-    $usuarioid = $usuario->usua_id_usuario;
-
-    $proyecto->usuarios()->attach($usuarioid);
-
-    //$usuario = Usuario::find('vicval');
-    //$usuario->proyectos()->detach(2);
-
-
-
-
-    return 'pruebamuchosamuchos';
-
-
-
-
-
-
-});
-
-Route::get('prueba', function()
-{
-    $reportesproyectos = DB::table('contabilidad')
-        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre, sum(contabilidad.cont_hrs_nodo) AS totalnodo,
-            proy_hrs_aprobadas, CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2)) AS porcentajeproyecto,
-            soab_nombres, soab_ap_paterno, soab_ap_materno, depe_nombre, proy_fec_term_recu'))
-        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
-        ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
-        ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-        ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->where('proyecto.proy_id_estado_proyecto', '=', 1)
-        ->groupBy('proyecto.proy_id_proyecto')
-        ->get();
-    var_dump($reportesproyectos);
-
-
-});
-
-Route::get('download', function()
-{
-
-    //query por contabilidad por proyecto específico
-    $links = DB::table('contabilidad')
-        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,sum(contabilidad.cont_hrs_nodo) AS totalnodo'))
-        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
-        ->where('usuario.usua_id_proyecto', '=',11  )
-        ->whereBetween(DB::raw('MONTH(cont_fecha)'),array( 10,11))
-        ->whereBetween(DB::raw('YEAR(cont_fecha)'),array( 2014,2018))
-        //->where(DB::raw('MONTH(cont_fecha)'), '=', 10)
-        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))'
-        //->sum('usuario_x_proyecto.uspr_num_jobs')
-
-        ->groupBy('usua_id_usuario')
-
-        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
-        ->get();
-
-    //query por dependencia
-
-    //var_dump($links);
-
-    $links2 = DB::table('contabilidad')
-        ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, depe_nombre ,proy_id_proyecto,sum(contabilidad.cont_hrs_nodo) AS totalnodo ,proy_hrs_aprobadas,
-        CONCAT(FORMAT(IF(proy_hrs_aprobadas=0,0,(sum(contabilidad.cont_hrs_nodo)*100.0)/proy_hrs_aprobadas),2))
-       AS average'))
-        ->join('usuario', 'contabilidad.cont_id_usuario', '=', 'usuario.usua_id_usuario')
-        ->join('proyecto', 'usuario.usua_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-        ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-        ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-        ->groupBy('usuario.usua_id_proyecto')
-
-        //->where(DB::raw('YEAR(uspr_fecha)', '=', 2014))
-        ->get();
-
-
-    foreach($links2 as $link){
-
-        if($link->average > 22)
-        {
-            echo $link->proy_id_proyecto . '_';
-        }
-    }
-
-});
-
-
-Route::get('proyectos', ['as' => 'contabilidad', 'uses' => 'EvaluarSolicitudController@prueba']);
 
 Route::get('/', function()
 {
 
+    return Response::json('Hola estas entrando al sistema RSIDS', 200);
 
-$solicitudabstracta = SolicitudAbstracta::find(7);
-$solicitudabstracta->soab_id_estado_solicitud = 1;
-$solicitudabstracta->save();
-
-/*
-  $usuario = new Usuario;
-  $usuario->usua_id_usuario = 'yoli';
-  $usuario->password = Hash::make('123');
-  $usuario->usua_id_estado_usuario = 1;
-  $usuario->usua_id_tipo_usuario = 1;
-  $usuario->save();*/
-    /*
-    Excel::create('Filename', function($excel) {
-
-        $excel->sheet('Sheetname', function($sheet) {
-        $model = Vpn::select('vplo_login', 'vplo_password','vplo_grupo_principal')->get();
-        $sheet->fromModel($model);
-        });
-    })->download('txt');
-
-    */
+});
 
 
+Route::get('seedDB', function()
+{
+
+    $usuarioadmin  = new Usuario();
+    $usuarioadmin->usua_id_usuario = 'yoliztli';
+    $usuarioadmin->usua_id_tipo_usuario = 1;
+    $usuarioadmin->usua_id_estado_usuario = 1;
+    $usuarioadmin->usua_nom_completo = 'Yolanda Flores';
+    $usuarioadmin->password = Hash::make('y0l1_Fl0r3s$.2015');
+    $usuarioadmin->save();
 
 
+    $usuarioadmin  = new Usuario();
+    $usuarioadmin->usua_id_usuario = 'total';
+    $usuarioadmin->usua_id_tipo_usuario = 2;
+    $usuarioadmin->usua_id_estado_usuario = 1;
+    $usuarioadmin->usua_nom_completo = 'total';
+    $usuarioadmin->password = Hash::make('t0tal_2015_V1v4_Rs1ds');
+    $usuarioadmin->save();
 
-
-
-    $queries = DB::getQueryLog();
-    //var_dump($numerocuentascol);
 
 });
 

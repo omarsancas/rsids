@@ -841,6 +841,7 @@ class SolicitudController extends BaseController {
         $convocatoria->convo_periodo_comp = Input::get('periodocompconvo');
         $convocatoria->convo_ritmo_mens = Input::get('ritmomens');
         $convocatoria->convo_devolucion = Input::get('fechadevolucion');
+        $convocatoria->convo_fecha = Input::get('fecha');
         $convocatoria->save();
 
 
