@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Omar
  * Date: 12/11/14
  * Time: 03:00 PM
  */
-
 class RenovarSolicitudDeRecursosController extends BaseController {
 
     public function renovarSolicitudDeRecursosVista()
@@ -17,18 +17,20 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
             ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-            ->where('usuario.usua_id_usuario' , '=', $usuario )
+            ->where('usuario.usua_id_usuario', '=', $usuario)
             ->first();
 
-         $fecha = $datosrenovacion->PROY_FEC_TERM_RECU;
+        $fecha = $datosrenovacion->PROY_FEC_TERM_RECU;
         $date1 = strtotime($fecha); // your input
         $date2 = strtotime("today"); //today
-        if($date1 > $date2) {
+        if ($date1 > $date2)
+        {
 
-             $date = 0;
-        }else{
+            $date = 0;
+        } else
+        {
 
-            $date =  1;
+            $date = 1;
         }
 
         $idsolicitudabastracta = $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA;
@@ -38,7 +40,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
         $grado = Grado::lists('grad_nombre', 'grad_id_grado');
         $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
-        $estadousuario = EstadoUsuario::lists('esus_estado_nombre','esus_id_estado_usuario');
+        $estadousuario = EstadoUsuario::lists('esus_estado_nombre', 'esus_id_estado_usuario');
         $this->data['solicitud'] = $solicitudabstracta;
         $this->data['aplicaciones'] = Aplicacion::all();
         $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
@@ -47,8 +49,8 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
         $cuentascolaboradoras = DB::table('usuario')
             ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
-            ->where('usuario_x_proyecto.uspr_id_proyecto','=', $idproyecto)
-            ->where('usuario.usua_id_tipo_usuario','=',3)
+            ->where('usuario_x_proyecto.uspr_id_proyecto', '=', $idproyecto)
+            ->where('usuario.usua_id_tipo_usuario', '=', 3)
             ->get();
 
 
@@ -63,21 +65,21 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             ->first();
 
 
-        return View::make('usuariocuentatitular/renovarsolicitudderecursos/renovarsolicitudderecursos',$this->data)
-            ->with('datosrenovacion',$datosrenovacion)
-            ->with('dependencias_catalogo',$dependencias_catalogo)
-            ->with('cuentascolaboradoras',$cuentascolaboradoras)
-            ->with('otraapp',$otraapp)
-            ->with('otrocampo',$otrocampo)
-            ->with('grado',$grado)
-            ->with('campotrabajo',$campotrabajo)
-            ->with('estadousuario',$estadousuario)
-            ->with('date',$date);
+        return View::make('usuariocuentatitular/renovarsolicitudderecursos/renovarsolicitudderecursos', $this->data)
+            ->with('datosrenovacion', $datosrenovacion)
+            ->with('dependencias_catalogo', $dependencias_catalogo)
+            ->with('cuentascolaboradoras', $cuentascolaboradoras)
+            ->with('otraapp', $otraapp)
+            ->with('otrocampo', $otrocampo)
+            ->with('grado', $grado)
+            ->with('campotrabajo', $campotrabajo)
+            ->with('estadousuario', $estadousuario)
+            ->with('date', $date);
     }
 
     public function renovarSolicitudDeRecursos()
     {
-       $id = Input::get('id');
+        $id = Input::get('id');
         $solicitudabstracta = SolicitudAbstracta::find($id);
 
         $solicitudabstracta->soab_nombres = Input::get('nombre');
@@ -119,37 +121,32 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $aplicaciones = Input::get('aplicaciones');
         $solicitudabstracta->aplicaciones()->sync($aplicaciones);
 
-        $this->guardarArchivos($solicitudabstracta);
-
-
-
-
 
         $datoscuentacol = Input::get('solcol');
         $datosMecoCuentasCol = Input::get('meco');
 
 
-
-
         $cuentacol = array_slice($datoscuentacol, 1);
         $mecocuentascol = array_slice($datosMecoCuentasCol, 1);
 
-        if(is_array($datoscuentacol)){
-
-        foreach ((array_map(null, $cuentacol, $mecocuentascol)) as $solcolData)
+        if (is_array($datoscuentacol))
         {
 
-            list($v1, $v2) = $solcolData;
-            $solcol = new Cuentacol($v1);
-            $solicitudabstracta->cuentascol()->save($solcol);
-            $mecoCol = new MedioComunicacion($v2);
-            $mecoCol->save();
-            $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
-            $solcol->save();
-        }
+            foreach ((array_map(null, $cuentacol, $mecocuentascol)) as $solcolData)
+            {
+
+                list($v1, $v2) = $solcolData;
+                $solcol = new Cuentacol($v1);
+                $solicitudabstracta->cuentascol()->save($solcol);
+                $mecoCol = new MedioComunicacion($v2);
+                $mecoCol->save();
+                $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
+                $solcol->save();
+            }
 
         }
 
+        $this->guardarArchivos($solicitudabstracta);
 
 
         foreach (Input::get('cuentascol', array()) as $id => $estadousuario)
@@ -159,25 +156,19 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             $usuario->save();
         }
 
-        /*
         $solicitudrenovacion = new SolicitudRenovacion;
         $solicitudrenovacion->sore_argumentacion = Input::get('argumentacion');
         $solicitudrenovacion->save();
-
-
-
         $solicitudabstracta->soab_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
         $solicitudabstracta->save();
 
-        */
         $destinationPath = $solicitudabstracta->SOAB_RUTA_ARCHIVOS;
 
 
-
-        if(Input::hasFile('archivos')){
-
+        if (Input::hasFile('archivos'))
+        {
             $file = Input::file('archivos');
-            $tipoarchivo = Input::get('tipoarchivo');// your file upload input field in the form should be named 'file'
+            $tipoarchivo = Input::get('tipoarchivo'); // your file upload input field in the form should be named 'file'
             //$uploadsuccess = true;
 
 
@@ -200,13 +191,14 @@ class RenovarSolicitudDeRecursosController extends BaseController {
             */
 
             $filearr = array_slice($file, 1);
-            $tipoarchivoarr = array_slice($tipoarchivo,1);
+            $tipoarchivoarr = array_slice($tipoarchivo, 1);
 
-            if(is_array($filearr))
+            if (is_array($filearr))
             {
-                foreach(array_map(null, $filearr, $tipoarchivoarr) as $mapdata) {
+                foreach (array_map(null, $filearr, $tipoarchivoarr) as $mapdata)
+                {
 
-                    list($part,$parttipo) = $mapdata;
+                    list($part, $parttipo) = $mapdata;
 
                     $filename = $part->getClientOriginalName();
                     $part->move($destinationPath, $filename);
@@ -220,26 +212,26 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
                 }
 
-            }
-            else //single file
+            } else //single file
             {
                 $filename = $file->getClientOriginalName();
                 $uploadsuccess = Input::file('archivos')->move($destinationPath, $filename);
 
-                if( $uploadsuccess ) {
+                if ($uploadsuccess)
+                {
                     return Response::json('success', 200);
-                } else {
+                } else
+                {
                     return Response::json('error', 400);
                 }
             }
 
 
-
-        } else {
+        } else
+        {
 
             return Response::json('error', 400);
         }
-
 
 
     }

@@ -306,50 +306,6 @@ class SolicitudController extends BaseController {
 
 
 
-        $renovacion = DB::table('solicitud_abstracta')
-            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
-            ->join('archivos_renovacion','archivos_renovacion.arre_id_solicitud_renovacion','=','solicitud_renovacion.sore_id_solicitud_renovacion')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->first();
-
-
-        $archivosrenovacion = DB::table('solicitud_abstracta')
-            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
-            ->join('archivos_renovacion','archivos_renovacion.arre_id_solicitud_renovacion','=','solicitud_renovacion.sore_id_solicitud_renovacion')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
-            ->get();
-
-
-        $datosrenovacion = DB::table('usuario')
-            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
-            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
-            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
-            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
-            ->where('solicitud_abstracta.soab_id_solicitud_abstracta' , '=', $id)
-            ->first();
-
-
-        $cuentascolnuevas = DB::table('solicitud_cta_colaboradora')
-            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
-            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
-            ->where('solicitud_cta_colaboradora.soco_id_estado_colaboradora', '=', 1)
-            ->get();
-
-
-
-
-        $idproyecto = $datosrenovacion->PROY_ID_PROYECTO;
-
-        $estadousuario = EstadoUsuario::lists('esus_estado_nombre','esus_id_estado_usuario');
-
-
-        $cuentascolaboradoras = DB::table('usuario')
-            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
-            ->where('usuario_x_proyecto.uspr_id_proyecto','=', $idproyecto)
-            ->where('usuario.usua_id_tipo_usuario','=',3)
-            ->get();
-
         $flag = $solicitudabstracta->SOAB_ID_SOLICITUD_RENOVACION;
 
 
@@ -369,6 +325,16 @@ class SolicitudController extends BaseController {
             // Show form
 
         }else{
+
+            list($renovacion, $archivosrenovacion, $datosrenovacion, $cuentascolnuevas) = $this->obtenerDatosRenovacion($id);
+            $idproyecto = $datosrenovacion->PROY_ID_PROYECTO;
+            $estadousuario = EstadoUsuario::lists('esus_estado_nombre','esus_id_estado_usuario');
+            $cuentascolaboradoras = DB::table('usuario')
+                ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+                ->where('usuario_x_proyecto.uspr_id_proyecto','=', $idproyecto)
+                ->where('usuario.usua_id_tipo_usuario','=',3)
+                ->get();
+
             return View::make('gestionarsolicitudderecursos.consultarsolicitudrenovacionvista', $this->data)
                 ->with('cuentascol', $solicitud)
                 ->with('solicitudabstracta', $solicitudabstracta)
@@ -385,12 +351,7 @@ class SolicitudController extends BaseController {
                 ->with('cuentascolnuevas',$cuentascolnuevas);
 
         }
-
-
-
-
-
-    }
+  }
 
 
     /**
@@ -946,6 +907,45 @@ class SolicitudController extends BaseController {
 
 
 
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function obtenerDatosRenovacion($id)
+    {
+        $renovacion = DB::table('solicitud_abstracta')
+            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
+            ->join('archivos_renovacion', 'archivos_renovacion.arre_id_solicitud_renovacion', '=', 'solicitud_renovacion.sore_id_solicitud_renovacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+        $archivosrenovacion = DB::table('solicitud_abstracta')
+            ->join('solicitud_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'solicitud_abstracta.soab_id_solicitud_renovacion')
+            ->join('archivos_renovacion', 'archivos_renovacion.arre_id_solicitud_renovacion', '=', 'solicitud_renovacion.sore_id_solicitud_renovacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+
+        $datosrenovacion = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+        $cuentascolnuevas = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->where('solicitud_cta_colaboradora.soco_id_estado_colaboradora', '=', 1)
+            ->get();
+
+        return array($renovacion, $archivosrenovacion, $datosrenovacion, $cuentascolnuevas);
     }
 
 
