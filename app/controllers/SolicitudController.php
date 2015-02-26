@@ -671,9 +671,7 @@ class SolicitudController extends BaseController {
         $ruta_archivo = $solicitudes->SOAB_RUTA_ARCHIVOS;
 
         $esnotificado = SolicitudAbstracta::find($id);
-        $idsolicitud = $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA;
-        $esnotificado->soab_proy_notificado = 1;
-        $esnotificado->save();
+        $idsolicitud  = $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA;
         //generar variable para generar objeto convocatoria
         $html = View::make('gestionarsolicitudderecursos.generarcarta')
                     ->with('solicitudes', $solicitudes)
@@ -760,7 +758,7 @@ class SolicitudController extends BaseController {
 
 
         $data = ['msg' => $desc_rechazo];
-        Mail::send('emails.welcome', $data, function ($message) use ($correelectronico)
+        Mail::send('emails.notificacionrechazo', $data, function ($message) use ($correelectronico)
         {
             $message->from('moroccosc@gmail.com', 'Laravel')->subject('Notificacion de rechazo de solicitud de recursos');
             $message->to($correelectronico);
