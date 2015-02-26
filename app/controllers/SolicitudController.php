@@ -607,6 +607,7 @@ class SolicitudController extends BaseController {
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('tipo_proyecto','proyecto.proy_id_tipo_proyecto', '=', 'tipo_proyecto.tipr_id_tipo_proyecto')
             ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
