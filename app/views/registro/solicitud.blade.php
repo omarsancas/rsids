@@ -77,6 +77,12 @@
         {{ Form::select('grado',$grado,null, array('class'=>'form-control','style'=>'' ))}}
     </div>
 
+
+    <div class="form-group">
+        {{ Form::label('grado', 'Dependencia')}}
+        {{ Form::select('dependencias',$dependencias_catalogo,null, array('class'=>'form-control','style'=>'' ))}}
+    </div>
+
     <p></p>
 
 

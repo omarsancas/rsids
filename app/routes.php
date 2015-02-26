@@ -16,7 +16,7 @@
 Route::get('/', function()
 {
 
-    return Response::json('Hola estas entrando al sistema RSIDS', 200);
+    return Response::json('Hola :)', 200);
 
 });
 
