@@ -16,6 +16,7 @@
 Route::get('/', function()
 {
 
+
     return Response::json('Hola :)', 200);
 
 });

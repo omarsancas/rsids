@@ -396,6 +396,9 @@
 
     @endif
 
+
+    <fieldset class="clonable">
+        <legend>Detalles de la cuenta colaboradora</legend>
     <div class="form-group">
         {{ Form::label('tipo', 'Tipo de Proyecto')}}
         {{ Form::select('tipoproyecto',$tipoproyecto,null, array('class'=>'form-control','style'=>'' ))}}
@@ -437,6 +440,8 @@
                id="cuentacolaboradora[{{$cuentacol->SOCO_ID_SOLICITUD_COLABORADORA}}]">
     </div>
     @endforeach
+
+    </fieldset>
 
 
     <div class="form-group form-inline">
