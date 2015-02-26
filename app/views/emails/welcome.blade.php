@@ -1,3 +1,3 @@
-<h1> Hola has recibido la carta de aceptacion de recursos</h1>
+<h1> Tu solicitud ha sido registrada exitosamente con el numero de registro {{ $idsolicitud}} </h1>
 
-<h1> {{ $msg }} </h1>
+<h2> Recuerda guardar este numero para cualquier aclaración o modificación</h2>

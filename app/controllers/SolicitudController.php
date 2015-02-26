@@ -38,16 +38,12 @@ class SolicitudController extends BaseController {
             'nombre'               => 'required',
             'apellidoPaterno'      => 'required',
             'telefono'             => 'required|numeric',
-            'extension'            => 'required|numeric',
             'horasCPU'             => 'required|numeric|max:5000000',
-            'disco'                => 'required|numeric',
-            'memoria'              => 'required|numeric',
             'lineaesp'             => 'required',
             'modelocomp'           => 'required',
             'numproc'              => 'required|numeric',
             'email'                => 'required|email',
             'documentodescriptivo' => 'required|mimes:pdf|max:8000', //para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a sus necesidades
-            'constancias'          => 'required|mimes:pdf|max:8000',
             'curriculum'           => 'required|mimes:pdf|max:8000',
 
 
@@ -193,7 +189,33 @@ class SolicitudController extends BaseController {
                 $datos->soab_con_adscripcion = $destinationPath .'/'. $archivocons;
                 $datos->save();
 
-                return Response::json('success', 200);
+
+
+                $idsolicitud = $datos->SOAB_ID_SOLICITUD_ABSTRACTA;
+                $correelectronico = $mediocomunicacion->meco_correo;
+
+
+
+
+                $data = array(
+                    'idsolicitud' => $idsolicitud
+                );
+                Mail::send('emails.welcome', $data, function ($message) use ($correelectronico)
+                {
+                    $message->from('moroccosc@gmail.com', 'super.unam.mx');
+                    $message->to($correelectronico);
+                    $message->subject('Registro de solicitud');
+
+                });
+
+
+
+
+                return View::make('gestionarsolicitudderecursos.mensajeconfirmacion')
+                           ->with('idsolicitud',$idsolicitud)
+                           ->with('correoelectronico',$correelectronico);
+
+
             } else
             {
                 return Response::json('error', 400);

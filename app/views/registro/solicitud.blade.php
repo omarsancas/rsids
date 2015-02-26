@@ -135,7 +135,7 @@
     </div>
 
     <div class="form-group">
-        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas)(*)')}}
+        {{ Form::label('constancias', 'Constancia de Adscripción a la dependencia(de todas las cuentas solicitadas')}}
 
         {{Form::file('constancias');}}
         {{ $errors->first('constancias','<p class="help-block">:message</p>') }}
@@ -155,11 +155,11 @@
 
 
         <div class="col-xs-4">
-            {{ Form::label('disco', 'Disco en GB(*)')}}
+            {{ Form::label('disco', 'Disco en GB')}}
             {{ Form::text('disco', '', ['class' => 'form-control' , 'data-placement'=>'top' , 'title' =>'Disco en GB'])}}
         </div>
         <div class="col-xs-4">
-            {{ Form::label('memoria', 'Memoria RAM en GB(*)')}}
+            {{ Form::label('memoria', 'Memoria RAM en GB')}}
             {{ Form::text('memoria', '', ['class' => 'form-control', 'data-placement'=>'top' , 'title' =>'Memoria en Gb'])}}
         </div>
     </div>
