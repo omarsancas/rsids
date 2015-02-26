@@ -24,6 +24,16 @@ class GestionarProyectosController extends BaseController {
     public function consultarProyectoEspecifico($id)
     {
 
+        $proyectosinreporte = DB::table('proyecto')
+            ->join('tipo_proyecto', 'tipo_proyecto.tipr_id_tipo_proyecto', '=', 'proyecto.proy_id_tipo_proyecto')
+            ->join('estado_proyecto', 'proyecto.proy_id_estado_proyecto', '=', 'estado_proyecto.espr_id_estado_proyecto')
+            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('proyecto.proy_id_proyecto', '=', $id)
+            ->first();
+
+
+
         $reportesproyectodatos = DB::table('contabilidad')
             ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto,soab_nombres,soab_ap_paterno, soab_ap_materno,
              proy_nombre, proy_fec_term_recu,proy_fecha_registro, proy_fec_reanud_est,proy_fec_cambio_est,proy_hrs_aprobadas, proy_fec_ini_recu, sum(contabilidad.cont_hrs_nodo) AS totalnodo, proy_hrs_aprobadas,espr_tipo_estado,
@@ -49,10 +59,21 @@ class GestionarProyectosController extends BaseController {
             ->get();
 
 
-        return View::make('gestionarproyectos/consultarproyectoespecifico')
-            ->with('reportesproyectos', $reportesproyectos)
-            ->with('reportesproyectodatos', $reportesproyectodatos);
 
+
+        if($reportesproyectodatos == NULL && $reportesproyectos == NULL){
+
+            return View::make('gestionarproyectos/consultarproyectoespecificosinreporte')
+                       ->with('proyectosinreporte', $proyectosinreporte);
+
+
+
+        }else{
+
+            return View::make('gestionarproyectos/consultarproyectoespecifico')
+                ->with('reportesproyectos', $reportesproyectos)
+               ->with('reportesproyectodatos', $reportesproyectodatos);
+        }
 
     }
 
