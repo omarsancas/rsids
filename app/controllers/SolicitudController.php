@@ -642,6 +642,8 @@ class SolicitudController extends BaseController {
 
         }
 
+        $convocatoria = Convocatoria::findOrFail(1);
+
         $correelectronico = $solicitudes->MECO_CORREO;
         $ruta_archivo = $solicitudes->SOAB_RUTA_ARCHIVOS;
 
@@ -649,7 +651,11 @@ class SolicitudController extends BaseController {
         $esnotificado->soab_proy_notificado = 1;
         $esnotificado->save();
         //generar variable para generar objeto convocatoria
-        $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->with('titulo',$titulo)->render();
+        $html = View::make('gestionarsolicitudderecursos.generarcarta')
+                    ->with('solicitudes', $solicitudes)
+                    ->with('titulo',$titulo)
+                    ->with('convocatoria',$convocatoria)
+                    ->render();
 
         $pdf = new \Thujohn\Pdf\Pdf();
         $content = $pdf->load($html, 'letter', 'portrait')->output();
