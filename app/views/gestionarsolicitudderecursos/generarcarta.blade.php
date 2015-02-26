@@ -75,7 +75,7 @@
     <DIV id="dimg1">
 
 
-        <IMG src="{{ base_path('public/img/unam.png')}}" id="img1">
+        <IMG src="{{ base_path('public/img/unam.PNG')}}" id="img1">
     </DIV>
 
 
@@ -100,7 +100,7 @@
 </DIV>
 <DIV id="page_1">
     <DIV id="dimg1">
-        <IMG src="{{ base_path('public/img/unam.png')}}" id="img1">
+        <IMG src="{{ base_path('public/img/unam.PNG')}}" id="img1">
 
     </DIV>
 
