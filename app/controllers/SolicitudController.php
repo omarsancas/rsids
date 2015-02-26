@@ -88,6 +88,7 @@ class SolicitudController extends BaseController {
             $datos->soab_ap_materno = Input::get('apellidoMaterno');
             $datos->soab_id_estado_solicitud = 1;
             $datos->soab_id_tipo_solicitud = 1;
+            $datos->soab_proy_notificado = 0;
             $datos->soab_sexo = Input::get('sexo');
             $datos->soab_prog_paralela = Input::get('progparalela');
             $datos->soab_num_proc_trab = Input::get('numproc');
@@ -647,7 +648,7 @@ class SolicitudController extends BaseController {
         $esnotificado = SolicitudAbstracta::find($id);
         $esnotificado->soab_proy_notificado = 1;
         $esnotificado->save();
-
+        //generar variable para generar objeto convocatoria
         $html = View::make('gestionarsolicitudderecursos.generarcarta')->with('solicitudes', $solicitudes)->with('titulo',$titulo)->render();
 
         $pdf = new \Thujohn\Pdf\Pdf();
