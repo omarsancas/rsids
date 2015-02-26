@@ -74,6 +74,11 @@
                 </div>
 
                 <div class="form-group">
+                    {{ Form::label('nombre completo', 'Fecha de la carta ')}}
+                    {{ Form::text('fechacarta', $convocatoria->CONVO_FECHA , ['class' => 'form-control'])}}
+                </div>
+
+                <div class="form-group">
                     <p>
                         <input type="submit" value="Guardar" class="btn btn-success btn-lg">
                         <a href="{{ URL::to('gestionarsolicitudderecursos/') }}" class="btn btn-lg btn-danger">Cancelar</a>

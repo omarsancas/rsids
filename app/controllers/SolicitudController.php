@@ -671,6 +671,7 @@ class SolicitudController extends BaseController {
         $ruta_archivo = $solicitudes->SOAB_RUTA_ARCHIVOS;
 
         $esnotificado = SolicitudAbstracta::find($id);
+        $idsolicitud = $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA;
         $esnotificado->soab_proy_notificado = 1;
         $esnotificado->save();
         //generar variable para generar objeto convocatoria
@@ -686,10 +687,13 @@ class SolicitudController extends BaseController {
         $pdfPath = $ruta_archivo . '/' . 'CartadeAprobacion'. $solicitudes->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, $content);
 
-        $data = ['msg' => 'hola'];
-        Mail::send('emails.welcome', $data, function ($message) use ($pdfPath, $correelectronico)
+        $data =  array(
+            'idsolicitud' => $idsolicitud
+        );
+
+        Mail::send('emails.notificacionaprobacion', $data, function ($message) use ($pdfPath, $correelectronico)
         {
-            $message->from('moroccosc@gmail.com', 'Laravel');
+            $message->from('moroccosc@gmail.com', 'super.unam.mx');
             $message->to($correelectronico);
             $message->attach($pdfPath);
         });
@@ -724,6 +728,11 @@ class SolicitudController extends BaseController {
         // str_random is a [Laravel helper](http://laravel.com/docs/helpers#strings)
         $pdfPath = $ruta_archivo . '/' . 'CartaDeCuentas'. $esnotificado->SOAB_ID_SOLICITUD_ABSTRACTA . '.pdf';
         File::put($pdfPath, $content);
+
+
+        $esnotificado = SolicitudAbstracta::find($id);
+        $esnotificado->soab_proy_notificado = 1;
+        $esnotificado->save();
 
         Session::flash('message', '¡La solicitud se ha notificado exitosamente!');
 
@@ -871,7 +880,7 @@ class SolicitudController extends BaseController {
         $convocatoria->convo_periodo_comp = Input::get('periodocompconvo');
         $convocatoria->convo_ritmo_mens = Input::get('ritmomens');
         $convocatoria->convo_devolucion = Input::get('fechadevolucion');
-        $convocatoria->convo_fecha = Input::get('fecha');
+        $convocatoria->convo_fecha = Input::get('fechacarta');
         $convocatoria->save();
 
 
