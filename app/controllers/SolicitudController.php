@@ -176,10 +176,14 @@ class SolicitudController extends BaseController {
             $archivodesc = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'DOCDESC' . '.'. Input::file('documentodescriptivo')->getClientOriginalExtension();
             $upload_success2 = Input::file('documentodescriptivo')->move($destinationPath, $archivodesc);
 
+            $constancias = Input::file('constancias');
+
+            if($constancias != NULL){
 
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
             $archivocons = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
             $upload_success3 = Input::file('constancias')->move($destinationPath, $archivocons);
+            }
 
 
             if ($upload_success && $upload_success2 && $upload_success3 )
