@@ -2,6 +2,9 @@
 
 @section('content')
 
+
+
+
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
 
@@ -251,13 +254,13 @@
     </div>
     <label class="radio-inline control-label">
 
-        <input type="radio" name="progparalela" id="progparalela" value="1" checked>
+        <input type="radio" name="progparalela" id="progparalela_true" value="1" checked>
         Sí
     </label>
 
 
     <label class="radio-inline control-label">
-        <input type="radio" name="progparalela" id="progparalela" value="0">
+        <input type="radio" name="progparalela" id="progparalela_false" value="0">
         No
     </label>
 

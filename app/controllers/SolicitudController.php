@@ -86,8 +86,13 @@ class SolicitudController extends BaseController {
             $datos->soab_id_tipo_solicitud = 1;
             $datos->soab_proy_notificado = 0;
             $datos->soab_sexo = Input::get('sexo');
-            $datos->soab_prog_paralela = Input::get('progparalela');
-            $datos->soab_num_proc_trab = Input::get('numproc');
+            if(Input::get('progparalela_false') == 0){
+                $datos->soab_prog_paralela = Input::get('progparalela_false');
+                $datos->soab_num_proc_trab = 1;
+            }else{
+                $datos->soab_prog_paralela = Input::get('progparalela_true');
+                $datos->soab_num_proc_trab = Input::get('numproc');
+             }
             $datos->soab_duracion = Input::get('duracion');
             $datos->soab_nombre_proyecto = Input::get('nombreproyecto');
             $datos->SOAB_ID_DEPENDENCIA = Input::get('dependencias');
@@ -152,8 +157,7 @@ class SolicitudController extends BaseController {
             }
 
 
-            /*$queries = DB::getQueryLog();
-            var_dump($queries);*/
+
 
             $destinationPath = public_path() . '/uploads/'. $datos->SOAB_ID_SOLICITUD_ABSTRACTA. '_'.'Solicitud'. '_'. time();
 
@@ -167,7 +171,7 @@ class SolicitudController extends BaseController {
 
 
 
-            /** @var $archivocurriculum TYPE_NAME */
+
             $archivocurriculum = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CV' . '.' . Input::file('curriculum')->getClientOriginalExtension();
             $upload_success = Input::file('curriculum')->move($destinationPath, $archivocurriculum);
 
@@ -183,14 +187,19 @@ class SolicitudController extends BaseController {
             // If the uploads fail due to file system, you can try doing public_path().'/uploads'
             $archivocons = $datos->SOAB_ID_SOLICITUD_ABSTRACTA .'_'. 'CONSTANCIA' .  '.' . Input::file('constancias')->getClientOriginalExtension();
             $upload_success3 = Input::file('constancias')->move($destinationPath, $archivocons);
+
+                if($upload_success3)
+                {
+                    $datos->soab_con_adscripcion = $destinationPath .'/'. $archivocons;
+                    $datos->save();
+                }
             }
 
 
-            if ($upload_success && $upload_success2 && $upload_success3 )
+            if ($upload_success && $upload_success2)
             {
                 $datos->soab_curriculum = $destinationPath .'/'. $archivocurriculum;
                 $datos->soab_desc_proyecto = $destinationPath .'/'. $archivodesc;
-                $datos->soab_con_adscripcion = $destinationPath .'/'. $archivocons;
                 $datos->save();
 
 
@@ -199,15 +208,18 @@ class SolicitudController extends BaseController {
                 $correelectronico = $mediocomunicacion->meco_correo;
 
 
-
-
+        $correoelectronico = 'omarsanchezcas@gmail.com';
                 $data = array(
-                    'idsolicitud' => $idsolicitud
+                    'idsolicitud' => $idsolicitud,
+                    'datos' => $datos
                 );
-                Mail::send('emails.welcome', $data, function ($message) use ($correelectronico)
+
+
+
+                Mail::send('emails.welcome', $data, function ($message) use ($correoelectronico)
                 {
                     $message->from('moroccosc@gmail.com', 'super.unam.mx');
-                    $message->to($correelectronico);
+                    $message->to($correoelectronico);
                     $message->subject('Registro de solicitud');
 
                 });
@@ -225,8 +237,9 @@ class SolicitudController extends BaseController {
                 return Response::json('error', 400);
             }
 
-
         }
+
+
 
 
     }//fin del método generarSolicitud

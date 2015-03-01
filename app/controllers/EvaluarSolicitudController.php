@@ -258,7 +258,7 @@ class EvaluarSolicitudController extends BaseController {
 
         $rules = array(
             'usua_id_usuario' => 'required|unique:usuario',
-
+            'horasaprobadas' => 'required',
 
         );
 
@@ -274,9 +274,23 @@ class EvaluarSolicitudController extends BaseController {
             'max'          => 'El archivo :attribute no debe de pasar los 8MB',
             'horasCPU.max' => 'Las horas cpu no deben sobrepasar las 5000000 de horas',
             'numeric'      => ' El campo :attribute solo debe contener números',
-            'unique'       => 'El login ingresado del usuario ya existe en el sistema'
+            'unique'       => 'El login :attribute del usuario ya existe en el sistema'
 
         );
+
+
+        foreach (Input::get('cuentacolaboradora') as $key => $val){
+
+            $rules['cuentacolaboradora.'.$key] = 'required|unique:usuario,usua_id_usuario';
+            $messages['cuentacolaboradora.'.$key.'.required'] = 'campo requerido';
+        }
+
+
+
+
+
+
+
 
         $validator = Validator::make(Input::all(), $rules, $mensajes);
 

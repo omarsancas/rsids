@@ -142,9 +142,7 @@ class GestionarCuentasTitularesController extends BaseController {
     public function consultarCuentaTitular()
     {
         $querynombre = Input::get('nombreusuario');
-
         $usuarios = $this->obtenerCuentasTitulares($querynombre);
-
         return View::make('gestionarcuentastitulares/consultarcuentatitular')->with('usuarios', $usuarios);
     }
 

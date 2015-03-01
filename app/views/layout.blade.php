@@ -62,6 +62,21 @@
     <script src="{{asset ('js/jquery.clonablefile.js')}}"></script>
     <script src="{{asset ('bootstrap/js/bootstrap.min.js')}}"></script>
 
+    <script>
+
+
+            $('#progparalela_true').click(function()
+            {
+                $('#numproc').removeAttr("disabled");
+            });
+
+            $('#progparalela_false').click(function()
+            {
+                $('#numproc').attr("disabled","disabled");
+            });
+
+    </script>
+
 
 
   </body>
