@@ -27,7 +27,6 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
         if( $this->USUA_ID_TIPO_USUARIO == $tipo){
             return true;
         }
-
             return false;
     }
 
@@ -37,9 +36,16 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
         if( $this->USUA_ID_TIPO_USUARIO == 1){
             return true;
         }
+            return false;
+    }
 
-        return false;
+    public function esAdminColaborador(){
 
+
+        if( $this->USUA_ID_TIPO_USUARIO == 4){
+            return true;
+        }
+            return false;
     }
 
 

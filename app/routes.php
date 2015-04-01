@@ -24,7 +24,16 @@ Route::get('/', function()
 
 Route::get('seedDB', function()
 {
+    $usuarioadmin  = new Usuario();
+    $usuarioadmin->usua_id_usuario = 'omarsc';
+    $usuarioadmin->usua_id_tipo_usuario = 3;
+    $usuarioadmin->usua_id_estado_usuario = 1;
+    $usuarioadmin->usua_nom_completo = 'Yolanda Flores';
+    $usuarioadmin->password = Hash::make('123');
+    $usuarioadmin->save();
 
+
+    /*
     $usuarioadmin  = new Usuario();
     $usuarioadmin->usua_id_usuario = 'yoliztli';
     $usuarioadmin->usua_id_tipo_usuario = 1;
@@ -41,6 +50,7 @@ Route::get('seedDB', function()
     $usuarioadmin->usua_nom_completo = 'total';
     $usuarioadmin->password = Hash::make('t0tal_2015_V1v4_Rs1ds');
     $usuarioadmin->save();
+    */
 
 
 });
@@ -496,7 +506,7 @@ Route::post('gestionarcuentascolaboradoras/modificarcuentacolaboradoravista',[
 
 Route::get('gestionarcuentascolaboradoras/consultarcuentacolaboradoravista',[
 
-    'uses' => 'GestionarCuentasColaboradorasController@mostrarConsultarCuentaColaboradora'
+        'uses' => 'GestionarCuentasColaboradorasController@mostrarConsultarCuentaColaboradora'
 ]);
 
 Route::post('gestionarcuentascolaboradoras/consultarcuentacolaboradoravista',[
@@ -561,6 +571,15 @@ Route::get('/asignarcontabilidad', [
 
 
 });//fin del fitro para rol de administrador
+
+
+
+/* filtro para administrador y administrador colaborador */
+
+Route::group(array('before' => 'auth|role:1|role:4'), function ()
+{
+
+});
 
 
 

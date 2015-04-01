@@ -398,7 +398,7 @@
 
 
     <fieldset class="clonable">
-        <legend>Detalles de la cuenta colaboradora</legend>
+        <legend>Detalles del proyecto</legend>
     <div class="form-group">
         {{ Form::label('tipo', 'Tipo de Proyecto')}}
         {{ Form::select('tipoproyecto',$tipoproyecto,null, array('class'=>'form-control','style'=>'' ))}}

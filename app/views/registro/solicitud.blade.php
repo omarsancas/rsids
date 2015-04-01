@@ -43,7 +43,6 @@
     <div class="form-group">
         {{ Form::label('nombre', 'Nombre(s)(*)')}}
         {{ Form::text('nombre', Input::old('nombre') , ['class' => 'form-control'])}}
-        @if ($errors->has('nombre')) <li class="list-group-item list-group-item-danger">{{ $errors->first('nombre') }}</li> @endif
     </div>
 
     <div class="form-group">

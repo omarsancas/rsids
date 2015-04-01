@@ -12,7 +12,7 @@
 
 <h1></h1>
 
-<h1>Consultar solicitud de recursos</h1>
+<h1>Consultar solicitud de recursos {{  $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA}}</h1>
 {{ Form::open (['route' => 'bajarcurriculum', 'method' => 'GET','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">
