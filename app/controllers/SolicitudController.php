@@ -86,11 +86,11 @@ class SolicitudController extends BaseController {
             $datos->soab_id_tipo_solicitud = 1;
             $datos->soab_proy_notificado = 0;
             $datos->soab_sexo = Input::get('sexo');
-            if(Input::get('progparalela_false') == 0){
-                $datos->soab_prog_paralela = Input::get('progparalela_false');
+            if(Input::get('progparalela') == 0){
+                $datos->soab_prog_paralela = Input::get('progparalela');
                 $datos->soab_num_proc_trab = 1;
             }else{
-                $datos->soab_prog_paralela = Input::get('progparalela_true');
+                $datos->soab_prog_paralela = Input::get('progparalela');
                 $datos->soab_num_proc_trab = Input::get('numproc');
              }
             $datos->soab_duracion = Input::get('duracion');
@@ -122,10 +122,17 @@ class SolicitudController extends BaseController {
 
 
             $otrocampo = new OtroCampo();
+            if(Input::get('campos') == 1){
             $otrocampo->otca_nombre = Input::get('otrocampo');
             $otrocampo->save();
             $datos->soab_id_otro_campo = $otrocampo->OTCA_ID_OTRO_CAMPO;
             $datos->save();
+            }else{
+                $otrocampo->otca_nombre = 'N/A';
+                $otrocampo->save();
+                $datos->soab_id_otro_campo = $otrocampo->OTCA_ID_OTRO_CAMPO;
+                $datos->save();
+            }
 
 
             $dataapp = Input::get('otraapp');
@@ -517,6 +524,25 @@ class SolicitudController extends BaseController {
             $meco = MedioComunicacion::find($id);
             $meco->update($solcolData);
             $meco->save();
+        }
+
+        $datoscuentacol = Input::get('solcolnuev');
+        $datosMecoCuentasCol = Input::get('meconuev');
+
+        $cuentacol = array_slice($datoscuentacol, 1);
+        $mecocuentascol = array_slice($datosMecoCuentasCol, 1);
+
+
+        foreach ((array_map(null, $cuentacol, $mecocuentascol)) as $solcolData)
+        {
+
+            list($v1, $v2) = $solcolData;
+            $solcol = new Cuentacol($v1);
+            $solicitudabstracta->cuentascol()->save($solcol);
+            $mecoCol = new MedioComunicacion($v2);
+            $mecoCol->save();
+            $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
+            $solcol->save();
         }
 
         //$solicitudabstracta->cuentascol()->sync($solcol_ids);

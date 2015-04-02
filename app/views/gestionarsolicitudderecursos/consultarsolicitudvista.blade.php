@@ -141,17 +141,17 @@
     <legend><h3>Recursos solicitados</h3></legend>
     <div class="row">
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('horasCPU', 'Horas  CPU')}}
             {{ Form::text('horasCPU', $solicitudabstracta->SOAB_HRS_CPU, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
 
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('disco', 'Disco en GB')}}
             {{ Form::text('disco', $solicitudabstracta->SOAB_ESP_HD, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('memoria', 'Memoria RAM en GB')}}
             {{ Form::text('memoria', $solicitudabstracta->SOAB_MEM_RAM, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>

@@ -65,13 +65,13 @@
     <script>
             $('#progparalela_true').click(function()
             {
-                $('#numproc').removeAttr("disabled");
+                $('#numproc').removeAttr("readonly");
                 $("#numproc").val(" ");
             });
 
             $('#progparalela_false').click(function()
             {
-                $('#numproc').attr("disabled","disabled");
+                $('#numproc').attr("readonly","readonly");
                 $("#numproc").val("1");
             });
     </script>
@@ -79,9 +79,9 @@
   <script>
       $(' select[name=campos]').change(function(e){
           if ($(' select[name=campos]').val() == '1'){
-              $('#otrocampo').show();
+              $('#otrocampodin').show();
           }else{
-              $('#otrocampo').hide();
+              $('#otrocampodin').hide();
           }
       });
 

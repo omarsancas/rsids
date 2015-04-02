@@ -383,8 +383,8 @@
     </fieldset>
 
 
-    @endforeach
-
+        @endforeach
+    @endif
 
     <div class="form-group">
         <div hidden>
@@ -470,12 +470,6 @@
 
             </div>
         </fieldset>
-
-
-
-
-
-    @endif
 
 
     <div class="form-group">

@@ -193,11 +193,13 @@
         {{ Form::text('modelocomp', '', ['class' => 'form-control'])}}
     </div>
 
-
-    <div class="form-group">
-        {{ Form::label('otrocampo', 'Otro Campo')}}
-        {{ Form::text('otrocampo', '', ['class' => 'form-control'])}}
+    <div id="otrocampodin">
+        <div class="form-group">
+            {{ Form::label('otrocampo', 'Otro Campo')}}
+            {{ Form::text('otrocampo', '', ['class' => 'form-control'])}}
+        </div>
     </div>
+
 
 
     <label for="name">Aplicaciones </label>
