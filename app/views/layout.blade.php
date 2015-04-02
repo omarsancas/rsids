@@ -63,19 +63,29 @@
     <script src="{{asset ('bootstrap/js/bootstrap.min.js')}}"></script>
 
     <script>
-
-
             $('#progparalela_true').click(function()
             {
                 $('#numproc').removeAttr("disabled");
+                $("#numproc").val(" ");
             });
 
             $('#progparalela_false').click(function()
             {
                 $('#numproc').attr("disabled","disabled");
+                $("#numproc").val("1");
             });
-
     </script>
+
+  <script>
+      $(' select[name=campos]').change(function(e){
+          if ($(' select[name=campos]').val() == '1'){
+              $('#otrocampo').show();
+          }else{
+              $('#otrocampo').hide();
+          }
+      });
+
+  </script>
 
 
 

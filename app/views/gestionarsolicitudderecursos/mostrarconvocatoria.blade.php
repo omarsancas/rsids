@@ -64,7 +64,7 @@
 
 
                 <div class="form-group">
-                    {{ Form::label('nombre completo', 'Ritmo mensual')}}
+                    {{ Form::label('nombre completo', 'Duracion de la convocatoria')}}
                     {{ Form::text('ritmomens', $convocatoria->CONVO_RITMO_MENS , ['class' => 'form-control'])}}
                 </div>
 
