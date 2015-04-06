@@ -66,18 +66,19 @@ class SesionesController extends Controller {
                 {
                     return View::make('bienvenidausuariocuentatitular');
                 }
+                elseif(Auth::user()->esAdminColaborador()){
 
-            }elseif(Auth::user()->esAdminColaborador()){
-
-                return View::make('bienvenidaadmincolaborador');
-
-            }else{
+                    return View::make('bienvenidaadmincolaborador');
+                }
+                }else{
 
                 Session::flash('message', '¡El Usuario o la contraseña no son correctas!');
                 return Redirect::route('login');
             }
 
+
         }
+
 
 
     }

@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'rsidsversion4prueba',
+			'database'  => 'rsidsprod',
 			'username'  => 'root',
 			'password'  => 'Letitbe81828384$',
 			'charset'   => 'utf8',
