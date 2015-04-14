@@ -17,7 +17,7 @@
     <script src="{{ asset ('js/bootstrap.min.js')}}" rel="stylesheet"></script>
 
 
-    <link href="{{ asset ('css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{ asset ('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset ('css/plugins/morris.css')}}" rel="stylesheet">
 
 
@@ -53,11 +53,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-
-    <a class="navbar-brand" href="#">RSIDS Admin</a>
-    <a class="navbar-brand-center" href="#">
-        <img src="{{ asset ('img/logounam.png')}}" alt="">
-    </a>
+    <a class="navbar-brand" href="index.html">RSIDS Admin</a>
 </div>
 <!-- Top Menu Items -->
 <ul class="nav navbar-right top-nav">
@@ -67,10 +63,9 @@
             <li class="message-preview">
                 <a href="#">
                     <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-
+                        <span class="pull-left">
+                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                        </span>
                         <div class="media-body">
                             <h5 class="media-heading"><strong>John Smith</strong>
                             </h5>
@@ -174,7 +169,7 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
 
-
+<!--
 
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
@@ -307,7 +302,7 @@
 
             </ul>
         </li>
-
+-->
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i>
                 Generar reportes <i class="fa fa-fw fa-caret-down"></i></a>
@@ -344,15 +339,17 @@
                 <li>
                     <a href="{{ URL::to('consultarrecursosdisponibles/recursosdisponiblesproyectos') }}">Recursos
                         consumidos</a>
+
                 </li>
                 <li>
                     <a href="{{ URL::to('consultarrecursosdisponibles/consumorecursosmiztli') }}">Consumo de recursos
                         Miztli</a>
+
                 </li>
             </ul>
         </li>
 
-
+    <!--
         <li>
             <a href="{{ URL::to('subircontabilidad') }}">Subir Archivo de contabilidad</a>
 
@@ -364,7 +361,7 @@
         </li>
 
 
-
+-->
 
 
     </ul>

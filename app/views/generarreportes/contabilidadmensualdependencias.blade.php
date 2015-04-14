@@ -1,4 +1,4 @@
-@extends('dashboardlayout')
+@extends((( Auth::user()->USUA_ID_TIPO_USUARIO == 4 ) ? 'dashboardadmincolaborador' : 'dashboardlayout' ))
 
 @section('content')
 <div id="page-wrapper">
@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
 
                     <li class="active">
-                        <i class="fa fa-table"></i> Contabilidad Mensual Para Dependencias
+                        <i class="fa fa-table"></i> Contabilidad Mensual Para Dependencias {{Auth::user()->USUA_ID_TIPO_USUARIO }}
                     </li>
                 </ol>
             </div>

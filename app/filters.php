@@ -58,6 +58,12 @@ Route::filter('role',function($route,$request,$role)
 });
 
 
+Route::filter('admin_colaborator', function()
+{
+    if (Auth::guest() || ! in_array(Auth::user()->USUA_ID_TIPO_USUARIO, [1, 4])) App::abort(403,'No estas autorizado');;
+});
+
+
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();

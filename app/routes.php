@@ -25,10 +25,10 @@ Route::get('/', function()
 Route::get('seedDB', function()
 {
     $usuarioadmin  = new Usuario();
-    $usuarioadmin->usua_id_usuario = 'omarsc';
-    $usuarioadmin->usua_id_tipo_usuario = 3;
+    $usuarioadmin->usua_id_usuario = 'omarcolaborador';
+    $usuarioadmin->usua_id_tipo_usuario = 4;
     $usuarioadmin->usua_id_estado_usuario = 1;
-    $usuarioadmin->usua_nom_completo = 'Yolanda Flores';
+    $usuarioadmin->usua_nom_completo = 'colaborador';
     $usuarioadmin->password = Hash::make('123');
     $usuarioadmin->save();
 
@@ -54,6 +54,14 @@ Route::get('seedDB', function()
 
 
 });
+
+
+Route::get('querylog', function()
+{
+
+    $queries = DB::getQueryLog();
+});
+
 
 /*
  * Generar solicitud de recursos
@@ -264,94 +272,6 @@ Route::get('/consultardependencia/{id}', array(
 
 
 
-
-/*
- *
- * Rutas para Caso de uso generar reportes
- */
-
-Route::get('generarreportes/contabilidadmensualproyectos',[
-    'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualProyecto'
-]);
-
-Route::post('generarreportes/contabilidadmensualproyectos',[
-    'as' => 'genreportes',
-    'uses' => 'GenerarReportesController@generarReporteMensualProyecto'
-]);
-
-
-Route::get('/reportemensualespecifico/{id}/{mes}/{anio}', [
-    'as' => 'reportemensualespecifico',
-    'uses' => 'GenerarReportesController@mostrarReporteProyectoEspecifico'
-]);
-
-Route::get('generarreportes/contabilidadporperiodoproyectos',[
-    'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoProyecto'
-]);
-
-
-Route::post('generarreportes/contabilidadporperiodoproyectos',[
-    'as' => 'genreportesporperiodo',
-    'uses' => 'GenerarReportesController@generarReportePeriodoProyecto'
-]);
-
-
-Route::get('/reporteperiodoespecifico/{id}/{mes}/{anio}/{mes2}/{anio2}', [
-    'as' => 'reporteporperiodoespecifico',
-    'uses' => 'GenerarReportesController@mostrarReportePorPeriodoProyectoEspecifico'
-]);
-
-Route::get('generarreportes/contabilidadmensualdependencias',[
-    'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualDependencia'
-]);
-
-
-Route::post('generarreportes/contabilidadmensualdependencias',[
-    'as' => 'genreportesmensualdependencias',
-    'uses' => 'GenerarReportesController@generarReporteMensualDependencia'
-]);
-
-
-Route::get('generarreportes/contabilidadporperiododependencias',[
-    'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoDependencia'
-]);
-
-
-Route::post('generarreportes/contabilidadporperiododependencias',[
-    'as' => 'genreportesporperiododependencias',
-    'uses' => 'GenerarReportesController@generarReportePeriodoDependencia'
-]);
-
-
-
-Route::get('/generarreportemensualpdfproyectos/{mes}/{anio}', [
-    'as' => 'generarreportemensualpdfproyectos',
-    'uses' => 'GenerarReportesController@generarPdfMensualPorProyectos'
-]);
-
-
-
-/*Consultar Recursos disponibles*/
-
-Route::get('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
-    'uses' => 'ConsultarRecursosDisponiblesController@recursosDisponiblesProyectos'
-]);
-
-Route::post('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
-    'as' => 'mostrarrecursosdisponibles',
-    'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesProyectos'
-]);
-
-Route::get('consultarrecursosdisponibles/consumorecursosmiztli',[
-    'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztli'
-]);
-
-Route::post('consultarrecursosdisponibles/consumorecursosmiztli',[
-    'as' => 'mostrarconsumorecursosmiztliporperiodo',
-    'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztliPorPeriodo'
-]);
-
-
 /* Gestionar proyectos */
 
 
@@ -534,7 +454,7 @@ Route::get('/asignarcontabilidad', [
 
     'as' => 'asignarcontabilidad',
     'uses' => 'EvaluarSolicitudController@asignarContabilidadPorUsuario'
-]);
+]); //Fin de filtro de administrador
 
 
     /*
@@ -576,10 +496,97 @@ Route::get('/asignarcontabilidad', [
 
 /* filtro para administrador y administrador colaborador */
 
-Route::group(array('before' => 'auth|role:1|role:4'), function ()
+Route::group(array('before' => 'auth|admin_colaborator'), function ()
 {
+    /*
+ *
+ * Rutas para Caso de uso generar reportes
+ */
 
-});
+    Route::get('generarreportes/contabilidadmensualproyectos',[
+        'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualProyecto'
+    ]);
+
+    Route::post('generarreportes/contabilidadmensualproyectos',[
+        'as' => 'genreportes',
+        'uses' => 'GenerarReportesController@generarReporteMensualProyecto'
+    ]);
+
+
+    Route::get('/reportemensualespecifico/{id}/{mes}/{anio}', [
+        'as' => 'reportemensualespecifico',
+        'uses' => 'GenerarReportesController@mostrarReporteProyectoEspecifico'
+    ]);
+
+    Route::get('generarreportes/contabilidadporperiodoproyectos',[
+        'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoProyecto'
+    ]);
+
+
+    Route::post('generarreportes/contabilidadporperiodoproyectos',[
+        'as' => 'genreportesporperiodo',
+        'uses' => 'GenerarReportesController@generarReportePeriodoProyecto'
+    ]);
+
+
+    Route::get('/reporteperiodoespecifico/{id}/{mes}/{anio}/{mes2}/{anio2}', [
+        'as' => 'reporteporperiodoespecifico',
+        'uses' => 'GenerarReportesController@mostrarReportePorPeriodoProyectoEspecifico'
+    ]);
+
+    Route::get('generarreportes/contabilidadmensualdependencias',[
+        'uses' => 'GenerarReportesController@mostrarGenerarReporteMensualDependencia'
+    ]);
+
+
+    Route::post('generarreportes/contabilidadmensualdependencias',[
+        'as' => 'genreportesmensualdependencias',
+        'uses' => 'GenerarReportesController@generarReporteMensualDependencia'
+    ]);
+
+
+    Route::get('generarreportes/contabilidadporperiododependencias',[
+        'uses' => 'GenerarReportesController@mostrarGenerarReportePeriodoDependencia'
+    ]);
+
+
+    Route::post('generarreportes/contabilidadporperiododependencias',[
+        'as' => 'genreportesporperiododependencias',
+        'uses' => 'GenerarReportesController@generarReportePeriodoDependencia'
+    ]);
+
+
+
+    Route::get('/generarreportemensualpdfproyectos/{mes}/{anio}', [
+        'as' => 'generarreportemensualpdfproyectos',
+        'uses' => 'GenerarReportesController@generarPdfMensualPorProyectos'
+    ]);
+
+
+
+    /*Consultar Recursos disponibles*/
+
+    Route::get('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
+        'uses' => 'ConsultarRecursosDisponiblesController@recursosDisponiblesProyectos'
+    ]);
+
+    Route::post('consultarrecursosdisponibles/recursosdisponiblesproyectos',[
+        'as' => 'mostrarrecursosdisponibles',
+        'uses' => 'ConsultarRecursosDisponiblesController@mostrarRecursosDisponiblesProyectos'
+    ]);
+
+    Route::get('consultarrecursosdisponibles/consumorecursosmiztli',[
+        'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztli'
+    ]);
+
+    Route::post('consultarrecursosdisponibles/consumorecursosmiztli',[
+        'as' => 'mostrarconsumorecursosmiztliporperiodo',
+        'uses' => 'ConsultarRecursosDisponiblesController@mostrarConsumoRecursosMiztliPorPeriodo'
+    ]);
+
+
+
+});//Rutas para filtro de administrador y administrador colaborador
 
 
 

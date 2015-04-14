@@ -41,7 +41,7 @@
                     {{ Form::label('edo', 'Estado del proyecto')}}
                     <select name="estado" id="estado" class="form-control" >
                         <option value="1" > Activo </option>
-                        <option value="2" > Inctivo</option>
+                        <option value="2" > Inactivo</option>
                         <option value="3" > Terminado</option>
                     </select>
                 </div>

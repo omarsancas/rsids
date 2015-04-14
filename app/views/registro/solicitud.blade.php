@@ -205,12 +205,13 @@
     <label for="name">Aplicaciones </label>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
 
             @foreach ($aplicaciones as $key=>$aplicacion)
             @if($key>1)
-            <label class="checkbox-inline">
-                <input type="checkbox" name="aplicaciones[]" value="{{$key}}"> <label> {{$aplicacion}} </label>
+
+            <label>
+                <input type="checkbox" name="aplicaciones[]" value="{{$key}}"><label> {{$aplicacion}} </label>
             </label>
             @endif
             @endforeach

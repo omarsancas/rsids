@@ -1,4 +1,4 @@
-@extends('dashboardlayout')
+@extends((( Auth::user()->USUA_ID_TIPO_USUARIO == 4 ) ? 'dashboardadmincolaborador' : 'dashboardlayout' ))
 
 @section('content')
 <div id="page-wrapper">
