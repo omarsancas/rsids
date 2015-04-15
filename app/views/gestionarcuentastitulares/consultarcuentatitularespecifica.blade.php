@@ -30,6 +30,12 @@
                 <div class="jumbotron">
                     <h4>Nombre del proyecto: {{$proyecto->proy_nombre}}</h4>
                     <h4>Nombre del propietario de la cuenta titular: {{$proyecto->usua_nom_completo}}</h4>
+                    <h4>Dependencia: {{ $proyecto->depe_nombre}} </h4>
+                    <h4>Correo electronico: {{$proyecto->meco_correo }}</h4>
+                    <h4>Número telefónico: {{$proyecto->meco_telefono1 }}</h4>
+                    <h4>Grado académico: {{$proyecto->grad_nombre }}</h4>
+                    <h4>Campo de trabajo: {{$proyecto->catr_nombre_campo }}</h4>
+                    <h4>Linea de especialización: {{$proyecto->soab_lin_especializacion }} </h4>
                     @foreach($usuariosproyecto as $usuarioproyecto)
                     <h4>Nombre completo de la cuenta colaboradora: {{$usuarioproyecto->usua_nom_completo}}</h4>
                     @endforeach
