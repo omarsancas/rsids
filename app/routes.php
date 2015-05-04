@@ -454,7 +454,33 @@ Route::get('/asignarcontabilidad', [
 
     'as' => 'asignarcontabilidad',
     'uses' => 'EvaluarSolicitudController@asignarContabilidadPorUsuario'
+
+
 ]); //Fin de filtro de administrador
+
+    /*
+    * Caso de uso Gestionar cuentas login
+    * */
+
+Route::get('gestionarcuentaslogin/mostrarobfuscarcuentas',[
+    'as' => 'mostrarobfuscarcuentas',
+    'uses' => 'GestionarCuentasLogin@mostrarObfuscarCuentasMaquina'
+]);
+
+Route::post('gestionarcuentaslogin/obfuscarcuentas',[
+    'as' => 'obfuscarcuentas',
+    'uses' => 'GestionarCuentasLogin@obfuscarCuentasMaquina'
+]);
+
+Route::get('gestionarcuentaslogin/mostrarobfuscarcuentasvpn',[
+        'as' => 'mostrarobfuscarcuentasvpn',
+        'uses' => 'GestionarCuentasLogin@mostrarObfuscarCuentasVpn'
+]);
+
+Route::post('gestionarcuentaslogin/obfuscarcuentasvpn',[
+       'as' => 'obfuscarcuentasvpn',
+       'uses' => 'GestionarCuentasLogin@obfuscarCuentasVpn'
+]);
 
 
     /*

@@ -405,6 +405,8 @@ class EvaluarSolicitudController extends BaseController {
             $usuario->password = Hash::make($passwordtitular);
             $usuario->usua_nom_completo = $usua_nombre_concatenado;
             $usuario->save();
+            $path = $solicitudabs->SOAB_RUTA_ARCHIVOS . '/' . 'WPD'. $solicitudabs->SOAB_ID_SOLICITUD_ABSTRACTA . '.txt';
+            File::put($path,$passwordtitular);
 
             $usuarioid = $usuario->usua_id_usuario;
             $esproyecto->usuarios()->attach($usuarioid);

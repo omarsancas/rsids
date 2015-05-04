@@ -164,7 +164,20 @@ class GestionarCuentasTitularesController extends BaseController {
             ->groupBy('proyecto.proy_id_proyecto')
             ->first();
 
-        //$proyectosinreporte
+            $proyectosincontabilidad = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->join('estado_proyecto', 'proyecto.proy_id_estado_proyecto', '=', 'estado_proyecto.espr_id_estado_proyecto')
+            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('campo_trabajo', 'solicitud_abstracta.soab_id_campo_trabajo', '=',  'campo_trabajo.catr_id_campo_trabajo')
+            ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('proyecto.proy_id_proyecto', '=', $idproyecto)
+            ->groupBy('proyecto.proy_id_proyecto')
+            ->first();
+
+
 
         $usuariosproyecto = DB::table('contabilidad')
             ->select(DB::raw('sum(contabilidad.cont_num_jobs) AS totaljobs, usua_id_usuario ,proy_id_proyecto, proy_nombre ,sum(contabilidad.cont_hrs_nodo) AS totalnodo,
@@ -176,9 +189,15 @@ class GestionarCuentasTitularesController extends BaseController {
             ->groupBy('usuario.usua_id_usuario')
             ->get();
 
+        if($proyecto == NULL){
+            return View::make('gestionarcuentastitulares/consultarcuentatitularespecificasincontabilidad')
+                ->with('proyectosincontabilidad',$proyectosincontabilidad)->with('usuariosproyecto',$usuariosproyecto);
+        } else{
+            return View::make('gestionarcuentastitulares/consultarcuentatitularespecifica')
+                ->with('proyecto',$proyecto)->with('usuariosproyecto',$usuariosproyecto);
+        }
 
-        return View::make('gestionarcuentastitulares/consultarcuentatitularespecifica')
-                   ->with('proyecto',$proyecto)->with('usuariosproyecto',$usuariosproyecto);
+
 
 
     }
