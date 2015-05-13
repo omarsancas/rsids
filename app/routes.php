@@ -483,6 +483,16 @@ Route::post('gestionarcuentaslogin/obfuscarcuentasvpn',[
 ]);
 
 
+/*Caso de uso Reasignar Password*/
+Route::get('reasignarpassword/mostrarreasignarpassword',[
+        'as' => 'mostrarreasignarpassword',
+        'uses' => 'ReasignarPasswordController@mostrarReasignarPassword'
+]);
+
+Route::post('reasignarpassword/buscarcuenta',[
+        'as' => 'buscarcuenta',
+        'uses' => 'ReasignarPasswordController@buscarCuenta'
+]);
     /*
      *
      * Función para resetear los password anteriores
