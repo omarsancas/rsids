@@ -456,7 +456,7 @@ Route::get('/asignarcontabilidad', [
     'uses' => 'EvaluarSolicitudController@asignarContabilidadPorUsuario'
 
 
-]); //Fin de filtro de administrador
+]);
 
     /*
     * Caso de uso Gestionar cuentas login
@@ -492,6 +492,22 @@ Route::get('reasignarpassword/mostrarreasignarpassword',[
 Route::post('reasignarpassword/buscarcuenta',[
         'as' => 'buscarcuenta',
         'uses' => 'ReasignarPasswordController@buscarCuenta'
+]);
+
+
+Route::get('/reasignarpasswordvpn/{id}', [
+        'as' => 'reasignarpasswordvpn',
+        'uses' => 'ReasignarPasswordController@mostrarCuentaVPN'
+]);
+
+Route::get('/reasignarpasswordmaquina/{id}', [
+        'as' => 'reasignarpasswordmaquina',
+        'uses' => 'ReasignarPasswordController@mostrarCuentaMaquina'
+]);
+
+Route::get('/reasignarpasswordaplicacion/{id}', [
+        'as' => 'reasignarpasswordmaquina',
+        'uses' => 'ReasignarPasswordController@mostrarCuentaAplicacion'
 ]);
     /*
      *

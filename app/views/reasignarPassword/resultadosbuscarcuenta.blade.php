@@ -30,7 +30,7 @@
                 <h2>Buscar Usuarios</h2>
 
 
-                @if ($resultados)
+                @if (empty($resultados))
                 <h2>No se encontró ningun usuario con los parametros elegidos</h2>
                 @else
 
@@ -51,18 +51,24 @@
                         </thead>
                         <tbody>
 
-                        @foreach (resultados as $usuario)
+                        @foreach ($resultados as $resultado)
                         <tr>
 
-                            <td class="visible-xs visible-lg"> {{$usuario->USUA_ID_USUARIO}}</td>
-                            <td> {{$usuario->USUA_NOM_COMPLETO}}</td>
-                            <td> {{$usuario->PROY_NOMBRE}}</td>
+                            <td class="visible-xs visible-lg"> {{$resultado->USUA_ID_USUARIO}}</td>
+                            <td> {{$resultado->USUA_NOM_COMPLETO}}</td>
+                            <td> {{$resultado->PROY_NOMBRE}}</td>
                             <td>
-                                <a href="{{ action('GestionarCuentasTitularesController@consultarCuentaTitualEspecifica', $usuario->PROY_ID_PROYECTO ) }}"
-                                   class="btn btn-info btn-md">Consultar</a>
+                                <a href="{{ action('ReasignarPasswordController@mostrarCuentaVPN', $resultado->VPLO_ID_VPN_LOGIN ) }}"
+                                   class="btn btn-info btn-md">Reasignar password VPN</a>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <a href="{{ action('ReasignarPasswordController@mostrarCuentaMaquina', $resultado->MALO_ID_MAQUINA_LOGIN ) }}"
+                                   class="btn btn-info btn-md">Reasignar password maquina</a>
+                            </td>
+                            <td>
+                                <a href="{{ action('ReasignarPasswordController@mostrarCuentaAplicacion', $resultado->USUA_ID_USUARIO ) }}"
+                                   class="btn btn-info btn-md">Reasignar password Aplicación</a>
+                            </td>
 
 
                         </tr>
