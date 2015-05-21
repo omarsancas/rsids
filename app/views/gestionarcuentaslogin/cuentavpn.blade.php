@@ -9,11 +9,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Gestionar Cuentas Login
+                    Gestionar Cuentas Login VPN
                 </h1>
                 <ol class="breadcrumb">
                     <li class="active">
-                        <i class="fa fa-table"></i> Gestionar Cuentas Login
+                        <i class="fa fa-table"></i> Gestionar Cuentas Login VPN
                     </li>
                 </ol>
             </div>
@@ -26,7 +26,7 @@
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Gestionar Cuentas Login</h2>
+                <h2>Gestionar Cuentas Login VPN</h2>
 
                 <button id="btnDelete" class="btn btn-danger btn-lg">Obfuscar</button>
 

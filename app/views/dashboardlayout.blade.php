@@ -363,6 +363,21 @@
 
         </li>
 
+        <li>
+            <a href="{{ URL::to('gestionarcuentaslogin/mostrarobfuscarcuentasmaquina') }}">Obfuscar cuentas maquina</a>
+
+        </li>
+
+        <li>
+            <a href="{{ URL::to('gestionarcuentaslogin/mostrarobfuscarcuentasvpn') }}">Obfuscar cuentas vpn</a>
+
+        </li>
+
+        <li>
+            <a href="{{ URL::to('reasignarpassword/mostrarreasignarpassword') }}">Reasignar password</a>
+
+        </li>
+
 
 
 

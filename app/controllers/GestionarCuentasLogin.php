@@ -9,7 +9,9 @@
 class GestionarCuentasLogin extends BaseController {
 
     public function mostrarObfuscarCuentasMaquina(){
-        $cuentasmaquina = Maquina::all();
+        $cuentasmaquina = DB::table('maquina_login')
+                          ->where('obfuscada', '=', 0)
+                          ->get();
         return View::make('gestionarcuentaslogin/cuentamaquina')->with('cuentas',$cuentasmaquina);
     }
 
@@ -21,10 +23,11 @@ class GestionarCuentasLogin extends BaseController {
         foreach($cuentas as $cuenta){
            $maquina = Maquina::find($cuenta);
            $maquina->malo_password = 'xxxxxx';
+           $maquina->obfuscada = 1;
            $maquina->save();
         }
         Session::flash('message', '¡Las cuentas seleccionadas se han obfuscado exitosamente!');
-        return Redirect::to('gestionarcuentaslogin/mostrarobfuscarcuentas');
+        return Redirect::to('gestionarcuentaslogin/mostrarobfuscarcuentasmaquina');
     }
 
     public function mostrarObfuscarCuentasVpn(){
@@ -38,9 +41,10 @@ class GestionarCuentasLogin extends BaseController {
         //var_dump($cuentas);
 
         foreach($cuentas as $cuenta){
-            $maquina = Vpn::find($cuenta);
-            $maquina->vplo_password = 'xxxxxx';
-            $maquina->save();
+            $vpn = Vpn::find($cuenta);
+            $vpn->vplo_password = 'xxxxxx';
+            $vpn->obfuscada = 1;
+            $vpn->save();
         }
         Session::flash('message', '¡Las cuentas seleccionadas se han obfuscado exitosamente!');
         return Redirect::to('gestionarcuentaslogin/mostrarobfuscarcuentasvpn');

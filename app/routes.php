@@ -462,7 +462,7 @@ Route::get('/asignarcontabilidad', [
     * Caso de uso Gestionar cuentas login
     * */
 
-Route::get('gestionarcuentaslogin/mostrarobfuscarcuentas',[
+Route::get('gestionarcuentaslogin/mostrarobfuscarcuentasmaquina',[
     'as' => 'mostrarobfuscarcuentas',
     'uses' => 'GestionarCuentasLogin@mostrarObfuscarCuentasMaquina'
 ]);
@@ -509,6 +509,23 @@ Route::get('/reasignarpasswordaplicacion/{id}', [
         'as' => 'reasignarpasswordmaquina',
         'uses' => 'ReasignarPasswordController@mostrarCuentaAplicacion'
 ]);
+
+Route::post('reasignarpassword/cambiarpasswordvpn',[
+        'as' => 'cambiarpasswordvpn',
+        'uses' => 'ReasignarPasswordController@cambiarPasswordVPN'
+]);
+
+Route::post('reasignarpassword/cambiarpasswordaplicacion',[
+        'as' => 'cambiarpasswordaplicacion',
+        'uses' => 'ReasignarPasswordController@cambiarPasswordAplicacion'
+]);
+
+Route::post('reasignarpassword/cambiarpasswordmaquina',[
+        'as' => 'cambiarpasswordmaquina',
+        'uses' => 'ReasignarPasswordController@cambiarPasswordMaquina'
+]);
+
+
     /*
      *
      * Función para resetear los password anteriores

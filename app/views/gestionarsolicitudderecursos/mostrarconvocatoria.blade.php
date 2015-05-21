@@ -69,6 +69,11 @@
                 </div>
 
                 <div class="form-group">
+                    {{ Form::label('nombre completo', 'Vigencia de la convocatoria')}}
+                    {{ Form::text('vigencia', $convocatoria->CONVO_VIGENCIA , ['class' => 'form-control'])}}
+                </div>
+
+                <div class="form-group">
                     {{ Form::label('nombre completo', 'Fecha de devolución del documento')}}
                     {{ Form::text('fechadevolucion', $convocatoria->CONVO_DEVOLUCION , ['class' => 'form-control'])}}
                 </div>

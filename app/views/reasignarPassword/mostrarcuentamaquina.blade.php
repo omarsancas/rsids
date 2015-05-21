@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Reasignar password
+                    Reasignar password aplicación
                 </h1>
                 <ol class="breadcrumb">
 
@@ -25,17 +25,17 @@
         <div class="row">
             <div class="col-md-4">
                 <!-- Revisar la ruta de actualizacion-->
-                {{ Form::open(['route' => 'cambiarpasswordvpn', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form']) }}
-                <input type="hidden" name="id" value="{{ $id }}">
+                {{ Form::open(['route' => 'cambiarpasswordmaquina', 'method' => 'POST','class' => 'form-horizontal', 'role' => 'form']) }}
+                <input type="hidden" name="id" value="{{ $maquina->MALO_ID_MAQUINA_LOGIN }}">
                 @if (Session::has('message'))
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <h2>Reasignar password</h2>
+                <h2>Reasignar password aplicación</h2>
 
 
                 <div class="form-group">
                     {{ Form::label('nombre de usuario', 'Nombre de usuario')}}
-                    {{ Form::text('nombre_usuario', $vpn->VPLO_LOGIN , ['class' => 'form-control', 'disabled' => 'disabled'])}}
+                    {{ Form::text('nombre_usuario', $maquina->MALO_LOGIN , ['class' => 'form-control', 'disabled' => 'disabled'])}}
 
                 </div>
 

@@ -572,6 +572,8 @@ class SolicitudController extends BaseController {
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
+        $ritmo_mensual = $solicitudes->PROY_HRS_APROBADAS/$convocatoria->CONVO_RITMO_MENS;
+        $ritmo_mensual = round($ritmo_mensual);
 
         if($solicitudes->SOAB_SEXO == 'm')
         {
@@ -608,6 +610,7 @@ class SolicitudController extends BaseController {
                 ->with('solicitudes', $solicitudes)
                 ->with('titulo',$titulo)
                 ->with('convocatoria',$convocatoria)
+                ->with('ritmo_mensual',$ritmo_mensual)
                 ->render();
 
         return PDF::load($html, 'letter', 'portrait')->show();
@@ -922,6 +925,7 @@ class SolicitudController extends BaseController {
         $convocatoria->convo_ritmo_mens = Input::get('ritmomens');
         $convocatoria->convo_devolucion = Input::get('fechadevolucion');
         $convocatoria->convo_fecha = Input::get('fechacarta');
+        $convocatoria->convo_vigencia = Input::get('vigencia');
         $convocatoria->save();
 
 

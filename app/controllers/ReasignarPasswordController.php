@@ -41,16 +41,57 @@ class ReasignarPasswordController extends BaseController{
     }
 
     public function mostrarCuentaAplicacion($id){
-        $vpn = Vpn::find($id);
-        return View::make('reasignarPassword/mostrarcuentavpn')
+        $usuario = Usuario::find($id);
+        return View::make('reasignarPassword/mostrarcuentaaplicacion')
             ->with('id',$id)
-            ->with('vpn',$vpn);
+            ->with('usuario',$usuario);
     }
 
     public function mostrarCuentaMaquina($id){
-        $vpn = Vpn::find($id);
-        return View::make('reasignarPassword/mostrarcuentavpn')
+        $maquina = Maquina::find($id);
+        return View::make('reasignarPassword/mostrarcuentamaquina')
             ->with('id',$id)
-            ->with('vpn',$vpn);
+            ->with('maquina',$maquina);
+    }
+
+    public function cambiarPasswordVPN(){
+
+        $id = Input::get('id');
+        $password = Input::get('password');
+
+        $vpn = Vpn::find($id);
+        $vpn->vplo_password = $password;
+        $vpn->obfuscada = 0;
+        $vpn->save();
+
+        Session::flash('message', '¡El password se ha reasignado exitosamente!');
+        return Redirect::to('reasignarpassword/mostrarreasignarpassword');
+    }
+
+    public function cambiarPasswordMaquina(){
+
+        $id = Input::get('id');
+        $password = Input::get('password');
+
+        $maquina = Maquina::find($id);
+        $maquina->malo_password = $password;
+        $maquina->obfuscada = 0;
+        $maquina->save();
+
+        Session::flash('message', '¡El password se ha reasignado exitosamente!');
+        return Redirect::to('reasignarpassword/mostrarreasignarpassword');
+    }
+
+    public function cambiarPasswordAplicacion(){
+
+        $id = Input::get('id');
+        $password = Input::get('password');
+
+        $usuario = Usuario::find($id);
+        $usuario->password = Hash::make($password);
+        $usuario->save();
+
+        Session::flash('message', '¡El password se ha reasignado exitosamente!');
+        return Redirect::to('reasignarpassword/mostrarreasignarpassword');
     }
 } 
