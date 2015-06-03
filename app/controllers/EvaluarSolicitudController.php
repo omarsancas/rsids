@@ -516,6 +516,7 @@ class EvaluarSolicitudController extends BaseController {
             {
                 if ($aplicacion == 9)
                 {
+                    /*
                     foreach ($aplicacionesseleccionadas as $aplicaciones2)
                     {
                         if ($aplicaciones2 == 14)
@@ -527,16 +528,31 @@ class EvaluarSolicitudController extends BaseController {
                         }
                     }
 
+
                     $vpn->vplo_grupo_secundario = 'g009';
                     $vpn->save();
                     break;
-                } elseif ($aplicacion == 14)
-                {
-                    $vpn->vplo_grupo_secundario = 'g001';
-                    $vpn->save();
-                    break;
+                    */
+
+                    $aplicacion_seleccionada = 'g009';
                 }
+
             }
+
+            foreach ($aplicacionesseleccionadas as $aplicacion2)
+            {
+                if($aplicacion2 == 14){
+
+                    $aplicacion_seleccionada2 = ',g001';
+                }else{
+                    $aplicacion_seleccionada2 = '';
+                }
+
+            }
+
+            $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
+            $vpn->vplo_grupo_secundario = $aplicaciones;
+            $vpn->save();
         }
     }
 
