@@ -442,9 +442,8 @@ class EvaluarSolicitudController extends BaseController {
                 ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $idlog)
                 ->first();
 
-            //dd($aplicacionesseleccionadas);
 
-            $this->obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn);
+
             $cuentascolaboradora = Input::get('cuentacolaboradora');
 
             if (! empty($cuentascolaboradora))
@@ -492,6 +491,12 @@ class EvaluarSolicitudController extends BaseController {
             }
 
 
+            if ($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 1)
+            {
+                $this->obtenerGrupoSecundario($aplicacionesseleccionadas, $maquina, $maquinacol);
+            }
+
+
             Session::flash('message', '¡La solicitud se ha aceptado exitosamente!');
 
             return Redirect::to('evaluarsolicitudderecursos/evaluarsolicitud');
@@ -504,56 +509,66 @@ class EvaluarSolicitudController extends BaseController {
 
     /**
      * Obtiene el grupo secundario para asignarlo a la tabla de Maquina Y VPN
-     * @param $dependencia
      * @param $aplicacionesseleccionadas
-     * @param $vpn
+     * @param $maquina
+     * @param $maquinacol
      */
-    public function obtenerGrupoSecundario($dependencia, $aplicacionesseleccionadas, $vpn)
+    public function obtenerGrupoSecundario($aplicacionesseleccionadas, $maquina, $maquinacol)
     {
-        if ($dependencia->DEPE_ID_TIPO_DEPENDENCIA == 1)
+
+        $aplicacion_seleccionada = $this->generarGrupoGaussian($aplicacionesseleccionadas);
+
+        $aplicacion_seleccionada2 = $this->generarGrupoAdf($aplicacionesseleccionadas);
+
+        $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
+
+            var_dump($aplicaciones);
+            $maquinacol->malo_grupo_secundario = $aplicaciones;
+            $maquinacol->save();
+            $maquina->malo_grupo_secundario = $aplicaciones;
+            $maquina->save();
+
+    }
+
+    /**
+     * @param $aplicacionesseleccionadas
+     * @return string
+     */
+    public function generarGrupoGaussian($aplicacionesseleccionadas)
+    {
+        foreach ($aplicacionesseleccionadas as $aplicacion)
         {
-            foreach ($aplicacionesseleccionadas as $aplicacion)
+            if ($aplicacion == 9)
             {
-                if ($aplicacion == 9)
-                {
-                    /*
-                    foreach ($aplicacionesseleccionadas as $aplicaciones2)
-                    {
-                        if ($aplicaciones2 == 14)
-                        {
-                            $vpn->vplo_grupo_secundario = 'g009,g001';
-                            $vpn->save();
-                            break;
 
-                        }
-                    }
-
-
-                    $vpn->vplo_grupo_secundario = 'g009';
-                    $vpn->save();
-                    break;
-                    */
-
-                    $aplicacion_seleccionada = 'g009';
-                }
-
+                $aplicacion_seleccionada = 'g09';
             }
 
-            foreach ($aplicacionesseleccionadas as $aplicacion2)
-            {
-                if($aplicacion2 == 14){
-
-                    $aplicacion_seleccionada2 = ',g001';
-                }else{
-                    $aplicacion_seleccionada2 = '';
-                }
-
-            }
-
-            $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
-            $vpn->vplo_grupo_secundario = $aplicaciones;
-            $vpn->save();
         }
+
+        return $aplicacion_seleccionada;
+    }
+
+    /**
+     * @param $aplicacionesseleccionadas
+     * @return string
+     */
+    public function generarGrupoAdf($aplicacionesseleccionadas)
+    {
+        foreach ($aplicacionesseleccionadas as $aplicacion2)
+        {
+            if ($aplicacion2 == 14)
+            {
+
+                $aplicacion_seleccionada2 = ',adf';
+            } else
+            {
+                $aplicacion_seleccionada2 = '';
+            }
+
+        }
+
+        return $aplicacion_seleccionada2;
     }
 
 

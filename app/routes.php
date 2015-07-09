@@ -56,10 +56,40 @@ Route::get('seedDB', function()
 });
 
 
-Route::get('querylog', function()
+Route::get('pruebafuncion', function()
 {
+    $aplicacionesseleccionadas = array(1, 9, 14, 10);
+    $aplicacion_seleccionada = '';
+    $aplicacion_seleccionada2 = '';
 
-    $queries = DB::getQueryLog();
+        foreach ($aplicacionesseleccionadas as $aplicacion)
+        {
+            if ($aplicacion == 14)
+            {
+
+                $aplicacion_seleccionada = 'g09';
+
+                //var_dump($aplicacion_seleccionada);
+            }
+
+        }
+
+        foreach ($aplicacionesseleccionadas as $aplicacion2)
+        {
+            if($aplicacion2 == 14){
+
+                $aplicacion_seleccionada2 = ',adf';
+            }else{
+                $aplicacion_seleccionada2 = '';
+            }
+
+        }
+
+        $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
+
+        var_dump($aplicaciones);
+
+
 });
 
 
