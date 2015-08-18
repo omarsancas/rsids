@@ -672,6 +672,9 @@ class SolicitudController extends BaseController {
      */
     public function notificarAprobacion($id)
     {
+        $convocatoria = Convocatoria::find(1);
+
+
         $solicitudes = DB::table('solicitud_abstracta')
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
@@ -680,6 +683,9 @@ class SolicitudController extends BaseController {
             ->join('grado', 'solicitud_abstracta.soab_id_grado', '=', 'grado.grad_id_grado')
             ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
             ->first();
+
+        $ritmo_mensual = $solicitudes->PROY_HRS_APROBADAS/$convocatoria->CONVO_RITMO_MENS;
+        $ritmo_mensual = round($ritmo_mensual);
 
         if($solicitudes->SOAB_SEXO == 'm')
         {
@@ -723,6 +729,7 @@ class SolicitudController extends BaseController {
                     ->with('solicitudes', $solicitudes)
                     ->with('titulo',$titulo)
                     ->with('convocatoria',$convocatoria)
+                    ->with('ritmo_mensual',$ritmo_mensual)
                     ->render();
 
         $pdf = new \Thujohn\Pdf\Pdf();

@@ -26,7 +26,10 @@
 
         <div class="row">
             <div class="col-lg-7">
+                @if (empty($reportesproyectodatos))
+                <h2>No hay datos disponibles para mostrar los recursos disponibles del proyecto</h2>
 
+                @else
                 <div class="jumbotron">
                     <h3>Número del proyecto: {{$reportesproyectodatos->proy_id_proyecto}}</h3>
                     <h3>Nombre del proyecto: {{$reportesproyectodatos->proy_nombre}}</h3>
@@ -57,6 +60,8 @@
                         </div>
 
                     </div>
+                    @endif
+
                     @endif
 
         </div>

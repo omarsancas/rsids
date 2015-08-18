@@ -578,8 +578,23 @@ Route::post('reasignarpassword/cambiarpasswordmaquina',[
         Excel::create('Filename', function($excel) {
 
             $excel->sheet('Sheetname', function($sheet) {
-                $model = Vpn::select('vplo_login', 'vplo_password','vplo_grupo_principal','vplo_maquina')->get();
+                $model = Vpn::cuentasVpn(14)->get();
                 $sheet->fromModel($model);
+            });
+        })->download('txt');
+
+
+    });
+
+
+    Route::get('obtenerarchivo2' , function()
+    {
+        Excel::create('Filename', function($excel) {
+
+            $excel->sheet('Sheetname', function($sheet) {
+                $models = Vpn::cuentasVpn(14);
+                $array = json_decode(json_encode($models), true);
+                $sheet->fromModel($array);
             });
         })->download('txt');
 
