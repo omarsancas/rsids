@@ -320,16 +320,35 @@ class SolicitudController extends BaseController {
     {
 
         list($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo) = $this->obtenerListaSolicitudes($id);
+        list ($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion) = $this->renovarSolicitudDeRecursosVista($id);
 
+
+        if($solicitudabstracta->SOAB_ID_TIPO_SOLICITUD == 1){
+            // Show form
+            return View::make('gestionarsolicitudderecursos.editarsolicitud', $this->data)
+                ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+                ->with('grado', $grado)
+                ->with('dependencias_catalogo', $dependencias_catalogo)
+                ->with('otrocampo', $otrocampo)
+                ->with('otraapp', $otraapp)
+                ->with('campotrabajo', $campotrabajo)
+                ->with('meco', $meco);
+
+        }elseif($solicitudabstracta->SOAB_ID_TIPO_SOLICITUD == 2){
+            return View::make('gestionarsolicitudderecursos.editarSolicitudDeRenovacion', $this->data)
+                ->with('datosrenovacion', $datosrenovacion)
+                ->with('dependencias_catalogo', $dependencias_catalogo)
+                ->with('cuentascolaboradoras', $cuentascolaboradoras)
+                ->with('otraapp', $otraapp)
+                ->with('otrocampo', $otrocampo)
+                ->with('grado', $grado)
+                ->with('campotrabajo', $campotrabajo)
+                ->with('estadousuario', $estadousuario)
+                ->with('archivos_renovacion',$archivos_renovacion);
+
+        }
         // Show form
-        return View::make('gestionarsolicitudderecursos.editarsolicitud', $this->data)
-            ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
-            ->with('grado', $grado)
-            ->with('dependencias_catalogo', $dependencias_catalogo)
-            ->with('otrocampo', $otrocampo)
-            ->with('otraapp', $otraapp)
-            ->with('campotrabajo', $campotrabajo)
-            ->with('meco', $meco);
+
 
     }
 
@@ -1039,6 +1058,63 @@ class SolicitudController extends BaseController {
 
         return array($renovacion, $archivosrenovacion, $datosrenovacion, $cuentascolnuevas);
     }
+
+
+    public function renovarSolicitudDeRecursosVista($id)
+    {
+
+        $datosrenovacion = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->join('proyecto', 'usuario_x_proyecto.uspr_id_proyecto', '=', 'proyecto.proy_id_proyecto')
+            ->join('solicitud_abstracta', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
+            ->join('medio_comunicacion', 'solicitud_abstracta.soab_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+
+        $idsolicitudabastracta = $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA;
+        $idproyecto = $datosrenovacion->PROY_ID_PROYECTO;
+
+        $solicitudabstracta = SolicitudAbstracta::find($id);
+        $dependencias_catalogo = Dependencia::lists('depe_nombre', 'depe_id_dependencia');
+        $grado = Grado::lists('grad_nombre', 'grad_id_grado');
+        $campotrabajo = CampoTrabajo::lists('catr_nombre_campo', 'catr_id_campo_trabajo');
+        $estadousuario = EstadoUsuario::lists('esus_estado_nombre', 'esus_id_estado_usuario');
+        $this->data['solicitud'] = $solicitudabstracta;
+        $this->data['aplicaciones'] = Aplicacion::all();
+        $aplicacionesseleccionadas = $solicitudabstracta->aplicaciones()->get()->toArray();
+        $aplicacionesseleccionadas = array_pluck($aplicacionesseleccionadas, 'APLI_ID_APLICACION');
+        $this->data['aplicacionesseleccionadas'] = $aplicacionesseleccionadas;
+
+        $cuentascolaboradoras = DB::table('usuario')
+            ->join('usuario_x_proyecto', 'usuario.usua_id_usuario', '=', 'usuario_x_proyecto.uspr_id_usuario')
+            ->where('usuario_x_proyecto.uspr_id_proyecto', '=', $idproyecto)
+            ->where('usuario.usua_id_tipo_usuario', '=', 3)
+            ->get();
+
+
+        $otraapp = DB::table('otra_app')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
+            ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+        $otrocampo = DB::table('otro_campo_trabajo')
+            ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_otro_campo', '=', 'otro_campo_trabajo.otca_id_otro_campo')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->first();
+
+        $archivos_renovacion = DB::table('solicitud_abstracta')
+            ->join('solicitud_renovacion', 'solicitud_abstracta.soab_id_solicitud_renovacion' , '=', 'solicitud_renovacion.sore_id_solicitud_renovacion')
+            ->join('archivos_renovacion', 'solicitud_renovacion.sore_id_solicitud_renovacion', '=', 'archivos_renovacion.arre_id_solicitud_renovacion')
+            ->where('solicitud_abstracta.soab_id_solicitud_abstracta', '=', $id)
+            ->get();
+
+
+        return array($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion);
+
+    }
+
 
 
 }

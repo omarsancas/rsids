@@ -205,7 +205,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
 
                     $archivos_renovacion = new ArchivoRenovacion;
                     $archivos_renovacion->arre_ruta_archivo = $destinationPath . '/' . $filename;
-                    $archivos_renovacion->arre_id_solicitud_renovacion = 0;
+                    $archivos_renovacion->arre_id_solicitud_renovacion = $solicitudrenovacion->SORE_ID_SOLICITUD_RENOVACION;
                     $archivos_renovacion->arre_tip_archivo = $parttipo;
                     $archivos_renovacion->save();
 

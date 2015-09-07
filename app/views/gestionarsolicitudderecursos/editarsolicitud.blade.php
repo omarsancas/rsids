@@ -471,16 +471,15 @@
             </div>
         </fieldset>
 
-
-    <div class="form-group">
-        <p>
-            <input type="submit" value="Guardar" class="btn btn-success btn-lg">
-        </p>
-
-        <p>
-        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}" class="btn btn-danger btn-lg">Cancelar</a>
-        </p>
+        </br>
+    <div class="form-group row">
+    <div class="col-sm-6">
+        <input type="submit" value="Guardar" class="inline btn btn-success btn-lg">
     </div>
+    <div class="col-sm-6"></div>
+        <a href="{{ URL::to('gestionarsolicitudderecursos/modificarsolicitud') }}" class="inline btn btn-danger btn-lg">Cancelar</a>
+    </div>
+
     {{ Form::close() }}
 
 </div>
