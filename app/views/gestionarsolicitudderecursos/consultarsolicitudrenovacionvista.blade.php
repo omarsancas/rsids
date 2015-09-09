@@ -6,7 +6,8 @@
 <div class="panel panel-default">
 <div class="panel-heading">This Page is Disabled</div>
 <div class="panel-body">
-<div class="col-md-6">
+<div class="col-md-1"></div>
+<div class="col-md-7">
 
 
 <h1></h1>
@@ -140,23 +141,25 @@
     <legend><h3>Recursos solicitados</h3></legend>
     <div class="row">
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('horasCPU', 'Horas  CPU')}}
             {{ Form::text('horasCPU', $solicitudabstracta->SOAB_HRS_CPU, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
 
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('disco', 'Disco en GB')}}
             {{ Form::text('disco', $solicitudabstracta->SOAB_ESP_HD, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             {{ Form::label('memoria', 'Memoria RAM en GB')}}
             {{ Form::text('memoria', $solicitudabstracta->SOAB_MEM_RAM, ['class' => 'form-control','disabled' => 'disabled'])}}
         </div>
     </div>
 
 </fieldset>
+<br>
+<br>
 
 <fieldset>
     <legend>Información Académica</legend>
@@ -262,9 +265,10 @@
 </fieldset>
 
 @if (empty($cuentascolnuevas))
-<h2>No hay cuentas colaboradoras :(</h2>
+<div class="form-group">
+    <h2>No hay cuentas colaboradoras  nuevas :(</h2>
+</div>
 @else
-
 <div class="form-group">
 
     @foreach($cuentascolnuevas as $key => $value)
@@ -405,10 +409,9 @@
 
             <div class="form-group">
                 <label for="nombre"> Estado de la cuenta</label>
-                <select class="form-control" name="cuentascol[{{$value->USUA_ID_USUARIO}}]">
+                <select class="form-control" name="cuentascol[{{$value->USUA_ID_USUARIO}}]" disabled>
                     @foreach($estadousuario as $id => $valor)
-                    <option value="{{$id}}"
-                    {{ ($value->USUA_ID_ESTADO_USUARIO == $id) ? 'selected="selected"' : false }} > {{$valor }}</option>
+                    <option value="{{$id}}" {{ ($value->USUA_ID_ESTADO_USUARIO == $id) ? 'selected="selected"' : false }}> {{$valor }}</option>
 
                     @endforeach
 
@@ -430,7 +433,7 @@
 
 
 
-        @if(!empty($solicitudabstracta->SOAB_DESC_RECHAZO))
+      @if(!empty($solicitudabstracta->SOAB_DESC_RECHAZO))
     <div class="form-group">
         {{ Form::label('', ' Comentario de denegación de recursos')}}
         {{ Form::textarea('descrechazo', $solicitudabstracta->SOAB_DESC_RECHAZO, ['class' => 'form-control', 'disabled' => 'disabled'])}}
@@ -445,13 +448,10 @@
         <fieldset>
             <legend>Reporte de renovación</legend>
     @foreach($archivosrenovacion as $archivorenovacion)
-
             <div class="form-group">
                 <label>{{ $archivorenovacion->ARRE_TIP_ARCHIVO}}</label>
                 <a href="{{action('SolicitudController@mostrarArchivoRenovacion', $archivorenovacion->ARRE_ID_ARCHIVOS_RENOVACION)}}">Ver Archivo</a>
             </div>
-
-
     @endforeach
 
         </fieldset>

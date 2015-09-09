@@ -15,7 +15,7 @@
 
 <h1>Renovar solicitud de recursos</h1>
 
-{{ Form::open (['route' => 'renovarsolicitud', 'method' => 'UPDATE','class' => 'form-horizontal' , 'role' =>'form', 'files' =>true]) }}
+{{ Form::open (['route' => 'renovarsolicitudadmin', 'method' => 'UPDATE','class' => 'form-horizontal' , 'role' =>'form', 'files' =>true]) }}
 
 <input type="hidden" name="id" value="{{ $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $datosrenovacion->MECO_ID_MEDIO_COMUNICACION }}">
@@ -145,17 +145,17 @@
 
         <div class="col-xs-3">
             {{ Form::label('horasCPU', 'Horas en CPU')}}
-            {{ Form::text('horasCPU', '', ['class' => 'form-control'])}}
+            {{ Form::text('horasCPU', $datosrenovacion->SOAB_HRS_CPU, ['class' => 'form-control'])}}
         </div>
 
 
         <div class="col-xs-3">
             {{ Form::label('disco', 'Disco en GB')}}
-            {{ Form::text('disco', '', ['class' => 'form-control'])}}
+            {{ Form::text('disco', $datosrenovacion->SOAB_ESP_HD, ['class' => 'form-control'])}}
         </div>
         <div class="col-xs-3">
             {{ Form::label('memoria', 'Memoria en GB')}}
-            {{ Form::text('memoria', '', ['class' => 'form-control'])}}
+            {{ Form::text('memoria', $datosrenovacion->SOAB_MEM_RAM, ['class' => 'form-control'])}}
         </div>
     </div>
 

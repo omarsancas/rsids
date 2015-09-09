@@ -556,6 +556,12 @@ Route::post('reasignarpassword/cambiarpasswordmaquina',[
 ]);
 
 
+Route::post('admin/renovarsolicitudderecursos', [
+        'as' => 'renovarsolicitudadmin',
+        'uses' => 'RenovarSolicitudDeRecursosController@editarRenovacionSolicitudDeRecursos'
+]);
+
+
     /*
      *
      * Función para resetear los password anteriores
