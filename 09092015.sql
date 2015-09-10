@@ -116,17 +116,6 @@ CREATE TABLE IF NOT EXISTS `archivos_renovacion` (
 -- Volcado de datos para la tabla `archivos_renovacion`
 --
 
-INSERT INTO `archivos_renovacion` (`ARRE_ID_ARCHIVOS_RENOVACION`, `ARRE_ID_SOLICITUD_RENOVACION`, `ARRE_TIP_ARCHIVO`, `ARRE_RUTA_ARCHIVO`) VALUES
-(2, 3, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/reservacionesvolaris.pdf'),
-(3, 5, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/PhysicalDiagram_1.pdf'),
-(4, 6, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/Southwest Airlines - Confirmación de compra.pdf'),
-(5, 9, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/reservacionesvolaris.pdf'),
-(6, 10, 'Artículo en arbitraje', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/d92539b27d-boletos.pdf'),
-(7, 11, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/d92539b27d-boletos.pdf'),
-(8, 11, 'Artículo en preparación', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/Generation.pdf'),
-(9, 12, 'Artículo publicado y entregado', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/omar_sanchez_recibos_28_01_14.pdf'),
-(10, 12, 'Artículo publicado y entregado', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/Generation.pdf'),
-(11, 12, 'Artículo en arbitraje', 'C:\\xampp\\htdocs\\rsids\\public/uploads/14_Solicitud_1439168339/Diagrama.pdf');
 
 -- --------------------------------------------------------
 
