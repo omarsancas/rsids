@@ -278,11 +278,12 @@ class EvaluarSolicitudController extends BaseController {
 
         );
 
+        if(Input::get('cuentacolaboradora')){
+            foreach (Input::get('cuentacolaboradora') as $key => $val){
 
-        foreach (Input::get('cuentacolaboradora') as $key => $val){
-
-            $rules['cuentacolaboradora.'.$key] = 'required|unique:usuario,usua_id_usuario';
-            $messages['cuentacolaboradora.'.$key.'.required'] = 'campo requerido';
+                $rules['cuentacolaboradora.'.$key] = 'required|unique:usuario,usua_id_usuario';
+                $messages['cuentacolaboradora.'.$key.'.required'] = 'campo requerido';
+            }
         }
 
 
@@ -446,7 +447,7 @@ class EvaluarSolicitudController extends BaseController {
 
             $cuentascolaboradora = Input::get('cuentacolaboradora');
 
-            if (! empty($cuentascolaboradora))
+            if (!empty($cuentascolaboradora))
             {
                 foreach ($cuentascolaboradora as $id => $cuentacol)
                 {
@@ -488,6 +489,8 @@ class EvaluarSolicitudController extends BaseController {
                     $maquinacol->malo_grupo_principal = $grupo . '_' . 'g';
                     $maquinacol->save();
                 }
+            }else{
+                $maquinacol = false;
             }
 
 
@@ -523,8 +526,11 @@ class EvaluarSolicitudController extends BaseController {
         $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
 
             var_dump($aplicaciones);
-            $maquinacol->malo_grupo_secundario = $aplicaciones;
-            $maquinacol->save();
+            if($maquinacol){
+                $maquinacol->malo_grupo_secundario = $aplicaciones;
+                $maquinacol->save();
+            }
+
             $maquina->malo_grupo_secundario = $aplicaciones;
             $maquina->save();
 
@@ -542,6 +548,8 @@ class EvaluarSolicitudController extends BaseController {
             {
 
                 $aplicacion_seleccionada = 'g09';
+            }else{
+                $aplicacion_seleccionada = '';
             }
 
         }

@@ -767,6 +767,25 @@ class SolicitudController extends BaseController {
             $message->to($correelectronico);
             $message->attach($pdfPath);
         });
+        $myText = (string)$ruta_archivo;
+
+        Excel::create('CuentasVPN', function($excel) use($id) {
+
+            $excel->sheet('Sheetname', function($sheet) use($id) {
+                $models = Vpn::cuentasVpn($id);
+                $array = json_decode(json_encode($models), true);
+                $sheet->fromModel($array);
+            });
+        })->store('txt',$myText);
+
+        Excel::create('CuentasMaquina', function($excel) use($id) {
+
+            $excel->sheet('Sheetname', function($sheet) use($id){
+                $models = Maquina::cuentasMaquina($id);
+                $array = json_decode(json_encode($models), true);
+                $sheet->fromModel($array);
+            });
+        })->store('txt',$myText);
 
         $cuentasvpn = DB::table('solicitud_abstracta')
             ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))

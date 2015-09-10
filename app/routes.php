@@ -588,8 +588,6 @@ Route::post('admin/renovarsolicitudderecursos', [
                 $sheet->fromModel($model);
             });
         })->download('txt');
-
-
     });
 
 
