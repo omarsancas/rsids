@@ -6,12 +6,13 @@
 <div class="panel panel-default">
 <div class="panel-heading">This Page is Disabled</div>
 <div class="panel-body">
+<div class="col-md-2"></div>
 <div class="col-md-6">
 
 
 <h1></h1>
 
-<h1>Aceptar Solicitud de Recursos</h1>
+<h2>Aceptar Solicitud de Recursos #{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}</h2>
 {{ Form::open (['route' => 'aceptarsolicitud', 'method' => 'POST','class' => 'form-horizontal', 'role' =>'form', 'files' =>true]) }}
 <input type="hidden" name="id" value="{{ $solicitudabstracta->SOAB_ID_SOLICITUD_ABSTRACTA }}">
 <input type="hidden" name="idmeco" value="{{ $meco->MECO_ID_MEDIO_COMUNICACION }}">

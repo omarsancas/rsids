@@ -767,6 +767,7 @@ class SolicitudController extends BaseController {
             $message->to($correelectronico);
             $message->attach($pdfPath);
         });
+
         $myText = (string)$ruta_archivo;
 
         Excel::create('CuentasVPN', function($excel) use($id) {
@@ -822,6 +823,13 @@ class SolicitudController extends BaseController {
         $esnotificado = SolicitudAbstracta::find($id);
         $esnotificado->soab_proy_notificado = 1;
         $esnotificado->save();
+
+        Mail::send('emails.notificacionaprobacion', $data, function ($message) use ($pdfPath, $correelectronico)
+        {
+            $message->from('moroccosc@gmail.com', 'super.unam.mx');
+            $message->to($correelectronico);
+            $message->attach($pdfPath);
+        });
 
         Session::flash('message', '¡La solicitud se ha notificado exitosamente!');
 

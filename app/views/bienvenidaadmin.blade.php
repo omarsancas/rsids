@@ -21,7 +21,7 @@
             <div class="col-lg-12">
 
 
-                <h1>¡Bienvenido {{  Auth::user()->USUA_ID_USUARIO }}!</h1>
+                <h1>¡Bienvenid@ {{  Auth::user()->USUA_ID_USUARIO }}!</h1>
                 <h1>:)</h1>
             </div>
 

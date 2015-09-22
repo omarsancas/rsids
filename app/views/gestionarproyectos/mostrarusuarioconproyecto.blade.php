@@ -28,9 +28,15 @@
             <div class="col-lg-10">
 
                 <div class="jumbotron">
-                    <h2>Nombre del proyecto al que pertenece: {{$usuarioproyecto->proy_nombre}}</h2>
-                    <h2>Nombre del propietario de la cuenta: {{$usuarioproyecto->usua_nom_completo}}</h2>
-                    <h2>Tipo de usuario: {{$usuarioproyecto->tius_tipo_nombre}}</h2>
+                    <h2>Nombre del proyecto al que pertenece: {{$usuario->PROY_NOMBRE}}</h2>
+                    <h2>Nombre del propietario de la cuenta: {{$usuario->USUA_NOM_COMPLETO}}</h2>
+                    <h2>Tipo de usuario: {{$usuario->TIUS_TIPO_NOMBRE}}</h2>
+
+                    @if (empty($usuarioproyecto))
+                    <h2>Número de trabajos ejecutados: n/a</h2>
+                    <h2>Número total de horas CPU utilizadas: n/a</h2>
+                    <h2>Porcentaje de uso: n/a%  </h2>
+                    @else
                     <h2>Número de trabajos ejecutados: {{$usuarioproyecto->totaljobs}}</h2>
                     <h2>Número total de horas CPU utilizadas: {{$usuarioproyecto->totalnodo}}</h2>
                     <h2>Porcentaje de uso: {{$usuarioproyecto->porcentajeproyecto}}%  </h2>
@@ -40,6 +46,8 @@
                         </div>
 
                     </div>
+                    @endif
+
 
                     <a href="{{URL::to('gestionarproyectos/buscarusuariosvista') }} " class="btn btn-lg btn-info"> Regresar</a>
                 </div>
