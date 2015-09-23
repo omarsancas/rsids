@@ -488,6 +488,9 @@ class EvaluarSolicitudController extends BaseController {
                     $maquinacol->malo_nombre = $nombre_login1;
                     $maquinacol->malo_grupo_principal = $grupo . '_' . 'g';
                     $maquinacol->save();
+
+                    $usrcol->soco_id_estado_colaboradora = 2;
+                    $usrcol->save();
                 }
             }else{
                 $maquinacol = false;

@@ -141,6 +141,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
                 $mecoCol = new MedioComunicacion($v2);
                 $mecoCol->save();
                 $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
+                $solcol->soco_id_estado_colaboradora = 1;
                 $solcol->save();
             }
 
