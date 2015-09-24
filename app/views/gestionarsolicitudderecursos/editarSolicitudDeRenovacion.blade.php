@@ -265,6 +265,131 @@
 
 </fieldset>
 
+@if (empty($cuentascol))
+<h2>No hay cuentas colaboradoras :(</h2>
+@else
+
+<div class="form-group">
+
+@foreach($cuentascol as $key => $value)
+
+<fieldset>
+    <legend>Detalles de la cuenta colaboradora</legend>
+    <div class="form-group">
+        {{ Form::label('solcol[][soco_nombres]', 'Nombre')}}
+        <input class="form-control"
+               name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_nombres]" type="text"
+               value="{{$value->SOCO_NOMBRES}}"
+               id="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_nombres]">
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('ap_pat', 'Apellido Paterno')}}
+        <input class="form-control"
+               name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_ap_paterno]" type="text"
+               value="{{$value->SOCO_AP_PATERNO}}"
+               id="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_ap_paterno]">
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('ap_pat', 'Apellido Materno')}}
+        <input class="form-control"
+               name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_ap_materno]" type="text"
+               value="{{$value->SOCO_AP_MATERNO}}"
+               id="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_ap_materno]">
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('Sexo', 'Sexo')}}
+    </div>
+    <div class="form-group">
+        <label class="radio-inline control-label">
+
+
+            <input name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_sexo]" type="radio" value="m" {{
+            ($value->SOCO_SEXO == 'm') ? 'checked="checked"' : false }}>
+            <!--{{ Form::Radio('$radiocol','m', ($value->SOCO_SEXO == 'm') ? true : false ) }}-->
+            Masculino
+
+        </label>
+
+        <label class="radio-inline control-label">
+
+            <input name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_sexo]" type="radio" value="f" {{
+            ($value->SOCO_SEXO == 'f') ? 'checked="checked"' : false }}>
+            <!--{{ Form::Radio('$radiocol','f', ($value->SOCO_SEXO == 'f') ? true : false ) }}
+            -->
+            Femenino
+        </label>
+    </div>
+
+
+    <div class="form-group">
+
+        {{ Form::label('solcol[][meco_telefono1]', 'Teléfono')}}
+        <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_telefono1]"
+               type="text" value="{{$value->MECO_TELEFONO1}}"
+               id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_telefono1]">
+    </div>
+
+
+    <div class="form-group">
+
+        {{ Form::label('solcol[][meco_extension]', 'Extensión')}}
+        <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_extension]"
+               type="text" value="{{$value->MECO_EXTENSION}}"
+               id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_extension]">
+    </div>
+
+
+    <div class="form-group">
+
+        {{ Form::label('solcol[][meco_telefono2]', 'Otro Teléfono')}}
+        <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_telefono2]"
+               type="text" value="{{$value->MECO_TELEFONO2}}"
+               id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_telefono2]">
+    </div>
+
+    <div class="form-group">
+
+        {{ Form::label('solcol[][meco_correo]', 'Email')}}
+        <input class="form-control" name="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]"
+               type="text" value="{{$value->MECO_CORREO}}"
+               id="meco[{{$value->MECO_ID_MEDIO_COMUNICACION}}][meco_correo]">
+    </div>
+
+
+    <div class="form-group">
+
+        {{ Form::label('dependencia', 'Dependencia')}}
+        <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_dependencia]">
+            @foreach($dependencias_catalogo as $id => $valor)
+
+            <option value="{{$id}}"
+            {{ ($value->SOCO_ID_DEPENDENCIA == $id) ? 'selected="selected"' : false }} > {{$valor }}</option>
+
+            @endforeach
+
+        </select>
+
+        {{ Form::label('ultimo grado', 'Ultimo grado académico')}}
+        <select class="form-control" name="solcol[{{$value->SOCO_ID_SOLICITUD_COLABORADORA}}][soco_id_grado]">
+            @foreach($grado as $id => $valor)
+
+            <option value="{{$id}}"
+            {{ ($value->SOCO_ID_GRADO == $id) ? 'selected="selected"' : false }} > {{$valor }}</option>
+
+            @endforeach
+
+        </select>
+    </div>
+
+</fieldset>
+
+
+@endforeach
+@endif
+
 @if (empty($cuentascolaboradoras))
 <h2>No hay cuentas colaboradoras :(</h2>
 @else
@@ -294,9 +419,6 @@
 
             </select>
         </div>
-
-
-
 
 
         @endforeach

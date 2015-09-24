@@ -319,15 +319,15 @@ class SolicitudController extends BaseController {
      */
     public function editarSolicitud($id)
     {
-
+        $solicitud_abstracta = SolicitudAbstracta::find($id);
         list($solicitudabstracta, $dependencias_catalogo, $grado, $campotrabajo, $meco, $solicitud, $otraapp, $otrocampo) = $this->obtenerListaSolicitudes($id);
-        list ($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion) = $this->renovarSolicitudDeRecursosVista($id);
 
+        if($solicitud_abstracta->SOAB_ID_TIPO_SOLICITUD == 1){
 
-        if($solicitudabstracta->SOAB_ID_TIPO_SOLICITUD == 1){
             // Show form
             return View::make('gestionarsolicitudderecursos.editarsolicitud', $this->data)
-                ->with('cuentascol', $solicitud)->with('solicitudabstracta', $solicitudabstracta)
+                ->with('cuentascol', $solicitud)
+                ->with('solicitudabstracta', $solicitudabstracta)
                 ->with('grado', $grado)
                 ->with('dependencias_catalogo', $dependencias_catalogo)
                 ->with('otrocampo', $otrocampo)
@@ -335,11 +335,13 @@ class SolicitudController extends BaseController {
                 ->with('campotrabajo', $campotrabajo)
                 ->with('meco', $meco);
 
-        }elseif($solicitudabstracta->SOAB_ID_TIPO_SOLICITUD == 2){
+        }elseif($solicitud_abstracta->SOAB_ID_TIPO_SOLICITUD == 2){
+            list ($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion, $cuentascolnuevas) = $this->renovarSolicitudDeRecursosVista($id);
             return View::make('gestionarsolicitudderecursos.editarSolicitudDeRenovacion', $this->data)
                 ->with('datosrenovacion', $datosrenovacion)
                 ->with('dependencias_catalogo', $dependencias_catalogo)
                 ->with('cuentascolaboradoras', $cuentascolaboradoras)
+                ->with('cuentascol',$cuentascolnuevas)
                 ->with('otraapp', $otraapp)
                 ->with('otrocampo', $otrocampo)
                 ->with('grado', $grado)
@@ -562,6 +564,7 @@ class SolicitudController extends BaseController {
             $mecoCol = new MedioComunicacion($v2);
             $mecoCol->save();
             $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
+            $solcol->soco_id_estado_colaboradora = 1;
             $solcol->save();
         }
 
@@ -1030,6 +1033,7 @@ class SolicitudController extends BaseController {
             $solicitud = DB::table('solicitud_cta_colaboradora')
                 ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
                 ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+                ->where('solicitud_cta_colaboradora.soco_id_estado_colaboradora', '=', 1)
                 ->get();
 
             $otraapp = DB::table('otra_app')
@@ -1122,6 +1126,12 @@ class SolicitudController extends BaseController {
             ->get();
 
 
+        $cuentascolnuevas = DB::table('solicitud_cta_colaboradora')
+            ->join('medio_comunicacion', 'solicitud_cta_colaboradora.soco_id_medio_comunicacion', '=', 'medio_comunicacion.meco_id_medio_comunicacion')
+            ->where('solicitud_cta_colaboradora.soco_id_solicitud_abstracta', '=', $id)
+            ->where('solicitud_cta_colaboradora.soco_id_estado_colaboradora', '=', 1)
+            ->get();
+
         $otraapp = DB::table('otra_app')
             ->join('solicitud_abstracta', 'solicitud_abstracta.soab_id_solicitud_abstracta', '=', 'otra_app.otap_id_solicitud_abstracta')
             ->where('otra_app.otap_id_solicitud_abstracta', '=', $id)
@@ -1139,7 +1149,7 @@ class SolicitudController extends BaseController {
             ->get();
 
 
-        return array($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion);
+        return array($datosrenovacion,$solicitudabstracta, $cuentascolaboradoras, $otraapp, $otrocampo, $estadousuario, $archivos_renovacion, $cuentascolnuevas);
 
     }
 
