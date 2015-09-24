@@ -424,6 +424,7 @@ class EvaluarSolicitudController extends BaseController {
             $vpn->vplo_login = $cuentatitular;
             $vpn->vplo_password = $passwordvpn;
             $vpn->vplo_nombre = $nombre_login1;
+            $vpn->obfuscada = 0;
             $vpn->vplo_grupo_principal = $grupo . '_' . 'g';
             $vpn->save();
 
@@ -433,6 +434,7 @@ class EvaluarSolicitudController extends BaseController {
             $maquina->malo_login = $cuentatitular;
             $maquina->malo_password = $passwordmaquinatitular;
             $maquina->malo_nombre = $nombre_login1;
+            $maquina->obfuscada = 0;
             $maquina->malo_grupo_principal = $grupo . '_' . 'g';
             $maquina->save();
 
@@ -526,9 +528,21 @@ class EvaluarSolicitudController extends BaseController {
 
         $aplicacion_seleccionada2 = $this->generarGrupoAdf($aplicacionesseleccionadas);
 
-        $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
 
-            var_dump($aplicaciones);
+        if($aplicacion_seleccionada && $aplicacion_seleccionada2){
+
+            $aplicaciones = "{$aplicacion_seleccionada}{$aplicacion_seleccionada2}";
+        }elseif($aplicacion_seleccionada){
+            $aplicaciones = "{$aplicacion_seleccionada}";
+        }elseif($aplicacion_seleccionada2){
+            $aplicaciones = "{$aplicacion_seleccionada2}";
+        }else{
+            $aplicaciones = " ";
+        }
+
+
+
+
             if($maquinacol){
                 $maquinacol->malo_grupo_secundario = $aplicaciones;
                 $maquinacol->save();
@@ -552,7 +566,7 @@ class EvaluarSolicitudController extends BaseController {
 
                 $aplicacion_seleccionada = 'g09';
             }else{
-                $aplicacion_seleccionada = '';
+                $aplicacion_seleccionada = false;
             }
 
         }
@@ -571,10 +585,10 @@ class EvaluarSolicitudController extends BaseController {
             if ($aplicacion2 == 14)
             {
 
-                $aplicacion_seleccionada2 = ',adf';
+                $aplicacion_seleccionada2 = 'adf';
             } else
             {
-                $aplicacion_seleccionada2 = '';
+                $aplicacion_seleccionada2 = false;
             }
 
         }

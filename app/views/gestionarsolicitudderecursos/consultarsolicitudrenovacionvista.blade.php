@@ -440,10 +440,6 @@
     </div>
     @endif
 
-    <div class="form-group">
-        {{ Form::label('', 'Argumentación para renovación de recursos')}}
-        {{ Form::textarea('descrechazo', $renovacion->SORE_ARGUMENTACION, ['class' => 'form-control', 'disabled' => 'disabled'])}}
-    </div>
 
         <fieldset>
             <legend>Reporte de renovación</legend>

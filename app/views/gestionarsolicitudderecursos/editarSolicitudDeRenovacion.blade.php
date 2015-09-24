@@ -13,7 +13,7 @@
 
 <h1></h1>
 
-<h1>Renovar solicitud de recursos</h1>
+<h1>Renovar solicitud de recursos #{{ $datosrenovacion->SOAB_ID_SOLICITUD_ABSTRACTA }}</h1>
 
 {{ Form::open (['route' => 'renovarsolicitudadmin', 'method' => 'UPDATE','class' => 'form-horizontal' , 'role' =>'form', 'files' =>true]) }}
 

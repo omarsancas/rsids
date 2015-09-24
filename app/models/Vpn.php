@@ -18,7 +18,7 @@ class Vpn extends Eloquent {
 
     public static function cuentasVpn($id){
         $cuentasvpn = DB::table('solicitud_abstracta')
-            ->select(DB::raw('vplo_login, vplo_password,vplo_nombre'))
+            ->select(DB::raw('vplo_login, vplo_password,vplo_nombre,vplo_grupo_principal,vplo_grupo_secundario, vplo_maquina'))
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
             ->join('usuario_x_proyecto', 'proyecto.proy_id_proyecto', '=', 'usuario_x_proyecto.uspr_id_proyecto')

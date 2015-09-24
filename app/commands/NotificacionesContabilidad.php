@@ -54,7 +54,7 @@ class NotificacionesContabilidad extends Command {
             ->get();
 
             $data =  array(
-                'idsolicitud' => 'Tus recursos están apunto de consumirse'
+                'mensaje' => 'Tus recursos están apunto de consumirse'
             );
 
         foreach($reportesproyectos as $reporte){
@@ -62,7 +62,7 @@ class NotificacionesContabilidad extends Command {
             if($reporte->porcentajeproyecto >= 85){
 
                 $correo_electronico = $reporte->meco_correo;
-                Mail::send('emails.notificacionaprobacion',$data , function ($message) use ( $correo_electronico)
+                Mail::send('emails.notificarTerminacionRecursos',$data , function ($message) use ( $correo_electronico)
                 {
                     $message->from('moroccosc@gmail.com', 'super.unam.mx');
                     $message->to($correo_electronico);

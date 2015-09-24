@@ -87,7 +87,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         $solicitudabstracta->soab_ap_materno = Input::get('apellidoMaterno');
         $solicitudabstracta->soab_id_estado_solicitud = 1;
         $solicitudabstracta->soab_id_tipo_solicitud = 2;
-        $solicitudabstracta->soab_es_proyecto = 0;
+        $solicitudabstracta->soab_es_proyecto = 1;
         $solicitudabstracta->soab_sexo = Input::get('sexo');
         $solicitudabstracta->soab_prog_paralela = Input::get('progparalela');
         $solicitudabstracta->soab_num_proc_trab = Input::get('numproc');
@@ -231,7 +231,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
         } else
         {
 
-            return Response::json('error', 400);
+            return Redirect::to('sesiones');
         }
 
 
@@ -302,6 +302,7 @@ class RenovarSolicitudDeRecursosController extends BaseController {
                 $mecoCol = new MedioComunicacion($v2);
                 $mecoCol->save();
                 $solcol->soco_id_medio_comunicacion = $mecoCol->MECO_ID_MEDIO_COMUNICACION;
+                $solcol->soco_id_estado_colaboradora = 1;
                 $solcol->save();
             }
 
@@ -383,13 +384,11 @@ class RenovarSolicitudDeRecursosController extends BaseController {
                 }
             }
 
-
-        } else
-        {
-
-            return Response::json('error', 400);
         }
 
+        Session::flash('message', '¡La solicitud se ha modificado exitosamente!');
+
+        return Redirect::to('gestionarsolicitudderecursos/modificarsolicitud');
 
     }
 

@@ -398,7 +398,7 @@
 
     <div class="form-group">
         <p>
-            <a href="{{ URL::to('gestionarsolicitudderecursos/consultarsolicitud') }}" class="btn btn-success btn-lg">Regresar</a>
+            <a href="{{ URL::to('gestionarsolicitudderecursos/buscarsolicitud') }}" class="btn btn-success btn-lg">Regresar</a>
         </p>
     </div>
     {{ Form::close() }}

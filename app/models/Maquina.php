@@ -16,7 +16,7 @@ class Maquina extends Eloquent {
 
     public static function cuentasMaquina($id){
         $cuentasmaquina = DB::table('solicitud_abstracta')
-            ->select(DB::raw('malo_login, malo_password,malo_nombre'))
+            ->select(DB::raw('malo_login, malo_password,malo_nombre, malo_grupo_principal,malo_grupo_secundario, malo_maquina'))
             ->join('dependencia', 'solicitud_abstracta.soab_id_dependencia', '=', 'dependencia.depe_id_dependencia')
             ->join('proyecto', 'proyecto.proy_id_solicitud_abstracta', '=', 'solicitud_abstracta.soab_id_solicitud_abstracta')
             ->join('usuario_x_proyecto', 'proyecto.proy_id_proyecto', '=', 'usuario_x_proyecto.uspr_id_proyecto')
