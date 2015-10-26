@@ -1,6 +1,6 @@
 <h1>{{$mensaje}}</h1>
 
-<h2>Para cualquier aclaración comunicate a la coordinación de supercomputo</h2>
+<h2>Para cualquier aclaración se puede comunicar a la coordinación de supercomputo</h2>
 <p>Coordinación de Supercómputo</p>
 
 <p>depto@super.unam.mx</p>
