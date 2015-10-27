@@ -43,7 +43,8 @@ class SolicitudController extends BaseController {
             'modelocomp'           => 'required',
             'numproc'              => 'required|numeric',
             'email'                => 'required|email',
-            'documentodescriptivo' => 'required|mimes:pdf|max:8000', //para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a sus necesidades
+            //para activar esta característica de validación de laravel se necesita aumentar el tamaño en el php.ini en upload_file de acuerdo a las necesidades
+            'documentodescriptivo' => 'required|mimes:pdf|max:8000',
             'curriculum'           => 'required|mimes:pdf|max:8000',
 
 
@@ -59,8 +60,8 @@ class SolicitudController extends BaseController {
 
         );
 
-        // do the validation ----------------------------------
-        // validate against the inputs from our form
+        // Este método hace la validación ----------------------------------
+        // valida todos los inputs del formulario
         $validator = Validator::make(Input::all(), $rules, $mensajes);
 
 

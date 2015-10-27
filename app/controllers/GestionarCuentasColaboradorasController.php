@@ -154,7 +154,7 @@ class GestionarCuentasColaboradorasController extends BaseController {
         $maquina->save();
 
         Session::flash('message','La cuenta colaboradora se ha agregado exitosamente');
-        Redirect::route('gestionarcuentascolaboradoras/agregarcuentascolaboradoras');
+        return Redirect::to('gestionarcuentascolaboradoras/agregarcuentascolaboradoras');
         }
     }
 
